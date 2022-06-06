@@ -29,11 +29,11 @@ tar_option_set(
   format = "qs"
 )
 
-# list of targets ---------------------------------------------------------
+# targets -----------------------------------------------------------------
 
 list(
 
-  # dna per cell ------------------------------------------------------------
+  # dna curve ---------------------------------------------------------------
 
   tar_target(
     dna_per_cell_file,
@@ -62,7 +62,7 @@ list(
     output_dir = system.file("analysis/pdfs", package = "Copeland.2022.hypoxia.flux")
   ),
 
-  # extracellular fluxes ----------------------------------------------------
+  # fluxes ------------------------------------------------------------------
 
   tar_target(
     fluxes_meta_files,
@@ -189,7 +189,7 @@ list(
     output_dir = system.file("analysis/pdfs", package = "Copeland.2022.hypoxia.flux")
   ),
 
-  # q bias correction -------------------------------------------------------
+  # qbias -------------------------------------------------------------------
 
   tar_target(
     qbias_files,
@@ -328,7 +328,23 @@ list(
     clean_viability(viability_file)
   ),
 
-  # write manuscript --------------------------------------------------------
+  # blots -------------------------------------------------------------------
+
+  tar_target(
+    blot_files,
+    path_to_data("immunoblots"),
+    format = "file"
+  ),
+  tar_target(
+    blot_raw,
+    read_data(blot_files)
+  ),
+  tar_target(
+    blot_norm,
+    normalize_densities(blot_raw)
+  ),
+
+  # manuscript --------------------------------------------------------------
 
   # tar_target(
   #   template,

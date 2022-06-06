@@ -11,3 +11,9 @@ analysis/figures
 *.ai
 *.tif
 *.log
+*.scn
+*.png
+*.mzML
+data-raw/metabolomics
+grant/
+slides/
