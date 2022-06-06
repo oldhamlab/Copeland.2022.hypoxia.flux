@@ -15,7 +15,8 @@ conflicted::conflict_prefer("filter", "dplyr")
 
 options(
   tidyverse.quiet = TRUE,
-  usethis.quiet = TRUE
+  usethis.quiet = TRUE,
+  dplyr.summarise.inform = FALSE
 )
 
 future::plan(future.callr::callr(workers = future::availableCores() - 1))
@@ -31,6 +32,35 @@ tar_option_set(
 # list of targets ---------------------------------------------------------
 
 list(
+
+  # dna per cell ------------------------------------------------------------
+
+  tar_target(
+    dna_per_cell_file,
+    path_to_data("dna-per-cell-number.xlsx"),
+    format = "file"
+  ),
+  tar_target(
+    dna_per_cell_raw,
+    clean_dna_per_cell(dna_per_cell_file)
+  ),
+  tar_target(
+    dna_per_cell_std,
+    make_std_curves(dna_per_cell_raw)
+  ),
+  tar_target(
+    dna_per_cell_clean,
+    interp_data(dna_per_cell_raw, dna_per_cell_std)
+  ),
+  tar_target(
+    cells_per_dna,
+    calculate_cells_per_dna(dna_per_cell_clean)
+  ),
+  tar_render(
+    dna_per_cell_report,
+    path = path_to_reports("dna-per-cell.Rmd"),
+    output_dir = system.file("analysis/pdfs", package = "Copeland.2022.hypoxia.flux")
+  ),
 
   # write manuscript --------------------------------------------------------
 

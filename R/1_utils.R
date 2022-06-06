@@ -2,7 +2,7 @@
 
 path_to_data <- function(nm) {
   dir(
-    path = "data-raw/",
+    path = "data-raw",
     pattern = nm,
     all.files = TRUE,
     full.names = TRUE,
@@ -32,7 +32,7 @@ path_to_plots <- function(nm) {
 
 read_multi_excel <- function(excel_file) {
   sheets <- readxl::excel_sheets(excel_file)
-  purrr::map(sheets, ~readxl::read_excel(excel_file, sheet = .x)) %>%
+  purrr::map(sheets, ~readxl::read_excel(excel_file, sheet = .x)) |>
     rlang::set_names(sheets)
 }
 
@@ -42,35 +42,43 @@ clean_technical_replicates <- function(tbl) {
     cols = .data$a:.data$c,
     names_to = "replicate",
     values_to = "value"
-  ) %>%
+  ) |>
     dplyr::group_by(
       dplyr::across(-c(.data$replicate, .data$value))
-    ) %>%
-    dplyr::mutate(value = replace_outliers(value)) %>%
-    dplyr::summarise(value = mean(.data$value, na.rm = TRUE)) %>%
+    ) |>
+    dplyr::mutate(value = replace_outliers(value)) |>
+    dplyr::summarise(value = mean(.data$value, na.rm = TRUE)) |>
     dplyr::ungroup()
 }
 
-make_std_curves <- function(df, fo = NULL) {
+replace_outliers <- function(vec) {
+  if (mad(vec, na.rm = TRUE) == 0) return (vec)
+  replace(
+    vec,
+    abs(vec - median(vec, na.rm = TRUE)) / mad(vec, na.rm = TRUE) > 2,
+    NA
+  )
+}
 
+make_std_curves <- function(df, fo = NULL) {
   if (is.null(fo)){
     fo <- ~lm(value ~ conc, data = .x, na.action = modelr::na.warn)
   }
 
   df %>%
-    dplyr::filter(!is.na(.data$conc)) %>%
-    dplyr::select(where(~all(!is.na(.)))) %>%
-    dplyr::group_by(dplyr::across(-c(.data$conc, .data$value))) %>%
+    dplyr::filter(!is.na(.data$conc)) |>
+    dplyr::select(where(~all(!is.na(.)))) |>
+    dplyr::group_by(dplyr::across(-c(.data$conc, .data$value))) |>
     tidyr::nest() %>%
     dplyr::mutate(
       title = stringr::str_c(!!!rlang::syms(dplyr::groups(.)), sep = "_")
-    ) %>%
-    dplyr::ungroup() %>%
+    ) |>
+    dplyr::ungroup() |>
     dplyr::mutate(
       model = furrr::future_map(.data$data, fo),
       summary = furrr::future_map(.data$model, ~broom::glance(.x)),
       plots = furrr::future_map2(.data$data, .data$title, make_std_plots)
-    ) %>%
+    ) |>
     dplyr::group_by(
       dplyr::across(
         -c(.data$data, .data$title, .data$model, .data$summary, .data$plots)
@@ -110,28 +118,15 @@ make_std_plots <- function(df, title = NULL) {
 }
 
 interp_data <- function(tbl, std) {
-  tbl %>%
-    dplyr::filter(is.na(.data$conc)) %>%
-    dplyr::select(-.data$conc) %>%
-    dplyr::group_by(dplyr::across(dplyr::group_vars(std))) %>%
-    tidyr::nest() %>%
-    dplyr::left_join(dplyr::select(std, .data$model)) %>%
-    dplyr::mutate(conc = purrr::map2(.data$data, .data$model, wmo::interpolate)) %>%
-    tidyr::unnest(c(.data$data, .data$conc)) %>%
+  tbl |>
+    dplyr::filter(is.na(.data$conc)) |>
+    dplyr::select(-.data$conc) |>
+    dplyr::group_by(dplyr::across(dplyr::group_vars(std))) |>
+    tidyr::nest() |>
+    dplyr::left_join(dplyr::select(std, .data$model)) |>
+    dplyr::mutate(conc = purrr::map2(.data$data, .data$model, wmo::interpolate)) |>
+    tidyr::unnest(c(.data$data, .data$conc)) |>
     dplyr::select(-c(.data$model, .data$value))
-}
-
-interpolate <- function(new_df, model) {
-  x <- stats::model.frame(model)[[deparse(model$terms[[3]])]]
-  p <- polynom::polynomial(stats::coefficients(model))
-  new_y <- as.list(new_df[[deparse(model$terms[[2]])]])
-  new_x <- unlist(lapply(new_y, function(y) {
-    roots <- solve(p, y)
-    roots <- round(roots, digits = 8)
-    root <- roots[which(Im(roots) == 0 & Re(roots) >= 0 & Re(roots) <= 1.25 * max(x))]
-    ifelse(identical(root, numeric(0)), NA, Re(root))
-  }))
-  new_x
 }
 
 print_plots <- function(
@@ -140,7 +135,7 @@ print_plots <- function(
   path_name,
   width = 20,
   height = 15
-) {
+){
   path <- path_to_plots(path_name)
   furrr::future_walk2(
     plot_list,
@@ -160,10 +155,10 @@ print_plots <- function(
 
 annot_p <- function(num) dplyr::if_else(num < 0.05, "*", NA_character_)
 
-reverselog_trans <- function(base = exp(1)) {
-  trans <- function(x) -log(x, base)
-  inv <- function(x) base^(-x)
-  scales::trans_new(paste0("reverselog-", format(base)), trans, inv,
-                    scales::log_breaks(base = base),
-                    domain = c(1e-100, Inf))
+my_kable <- function(data, ...) {
+  kableExtra::kable(data, booktabs = TRUE, linesep = "", ...) %>%
+    kableExtra::kable_styling(
+      latex_options = c("hold_position"),
+      font_size = 9
+    )
 }
