@@ -316,6 +316,18 @@ list(
     format = "file"
   ),
 
+  # viability ---------------------------------------------------------------
+
+  tar_target(
+    viability_file,
+    path_to_data("cell-viability.csv"),
+    format = "file"
+  ),
+  tar_target(
+    viability,
+    clean_viability(viability_file)
+  ),
+
   # write manuscript --------------------------------------------------------
 
   # tar_target(
