@@ -60,3 +60,40 @@ normalize_densities <- function(blot_raw){
     wmo::remove_nested_outliers(fold_change, remove = TRUE) |>
     dplyr::relocate(group, .after = treatment)
 }
+
+normalize_qpcr <- function(raw_mrna){
+  raw_mrna |>
+    dplyr::mutate(gene = tolower(gene)) |>
+    dplyr::group_by(dplyr::across(c(experiment:gene))) |>
+    dplyr::summarize(ct = mean(ct, na.rm = TRUE)) |>
+    tidyr::pivot_wider(names_from = gene, values_from = ct) |>
+    dplyr::ungroup() %>%
+    dplyr::mutate(
+      dplyr::across(-c(experiment:time, actin), ~ . - actin)
+    ) |>
+    dplyr::select(-actin) |>
+    tidyr::pivot_longer(
+      -c(experiment:time),
+      names_to = "protein",
+      values_to = "dct"
+    ) |>
+    dplyr::filter(!is.na(dct)) |>
+    dplyr::group_by(.data$experiment, .data$protein) |>
+    dplyr::mutate(
+      ddct = dct - mean(
+        dct[oxygen == min(oxygen) & treatment %in% c("None", "DMSO") & time == 0]
+      ),
+      fold_change = 2 ^ -ddct,
+      group = dplyr::case_when(
+        experiment %in% c("lf_02", "lf_05", "lf_bay", "pasmc_05") & treatment == "None" & oxygen == "21%" ~ "21%",
+        experiment %in% c("lf_02", "lf_05", "lf_bay", "pasmc_05") & treatment == "DMSO" ~ "DMSO",
+        experiment %in% c("lf_02", "lf_05", "lf_bay", "pasmc_05") & treatment == "BAY" ~ "BAY",
+        experiment %in% c("lf_02", "lf_05", "lf_bay", "pasmc_05") & oxygen == "0.5%" ~ "0.5%",
+        experiment %in% c("lf_02", "lf_05", "lf_bay", "pasmc_05") & oxygen == "0.2%" ~ "0.2%",
+      ),
+      group = factor(group, levels = c("21%", "0.5%", "0.2%", "DMSO", "BAY"))
+    ) |>
+    dplyr::group_by(experiment, oxygen, treatment, group, time, protein) |>
+    wmo::remove_nested_outliers(fold_change, remove = TRUE) |>
+    dplyr::relocate(group, .after = treatment)
+}

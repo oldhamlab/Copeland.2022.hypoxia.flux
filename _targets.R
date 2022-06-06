@@ -344,6 +344,22 @@ list(
     normalize_densities(blot_raw)
   ),
 
+  # mrna --------------------------------------------------------------------
+
+  tar_target(
+    mrna_files,
+    path_to_data("mrna"),
+    format = "file"
+  ),
+  tar_target(
+    mrna_raw,
+    read_data(mrna_files)
+  ),
+  tar_target(
+    mrna_norm,
+    normalize_qpcr(mrna_raw)
+  ),
+
   # manuscript --------------------------------------------------------------
 
   # tar_target(
