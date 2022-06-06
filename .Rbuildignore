@@ -1,2 +1,7 @@
+^renv$
+^renv\.lock$
 ^Copeland\.2022\.hypoxia\.flux\.Rproj$
 ^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^analysis/figures
