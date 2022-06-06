@@ -360,6 +360,27 @@ list(
     normalize_qpcr(mrna_raw)
   ),
 
+  # model -------------------------------------------------------------------
+
+  tar_target(
+    map_flux_files,
+    path_to_data("model"),
+    format = "file"
+  ),
+  tar_target(
+    map_fluxes,
+    clean_model_fluxes(map_flux_files, model_reactions)
+  ),
+  tar_target(
+    map_flux_differences,
+    assemble_flux_differences(map_fluxes)
+  ),
+  tar_render(
+    map_flux_difference_report,
+    path = path_to_reports("flux-differences.Rmd"),
+    output_dir = system.file("analysis/pdfs", package = "Copeland.2022.hypoxia.flux")
+  ),
+
   # manuscript --------------------------------------------------------------
 
   # tar_target(

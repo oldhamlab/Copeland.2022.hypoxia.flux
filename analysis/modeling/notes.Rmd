@@ -1,0 +1,14 @@
+---
+title: "Model Building Notes"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# LF 0.5%
+
+## 2021-03-25
+
+With new analysis, glutamine flux modestly decreased. Inputted new flux to previously fit model and repeated flux estimation procedure with narrower range of perturbations (3-log, 10 restarts). 
