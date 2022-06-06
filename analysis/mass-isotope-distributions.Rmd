@@ -81,16 +81,16 @@ MIDs are calculated from the peak areas corrected for quadrupole bias for each m
 
 ```{r}
 mids_filtered <-
-  mids %>% 
-  group_by(across(-c(date, mid))) %>% 
+  mids |> 
+  group_by(across(-c(date, mid))) |> 
   remove_nested_outliers(mid, remove = TRUE)
 ```
 
 
 ```{r}
-mids_filtered %>% 
-  pivot_wider(names_from = method, values_from = mid) %>% 
-  filter(!is.na(sim)) %>%  
+mids_filtered |> 
+  pivot_wider(names_from = method, values_from = mid) |> 
+  filter(!is.na(sim)) |>  
   ggplot() + 
   aes(
     x = sim, 
@@ -112,15 +112,15 @@ There is reasonably good agreement between full scan and SIM methods for several
 
 ```{r remove-excess-fs}
 fs <-
-  mids_filtered %>% 
-  filter(method == "fs") %>% 
-  pull(metabolite) %>% 
+  mids_filtered |> 
+  filter(method == "fs") |> 
+  pull(metabolite) |> 
   unique()
 
 sim <- 
-  mids_filtered %>% 
-  filter(method == "sim") %>% 
-  pull(metabolite) %>% 
+  mids_filtered |> 
+  filter(method == "sim") |> 
+  pull(metabolite) |> 
   unique()
 
 fs <- setdiff(fs, sim)
@@ -132,7 +132,7 @@ method_filter <-
   )
 
 mids_method <-
-  mids_filtered %>% 
+  mids_filtered |> 
   semi_join(method_filter, by = c("metabolite", "method"))
 ```
 
@@ -147,12 +147,12 @@ tracer_levels <- c("glc2", "glc6", "q5", "lac3")
 ```
 
 ```{r, results = "hide", fig.show = "hold", out.width = "49%"}
-mids_method %>% 
-  arrange(metabolite) %>% 
-  filter((cell_type == "lf" & time == 72) | (cell_type == "pasmc" & time == 48)) %>% 
-  group_by(method, cell_type, metabolite) %>% 
-  mutate(tracer = factor(tracer, levels = tracer_levels, labels = tracer_labels)) %>% 
-  nest() %>% 
+mids_method |> 
+  arrange(metabolite) |> 
+  filter((cell_type == "lf" & time == 72) | (cell_type == "pasmc" & time == 48)) |> 
+  group_by(method, cell_type, metabolite) |> 
+  mutate(tracer = factor(tracer, levels = tracer_levels, labels = tracer_labels)) |> 
+  nest() |> 
   mutate(plots = pmap(
     list(data, metabolite, method, cell_type),   
     ~ ggplot(data = ..1) + 
@@ -179,6 +179,6 @@ mids_method %>%
         title = stringr::str_c(toupper(..3), " ", ..2, " ", toupper(..4)), 
         color = NULL
       )
-  )) %>% 
+  )) |> 
     pull(plots)
 ```
