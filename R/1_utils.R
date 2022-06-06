@@ -1,5 +1,9 @@
 # 1_utils.R
 
+"%nin%" <- function(x, table) {
+  match(x, table, nomatch = 0L) == 0L
+}
+
 path_to_data <- function(nm) {
   dir(
     path = "data-raw",

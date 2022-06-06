@@ -23,7 +23,7 @@ future::plan(future.callr::callr(workers = future::availableCores() - 1))
 
 # target-specific options
 tar_option_set(
-  packages = c("wmo", "tidyverse", "patchwork"),
+  packages = c("tidyverse", "patchwork"),
   # packages = c("tidyverse", "patchwork", "xcms"),
   # imports = c("rnaseq.lf.hypoxia.molidustat"),
   format = "qs"
@@ -213,6 +213,44 @@ list(
     path = path_to_reports("qbias-correction-factors.Rmd"),
     output_dir = system.file("analysis/pdfs", package = "Copeland.2022.hypoxia.flux")
   ),
+
+  # mids --------------------------------------------------------------------
+
+  tar_target(
+    mid_files,
+    path_to_data("(a|b)_(fs|sim)_(lf|pasmc)_.*\\.csv"),
+    format = "file"
+  ),
+  tar_target(
+    mid_clean,
+    clean_mids(mid_files)
+  ),
+  tar_target(
+    mid_correct,
+    correct_mid(mid_clean)
+  ),
+  tar_target(
+    mids,
+    remove_mid_outliers(mid_correct)
+  ),
+  tar_target(
+    mid_curves,
+    plot_mid_curves(mids)
+  ),
+  tar_target(
+    mid_curve_plots,
+    print_plots(mid_curves$plots, mid_curves$title, "mids"),
+    format = "file"
+  ),
+  tar_render(
+    mid_report,
+    path = path_to_reports("mass-isotope-distributions.Rmd"),
+    output_dir = system.file("analysis/pdfs", package = "Copeland.2022.hypoxia.flux")
+  ),
+  # tar_target(
+  #   pasmc_m5,
+  #   get_m5_citrate(pruned_mids)
+  # ),
 
   # write manuscript --------------------------------------------------------
 
