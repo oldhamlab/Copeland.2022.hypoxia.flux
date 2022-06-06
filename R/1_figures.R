@@ -1,11 +1,6 @@
-# figures.R
+# 1_figures.R
 
 # plot setup
-pair_clrs <- RColorBrewer::brewer.pal(8, "Paired")
-names(pair_clrs) <-c("CTL.CTL", "TGFβ.CTL", "CTL.AZD3965", "TGFβ.AZD3965", "CTL.VB124", "TGFβ.VB124", "CTL.Dual", "TGFβ.Dual")
-
-clrs <- pair_clrs[1:2]
-names(clrs) <- c("CTL", "TGFβ")
 
 theme_plots <- function() {
   list(
