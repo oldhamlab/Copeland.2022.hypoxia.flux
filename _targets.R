@@ -189,6 +189,31 @@ list(
     output_dir = system.file("analysis/pdfs", package = "Copeland.2022.hypoxia.flux")
   ),
 
+  # q bias correction -------------------------------------------------------
+
+  tar_target(
+    qbias_files,
+    path_to_data("q-bias-correction"),
+    format = "file"
+  ),
+  tar_target(
+    qbias_ratios,
+    import_qbias(qbias_files)
+  ),
+  tar_target(
+    pred_ratios,
+    calculate_predicted_ratios()
+  ),
+  tar_target(
+    correction_factors,
+    calculate_correction_factors(qbias_ratios, pred_ratios)
+  ),
+  tar_render(
+    qbias_correction_factor_report,
+    path = path_to_reports("qbias-correction-factors.Rmd"),
+    output_dir = system.file("analysis/pdfs", package = "Copeland.2022.hypoxia.flux")
+  ),
+
   # write manuscript --------------------------------------------------------
 
   # tar_target(

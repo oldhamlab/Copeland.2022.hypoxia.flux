@@ -73,11 +73,11 @@ Extracellular fluxes are determined from serial measurements of cell count and m
 *Hypoxia plus BAY.* When hypoxia was combined with BAY treatment to measure glucose and lactate fluxes, cells were cultured in complete growth medium (*e.g.*, FGM-2 for LFs).
 
 ```{r}
-data_raw %>% 
-  select(cell_type, experiment, date) %>% 
-  distinct() %>% 
-  group_by(cell_type, experiment) %>% 
-  summarise(count = n()) %>% 
+data_raw |> 
+  select(cell_type, experiment, date) |> 
+  distinct() |> 
+  group_by(cell_type, experiment) |> 
+  summarise(count = n()) |> 
   my_kable(
     col.names = c("Cell type", "Experiment", "Count"), 
     caption = "Biological replicates"
@@ -139,23 +139,23 @@ plot_r_squared <- function(df, title) {
     guides(color = guide_legend(title = NULL, nrow = 10))
 }
 
-std %>% 
-  select(metabolite:run, summary) %>% 
-  unnest(c(summary)) %>% 
-  group_by(cell_type, experiment) %>% 
-  nest() %>% 
+std |> 
+  select(metabolite:run, summary) |> 
+  unnest(c(summary)) |> 
+  group_by(cell_type, experiment) |> 
+  nest() |> 
   mutate(
     title = str_c(cell_type, experiment, sep = " "), 
     plots = map2(data, title, plot_r_squared)
-  ) %>% 
+  ) |> 
   pull(plots)
 ```
 
 These data suggest worse fits from fluorescent detection.
 
 ```{r, results = "hide", fig.show = "hold", fig.align = "left", out.width = "24.5%"}
-std %>% 
-  filter(detector == "fld", date == "2018-02-12", experiment == "02") %>% 
+std |> 
+  filter(detector == "fld", date == "2018-02-12", experiment == "02") |> 
   pull(plots)
 ```
 
@@ -164,15 +164,15 @@ The fluorescence signal is plateauing between 250 and 1000 μM. The highest stan
 In addition, there were a few standard curves that had poor fits:
 
 ```{r, fig.show = "hold", fig.align = "left", results = "hide"}
-std_fld %>% 
-  select(metabolite:run, summary) %>% 
-  unnest(c(summary)) %>% 
-  group_by(cell_type, experiment) %>% 
-  nest() %>% 
+std_fld |> 
+  select(metabolite:run, summary) |> 
+  unnest(c(summary)) |> 
+  group_by(cell_type, experiment) |> 
+  nest() |> 
   mutate(
     title = str_c(cell_type, experiment, sep = " "), 
     plots = map2(data, title, plot_r_squared)
-  ) %>% 
+  ) |> 
   pull(plots)
 ```
 
@@ -180,27 +180,27 @@ After removing the high fluorescence standard, the remaining poorest fits were:
 
 ```{r}
 poor_fits <- 
-  std_fld %>% 
-  ungroup() %>% 
-  select(metabolite:run, summary, plots) %>% 
-  unnest(c(summary)) %>% 
+  std_fld |> 
+  ungroup() |> 
+  select(metabolite:run, summary, plots) |> 
+  unnest(c(summary)) |> 
   slice_min(order_by = r.squared, n = 7)
 
-poor_fits %>% 
-  select(metabolite:r.squared) %>% 
+poor_fits |> 
+  select(metabolite:r.squared) |> 
   my_kable(caption = "Poor standard curve fits")
 ```
 
 ```{r, fig.show = "hold", fig.align = "left", results = "hide", out.width = "32.9%"}
-poor_fits %>% 
+poor_fits |> 
   pull(plots)
 ```
 
 When an apparent outlier was identified, it was removed from the standard curve. 
 
 ```{r, fig.show = "hold", fig.align = "left", results = "hide", out.width = "32.9%"}
-std_clean %>% 
-  semi_join(poor_fits, by = c("metabolite", "experiment", "date", "batch", "run", "detector")) %>% 
+std_clean |> 
+  semi_join(poor_fits, by = c("metabolite", "experiment", "date", "batch", "run", "detector")) |> 
   pull(plots)
 ```
 
@@ -224,17 +224,17 @@ Pyruvate was ultimately measured by three different methods, HPLC, LC-MS, and en
 
 ```{r}
 pyruvate <- 
-  conc %>% 
-  filter(metabolite == "pyruvate") %>%
+  conc |> 
+  filter(metabolite == "pyruvate") |>
   mutate(detector = factor(
     detector, 
     levels = c("enzyme", "hplc", "lcms"), 
     labels = c("Enzyme", "HPLC", "LC-MS")
   ))
 
-pyruvate %>% 
-  filter(conc < 1500) %>% 
-  filter(time == 0) %>% 
+pyruvate |> 
+  filter(conc < 1500) |> 
+  filter(time == 0) |> 
   ggplot() + 
   aes(x = detector, y = conc, color = detector) +
   geom_jitter(show.legend = FALSE) +
@@ -255,12 +255,12 @@ The fluorescence response is linear up to a concentration of ~ 250 μM on the ba
 
 ```{r, fig.show = "hold"}
 amino_acids <-
-  conc %>% 
+  conc |> 
   filter(detector %in% c("mwd", "fld"))
 
 plot_aa <- function(df) {
-  df %>% 
-    filter(!is.na(conc)) %>% 
+  df |> 
+    filter(!is.na(conc)) |> 
     ggplot() + 
     aes(y = conc, x = metabolite, color = detector) + 
     geom_hline(yintercept = 300, linetype = 2, color = "gray") +
@@ -274,28 +274,28 @@ plot_aa <- function(df) {
     guides(color = guide_legend(override.aes = list(alpha = 1)))
 }
 
-amino_acids %>% 
-  filter(cell_type == "lf") %>% 
+amino_acids |> 
+  filter(cell_type == "lf") |> 
   plot_aa() + ggtitle("LF amino acids")
 
-amino_acids %>% 
-  filter(cell_type == "pasmc") %>% 
+amino_acids |> 
+  filter(cell_type == "pasmc") |> 
   plot_aa() + ggtitle("PASMC amino acids")
 ```
 
 Fluorescence detection appears to be associated with smaller variance when amino acid concentration is low. At higher concentrations, fluorescence detection is likely underestimating the concentration based on the standard curve analysis performed above. Based on these data, we will use concentrations determined by fluorescence detection for metabolites with an average concentration < 300 μM.
 
 ```{r}
-amino_acids %>% 
-  group_by(metabolite) %>% 
-  summarise(conc = mean(conc, na.rm = TRUE)) %>% 
+amino_acids |> 
+  group_by(metabolite) |> 
+  summarise(conc = mean(conc, na.rm = TRUE)) |> 
   mutate(detector = case_when(
     metabolite == "cystine" ~ "mwd", 
     conc > 300 ~ "mwd", 
     conc <= 300 ~ "fld"
-  )) %>% 
-  filter(detector == "mwd") %>% 
-  select(metabolite) %>% 
+  )) |> 
+  filter(detector == "mwd") |> 
+  select(metabolite) |> 
   my_kable(caption = "MWD detection", col.names = "Metabolite")
 ```
 
@@ -304,7 +304,7 @@ amino_acids %>%
 Preliminary experiments suggested that medium evaporation rates would have a significant impact on the interpretation of metabolite concentration measurements and that the evaporation rates differed between the normoxia and hypoxia incubators. To determine evaporation rate, a six-well plate was filled with medium and weighed during each sample collection. For 0.2% oxygen experiments, no evaporation controls were measured and so 0.5% oxygen rates were used instead. For BAY experiments, only one evaporation plate containing medium supplemented with 0.1% DMSO was used and this evaporation rate was applied to both conditions. Predicted well volumes were calculated from experimental measurements of plate weight assuming a starting volume of 2 mL per well.
 
 ```{r}
-evap %>% 
+evap |> 
   ggplot() +
   aes(
     x = time, 
@@ -372,14 +372,14 @@ The data can be fit to a linear equation and the slope is used to calculate $v$.
 ## Growth rates
 
 ```{r, fig.show = "hold", fig.align = "left", results = "hide", out.width = "32.9%"}
-growth_curves %>% 
-  select(cell_type:data) %>% 
-  unnest(c(data)) %>% 
-  group_by(cell_type, experiment, batch, date, oxygen, virus, treatment, time) %>%
-  summarize(conc = mean(conc, na.rm = TRUE)) %>% 
-  filter(!is.na(time)) %>% 
-  group_by(cell_type, experiment) %>% 
-  nest() %>% 
+growth_curves |> 
+  select(cell_type:data) |> 
+  unnest(c(data)) |> 
+  group_by(cell_type, experiment, batch, date, oxygen, virus, treatment, time) |>
+  summarize(conc = mean(conc, na.rm = TRUE)) |> 
+  filter(!is.na(time)) |> 
+  group_by(cell_type, experiment) |> 
+  nest() |> 
   mutate(plot = map2(
     data, 
     cell_type, 
@@ -404,7 +404,7 @@ growth_curves %>%
         y = expression(paste("Cell count (\U00D7", "10"^3, ")")), 
         color = "condition"
       )
-  )) %>% 
+  )) |> 
   pull(plot)
 ```
 
@@ -520,34 +520,34 @@ plot_fluxes <- function(df, title) {
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 }
 
-fluxes %>%
-  filter(metabolite %in% c("glucose", "lactate")) %>%
+fluxes |>
+  filter(metabolite %in% c("glucose", "lactate")) |>
   plot_fluxes("Metabolite flux") + facet_wrap(~cell_type, nrow = 1)
 ```
 
 ```{r, results = "hide", out.width = "100%"}
-fluxes %>% 
-  filter(!(metabolite %in% c("glucose", "lactate"))) %>% 
-  group_by(cell_type, experiment) %>% 
-  nest() %>% 
-  mutate(plots = map2(data, toupper(cell_type), plot_fluxes)) %>% 
+fluxes |> 
+  filter(!(metabolite %in% c("glucose", "lactate"))) |> 
+  group_by(cell_type, experiment) |> 
+  nest() |> 
+  mutate(plots = map2(data, toupper(cell_type), plot_fluxes)) |> 
   pull(plots)
 ```
 
 \newpage
 
 ```{r}
-fluxes %>%
-  ungroup() %>%
-  group_by(metabolite, cell_type, oxygen, treatment, virus) %>%
+fluxes |>
+  ungroup() |>
+  group_by(metabolite, cell_type, oxygen, treatment, virus) |>
   summarise(
     v = mean(flux, na.rm = TRUE),
     sd = sd(flux, na.rm = TRUE),
     n = n(),
     se = sd / sqrt(n()),
     cv = sd / abs(v)
-  ) %>%
-  arrange(cell_type, metabolite, oxygen, treatment, virus) %>%
+  ) |>
+  arrange(cell_type, metabolite, oxygen, treatment, virus) |>
   my_kable(
     caption = "Flux rate summary",
     col.names = c(
@@ -565,7 +565,7 @@ fluxes %>%
     align = "lccccccccc",
     digits = 2,
     longtable = TRUE,
-  ) %>%
+  ) |>
   kableExtra::kable_styling(
     latex_options = c("repeat_header"),
     font_size = 8
