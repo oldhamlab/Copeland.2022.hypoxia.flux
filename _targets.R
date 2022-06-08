@@ -23,7 +23,7 @@ future::plan(future.callr::callr(workers = future::availableCores() - 1))
 
 # target-specific options
 tar_option_set(
-  packages = c("tidyverse", "patchwork"),
+  packages = c("tidyverse", "patchwork", "scales"),
   # packages = c("tidyverse", "patchwork", "xcms"),
   # imports = c("rnaseq.lf.hypoxia.molidustat"),
   format = "qs"
@@ -417,6 +417,70 @@ list(
     nad_annot,
     annot_nad(nad_final)
   ),
+
+  # rnaseq ------------------------------------------------------------------
+
+  tar_target(
+    dds,
+    count_rnaseq()
+  ),
+  tar_target(
+    pca_data,
+    vst_rnaseq(dds)
+  ),
+  tar_target(
+    rnaseq_pca,
+    plot_rnaseq_pca(pca_data)
+  ),
+  tar_target(
+    hallmark_pathways,
+    get_msigdb_pathways(category = "H")
+  ),
+  tar_target(
+    tfea,
+    run_tfea(dds)
+  ),
+  tar_map(
+    values = list(
+      names = c("hyp", "bay", "hyp_bay", "int"),
+      comp = list(
+        "h.dmso - n.dmso",
+        "n.bay - n.dmso",
+        "h.bay - n.bay",
+        "(h.dmso - n.dmso) - (n.bay - n.dmso)"
+      ),
+      xlab = c(
+        "Hypoxia/Normoxia",
+        "BAY/DMSO",
+        "Hypoxia/Normoxia",
+        "ΔHypoxia/ΔBAY"
+      )
+    ),
+    names = names,
+    tar_target(
+      deg,
+      identify_deg(dds, rlang::expr(comp))
+    ),
+    tar_target(
+      rnaseq_vol,
+      plot_rnaseq_volcano(deg, xlab)
+    ),
+    tar_target(
+      gsea,
+      run_gsea(deg, hallmark_pathways)
+    ),
+    tar_target(
+      tfea_res,
+      index_tfea(tfea, names)
+    ),
+    NULL
+  ),
+  tar_render(
+    rnaseq_report,
+    path = path_to_reports("rnaseq.Rmd"),
+    output_dir = system.file("analysis/pdfs", package = "Copeland.2022.hypoxia.flux")
+  ),
+
   # manuscript --------------------------------------------------------------
 
   # tar_target(
