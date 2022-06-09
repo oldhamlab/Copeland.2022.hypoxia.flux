@@ -498,12 +498,13 @@ list(
   ),
   tar_target(
     metab_tar_clean,
-    remove_missing_metab(metab_tar_raw) %>%
-      correct_drift() %>%
-      quality_control() %>%
-      impute_missing() %>%
-      pqn() %>%
-      log_transform()
+    remove_missing_metab(metab_tar_raw) |>
+      correct_drift() |>
+      quality_control() |>
+      impute_missing() |>
+      pqn() |>
+      log_transform() |>
+      annot_metabs()
   ),
   tar_target(
     metab_tar_pca,
@@ -512,6 +513,15 @@ list(
   tar_target(
     metab_tar_limma,
     fit_metab_limma(metab_tar_clean)
+  ),
+  tar_target(
+    metab_pathways_file,
+    path_to_data("metabolites.tab"),
+    format = "file"
+  ),
+  tar_target(
+    metab_pathways,
+    read_metab_pathways(metab_pathways_file)
   ),
   tar_map(
     values = list(
@@ -528,58 +538,21 @@ list(
       metab_tar_vol,
       plot_metab_volcano(metab_tar_res, colors = colors, xlab = xlab)
     ),
+    tar_target(
+      metab_tar_msea,
+      run_msea(metab_tar_res, metab_pathways)
+    ),
     NULL
   ),
   # tar_target(
   #   metab_venn,
   #   plot_metab_venn(metab_hyp, metab_bay)
   # ),
-  # tar_target(
-  #   metab_moi,
-  #   plot_mois(metab_targeted_clean, c("GAP", "2-hydroxyglutarate", "aconitate", "taurine", "hydroxyproline", "GABA"))
-  # ),
-  # # tar_target(
-  # #   metab_msea,
-  # #   run_msea(metab_different_differences, metab_pathways)
-  # # ),
-  # # tar_target(
-  # #   metab_msea_hyp,
-  # #   run_msea(metab_hyp, metab_pathways)
-  # # ),
-  # # tar_target(
-  # #   metab_msea_bay,
-  # #   run_msea(metab_bay, metab_pathways)
-  # # ),
-  # tar_target(
-  #   metabolite_pathways_file,
-  #   path_to_data("metabolites.tab"),
-  #   format = "file"
-  # ),
-  # tar_target(
-  #   metabolite_pathways,
-  #   read_pathways(metabolite_pathways_file)
-  # ),
-  # # tar_target(
-  # #   msea_plot,
-  # #   plot_msea(metab_msea, lbls = c("With BAY", "With Hypoxia"), vals = unname(clrs[c(4, 2)]))
-  # # ),
-  # # tar_target(
-  # #   msea_hyp_plot,
-  # #   plot_msea(metab_msea_hyp, lbls = c("Down in Hypoxia", "Up in Hypoxia"), vals = unname(clrs[c(1, 2)]))
-  # # ),
-  # # tar_target(
-  # #   msea_bay_plot,
-  # #   plot_msea(metab_msea_bay, lbls = c("Down in BAY", "Up in BAY"), vals = unname(clrs[c(3, 4)]))
-  # # ),
-  # tar_target(
-  #   leading_edge,
-  #   plot_leading_edge(metab_different_differences, metab_pathways[["(KEGG) Citrate cycle (TCA cycle)"]])
-  # ),
-  # tar_render(
-  #   metabolomics_report,
-  #   path = path_to_reports("metabolomics-targeted.Rmd"),
-  #   output_dir = system.file("analysis/pdfs", package = "Copeland.2021.hypoxia.flux")
-  # ),
+  tar_render(
+    metabolomics_report,
+    path = path_to_reports("metabolomics-targeted.Rmd"),
+    output_dir = system.file("analysis/pdfs", package = "Copeland.2022.hypoxia.flux")
+  ),
 
   # manuscript --------------------------------------------------------------
 
