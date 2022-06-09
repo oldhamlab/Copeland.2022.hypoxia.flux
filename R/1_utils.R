@@ -160,9 +160,10 @@ print_plots <- function(
 annot_p <- function(num) dplyr::if_else(num < 0.05, "*", NA_character_)
 
 my_kable <- function(data, ...) {
-  kableExtra::kable(data, booktabs = TRUE, linesep = "", ...) %>%
+  kableExtra::kable(data, booktabs = TRUE, linesep = "", ...) |>
     kableExtra::kable_styling(
       latex_options = c("hold_position"),
       font_size = 9
     )
 }
+

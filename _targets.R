@@ -440,6 +440,10 @@ list(
     tfea,
     run_tfea(dds)
   ),
+  tar_target(
+    tfea_fit,
+    fit_tfea(dds, tfea)
+  ),
   tar_map(
     values = list(
       names = c("hyp", "bay", "hyp_bay", "int"),
@@ -471,7 +475,7 @@ list(
     ),
     tar_target(
       tfea_res,
-      index_tfea(tfea, names)
+      index_tfea(tfea_fit, names)
     ),
     NULL
   ),
@@ -480,6 +484,102 @@ list(
     path = path_to_reports("rnaseq.Rmd"),
     output_dir = system.file("analysis/pdfs", package = "Copeland.2022.hypoxia.flux")
   ),
+
+  # metab -------------------------------------------------------------------
+
+  tar_target(
+    metab_tar_files,
+    path_to_data("lf_05-bay_metabolomics-targeted.xlsx"),
+    format = "file"
+  ),
+  tar_target(
+    metab_tar_raw,
+    format_metab_tar(metab_tar_files)
+  ),
+  tar_target(
+    metab_tar_clean,
+    remove_missing_metab(metab_tar_raw) %>%
+      correct_drift() %>%
+      quality_control() %>%
+      impute_missing() %>%
+      pqn() %>%
+      log_transform()
+  ),
+  tar_target(
+    metab_tar_pca,
+    plot_metab_pca(metab_tar_clean)
+  ),
+  tar_target(
+    metab_tar_limma,
+    fit_metab_limma(metab_tar_clean)
+  ),
+  tar_map(
+    values = list(
+      names = list("hyp", "bay", "hyp_bay", "int"),
+      colors = list(clrs[2:1], clrs[4:3], clrs[2:1], clrs[c(2, 4)]),
+      xlab = list("Hypoxia/Normoxia", "BAY/DMSO", "Hypoxia/Normoxia", "ΔHypoxia/ΔBAY")
+    ),
+    names = names,
+    tar_target(
+      metab_tar_res,
+      index_metab_limma(metab_tar_clean, metab_tar_limma, names)
+    ),
+    tar_target(
+      metab_tar_vol,
+      plot_metab_volcano(metab_tar_res, colors = colors, xlab = xlab)
+    ),
+    NULL
+  ),
+  # tar_target(
+  #   metab_venn,
+  #   plot_metab_venn(metab_hyp, metab_bay)
+  # ),
+  # tar_target(
+  #   metab_moi,
+  #   plot_mois(metab_targeted_clean, c("GAP", "2-hydroxyglutarate", "aconitate", "taurine", "hydroxyproline", "GABA"))
+  # ),
+  # # tar_target(
+  # #   metab_msea,
+  # #   run_msea(metab_different_differences, metab_pathways)
+  # # ),
+  # # tar_target(
+  # #   metab_msea_hyp,
+  # #   run_msea(metab_hyp, metab_pathways)
+  # # ),
+  # # tar_target(
+  # #   metab_msea_bay,
+  # #   run_msea(metab_bay, metab_pathways)
+  # # ),
+  # tar_target(
+  #   metabolite_pathways_file,
+  #   path_to_data("metabolites.tab"),
+  #   format = "file"
+  # ),
+  # tar_target(
+  #   metabolite_pathways,
+  #   read_pathways(metabolite_pathways_file)
+  # ),
+  # # tar_target(
+  # #   msea_plot,
+  # #   plot_msea(metab_msea, lbls = c("With BAY", "With Hypoxia"), vals = unname(clrs[c(4, 2)]))
+  # # ),
+  # # tar_target(
+  # #   msea_hyp_plot,
+  # #   plot_msea(metab_msea_hyp, lbls = c("Down in Hypoxia", "Up in Hypoxia"), vals = unname(clrs[c(1, 2)]))
+  # # ),
+  # # tar_target(
+  # #   msea_bay_plot,
+  # #   plot_msea(metab_msea_bay, lbls = c("Down in BAY", "Up in BAY"), vals = unname(clrs[c(3, 4)]))
+  # # ),
+  # tar_target(
+  #   leading_edge,
+  #   plot_leading_edge(metab_different_differences, metab_pathways[["(KEGG) Citrate cycle (TCA cycle)"]])
+  # ),
+  # tar_render(
+  #   metabolomics_report,
+  #   path = path_to_reports("metabolomics-targeted.Rmd"),
+  #   output_dir = system.file("analysis/pdfs", package = "Copeland.2021.hypoxia.flux")
+  # ),
 
   # manuscript --------------------------------------------------------------
 

@@ -146,54 +146,6 @@ identify_deg <- function(dds, comp){
     dplyr::arrange(padj)
 }
 
-find_rnaseq_overlap <- function(dds){
-  bay <-
-    identify_deg(dds, expr(n.bay - n.dmso)) |>
-    dplyr::filter(padj < 0.05)
-  hyp <- identify_deg(dds, expr(h.dmso - n.dmso)) |>
-    dplyr::filter(padj < 0.05)
-
-  nm <- rownames(SummarizedExperiment::assay(dds))
-  bay_deg <- nm %in% bay$row
-  hyp_deg <- nm %in% hyp$row
-  tibble::tibble(nm, hyp_deg, bay_deg)
-}
-
-find_gsea_overlap <- function(a, b, src = "HALLMARK"){
-  dplyr::full_join(a, b, by = c("source", "pathway")) |>
-    dplyr::select(source, pathway, padj.x, padj.y) |>
-    dplyr::filter(source %in% src) |>
-    dplyr::mutate(
-      hyp_deg = padj.x < 0.05,
-      bay_deg = padj.y < 0.05,
-      dplyr::across(tidyselect::matches("_deg"), tidyr::replace_na, FALSE)
-    )
-}
-
-plot_rnaseq_venn <- function(df, title){
-  ggplot2::ggplot(df) +
-    ggplot2::aes(A = hyp_deg, B = bay_deg) +
-    ggvenn::geom_venn(
-      set_names = c("0.5%", "BAY"),
-      digits = 0,
-      show_percentage = TRUE,
-      fill_color = clrs[c(2, 4)],
-      fill_alpha = 0.5,
-      stroke_size = 0.25,
-      set_name_size = 6/ggplot2::.pt,
-      text_size = 5/ggplot2::.pt
-    ) +
-    ggplot2::labs(title = title) +
-    theme_plots() +
-    ggplot2::coord_fixed(clip = "off") +
-    ggplot2::theme(
-      panel.border = ggplot2::element_blank(),
-      axis.text = ggplot2::element_blank(),
-      axis.ticks = ggplot2::element_blank(),
-      plot.title = ggplot2::element_text(hjust = 0.5)
-    )
-}
-
 plot_rnaseq_volcano <- function(results, gois = NULL, xlab = NULL){
   df <-
     tibble::as_tibble(results)
@@ -441,6 +393,9 @@ plot_gsea <- function(rnaseq_gsea, sources, lbls, vals){
 }
 
 run_tfea <- function(dds){
+  # vst if using scale as method
+  # dds <- DESeq2::vst(dds, blind = FALSE)
+
   # remove duplicates
   ids <-
     SummarizedExperiment::rowData(dds) |>
@@ -457,30 +412,31 @@ run_tfea <- function(dds){
     SummarizedExperiment::assay() %>%
     magrittr::set_rownames(ids[rownames(.)])
 
-  # phenotype
-  pheno <-
-    SummarizedExperiment::colData(dds) |>
-    tibble::as_tibble() |>
-    dplyr::mutate(group = forcats::fct_relabel(group, tolower))
-
   # run viper
   regulons <-
     dorothea::dorothea_hs |>
     dplyr::filter(confidence == "A")
 
-  tfea <-
-    dorothea::run_viper(
-      input = mat,
-      regulons = regulons,
-      options = list(
-        method = "scale",
-        minsize = 1,
-        nes = TRUE,
-        cores = 4,
-        verbose = FALSE
-      ),
-      tidy = FALSE
-    )
+  dorothea::run_viper(
+    input = mat,
+    regulons = regulons,
+    options = list(
+      method = "rank",
+      minsize = 1,
+      nes = TRUE,
+      cores = 4,
+      verbose = FALSE
+    ),
+    tidy = FALSE
+  )
+}
+
+fit_tfea <- function(dds, tfea){
+  # phenotype
+  pheno <-
+    SummarizedExperiment::colData(dds) |>
+    tibble::as_tibble() |>
+    dplyr::mutate(group = forcats::fct_relabel(group, tolower))
 
   #limma
   design <-
