@@ -554,6 +554,75 @@ list(
     output_dir = system.file("analysis/pdfs", package = "Copeland.2022.hypoxia.flux")
   ),
 
+  # myc ---------------------------------------------------------------------
+
+  tar_map(
+    values = list(
+      names = c("simyc", "oemyc"),
+      exp = list("05-simyc", "bay-myc"),
+      intervention = list("treatment", "virus"),
+      x = rlang::syms(c("treatment", "virus")),
+      y = rlang::syms(c("oxygen", "treatment"))
+    ),
+    names = names,
+    tar_target(
+      myc_fluxes,
+      combine_fluxes(growth_rates, fluxes, exp = exp)
+    ),
+    tar_target(
+      myc_fluxes_annot,
+      annot_myc_fluxes(myc_fluxes, intervention)
+    ),
+    tar_target(
+      myc_growth_plot,
+      plot_myc(myc_fluxes, myc_fluxes_annot, "growth", "Growth rate (/h)", x = x, fill = y)
+    ),
+    tar_target(
+      myc_lactate_plot,
+      plot_myc(myc_fluxes, myc_fluxes_annot, "lactate", "Lactate\n(fmol/cell/h)", x = x, fill = y)
+    ),
+    NULL
+  ),
+
+  # cosmos ------------------------------------------------------------------
+
+  tar_target(
+    carnival_options,
+    set_carnival_options()
+  ),
+  tar_target(
+    cosmos_network,
+    get_cosmos_network()
+  ),
+  tar_target(
+    cosmos_tf,
+    format_tf(tfea_res_int)
+  ),
+  tar_target(
+    cosmos_metab,
+    format_metab(metab_tar_res_int)
+  ),
+  tar_target(
+    cosmos_deg,
+    format_deg(deg_int)
+  ),
+  tar_target(
+    cosmos_prep_forward,
+    preprocess("forward", cosmos_network, cosmos_tf, cosmos_metab, cosmos_deg, carnival_options)
+  ),
+  tar_target(
+    cosmos_prep_reverse,
+    preprocess("reverse", cosmos_network, cosmos_tf, cosmos_metab, cosmos_deg, carnival_options)
+  ),
+  tar_target(
+    cosmos_forward,
+    run_cosmos("forward", cosmos_prep_forward, carnival_options)
+  ),
+  tar_target(
+    cosmos_reverse,
+    run_cosmos("reverse", cosmos_prep_reverse, carnival_options)
+  ),
+
   # manuscript --------------------------------------------------------------
 
   # tar_target(
