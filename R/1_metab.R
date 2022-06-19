@@ -7,7 +7,7 @@ new_tbl_se <- function(
     f_data = NULL,
     s_names,
     s_data = NULL
-){
+) {
   structure(
     tbl,
     class = c("tbl_se", class(tbl)),
@@ -242,7 +242,7 @@ annot_metabs <- function(se){
   se
 }
 
-plot_metab_pca <- function(clean) {
+calc_metab_pca <- function(clean) {
   input <-
     SummarizedExperiment::assay(clean) |>
     t() |>
@@ -254,11 +254,12 @@ plot_metab_pca <- function(clean) {
   design <- model.matrix(~ 0 + group, data = pheno)
   colnames(design) <- stringr::str_extract(colnames(design), "(?<=group).*")
 
-  df <-
-    limma::removeBatchEffect(input, batch = pheno$replicate, design = design) |>
+  limma::removeBatchEffect(input, batch = pheno$replicate, design = design) |>
     t() |>
     pcaMethods::pca(scale = "none", center = TRUE)
+}
 
+plot_metab_pca <- function(clean, df) {
   percent_variance <- round(100 * c(df@R2[[1]], df@R2[[2]]))
 
   pair_clrs <- c(
@@ -557,8 +558,7 @@ run_msea <- function(tt, pathways){
   fgsea::fgsea(
     pathways = pathways,
     stats = stats,
-    sampleSize = 4,
-    minSize = 1,
+    minSize = 3,
     BPPARAM = BiocParallel::bpparam()
   ) %>%
     tibble::as_tibble() %>%

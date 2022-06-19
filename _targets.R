@@ -508,7 +508,11 @@ list(
   ),
   tar_target(
     metab_tar_pca,
-    plot_metab_pca(metab_tar_clean)
+    calc_metab_pca(metab_tar_clean)
+  ),
+  tar_target(
+    metab_tar_pca_plot,
+    plot_metab_pca(metab_tar_pca, metab_tar_clean)
   ),
   tar_target(
     metab_tar_limma,
@@ -627,22 +631,29 @@ list(
 
   # tar_target(
   #   template,
-  #   system.file("manuscript/template.docx", package = "McGarrity.2022.hypoxia.omics"),
+  #   system.file("manuscript/template.docx", package = "Copeland.2022.hypoxia.flux"),
   #   format = "file"
   # ),
   # tar_target(
   #   pkgs,
-  #   system.file("manuscript/packages.bib", package = "McGarrity.2022.hypoxia.omics"),
+  #   system.file("manuscript/packages.bib", package = "Copeland.2022.hypoxia.flux"),
   #   format = "file"
   # ),
   # tar_target(
+  #   bib_file,
+  #   rbbt::bbt_update_bib(
+  #     path = "manuscript/manuscript.Rmd",
+  #     path_bib = "manuscript/library.json"
+  #   )
+  # ),
+  # tar_target(
   #   bib,
-  #   system.file("manuscript/library.json", package = "McGarrity.2022.hypoxia.omics"),
+  #   system.file("manuscript/library.json", package = "Copeland.2022.hypoxia.flux"),
   #   format = "file"
   # ),
   # tar_target(
   #   csl,
-  #   system.file("manuscript/cell-metabolism.csl", package = "McGarrity.2022.hypoxia.omics"),
+  #   system.file("manuscript/cell-metabolism.csl", package = "Copeland.2022.hypoxia.flux"),
   #   format = "file"
   # ),
   # tar_render(
