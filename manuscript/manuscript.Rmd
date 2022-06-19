@@ -1,14 +1,32 @@
 ---
-title: "Title"
+title: "MYC overrides HIF to sustain proliferating primary cell metabolism in hypoxia"
 
 author:
+- Courtney A. Copeland: 
+    institute: bwh, hms
+- Benjamin A. Olenchock: 
+    institute: bwh, hms
+- David R. Ziehr:
+    institute: bwh, mgh, hms
+- Sarah McGarrity: 
+    institute: bwh, hms, ui
+- Kevin Leahy: 
+    institute: bwh, hms
+- Jamey D. Young: 
+    institute: vu
+- Joseph Loscalzo: 
+    institute: bwh, hms
 - William M. Oldham:
-    institute: bwh
+    institute: bwh, hms
     correspondence: true
     email: woldham@bwh.harvard.edu
     
 institute:
-- bwh: Department of Medicine, Brigham and Women's Hospital and Harvard Medical School, Boston, MA
+- bwh: Department of Medicine, Brigham and Women's Hospital, Boston, MA 02115, U.S.A.
+- hms: Department of Medicine, Harvard Medical School, Boston, MA 02115, U.S.A.
+- mgh: Department of Medicine, Massachusetts General Hospital, Boston, MA, 02114 U.S.A.
+- ui: Center for Systems Biology, School of Health Sciences, University of Iceland, Reykjavik, Iceland
+- vu: Departments of Chemical & Biomolecular Engineering and Molecular Physiology & Biophysics, Vanderbilt University, Nashville, TN 37240, U.S.A.
 
 bibliography: 
 - library.json
@@ -18,7 +36,7 @@ link-citations: yes
 
 output: 
   bookdown::word_document2:
-    reference_docx: !expr system.file("manuscript", "template.docx", package = "X")
+    reference_docx: !expr system.file("manuscript", "template.docx", package = "Copeland.2022.hypoxia.flux")
     df_print: kable
     fig_caption: true
     number_sections: false
@@ -36,14 +54,14 @@ graphics: yes
 ---
 
 ```{r setup, include = FALSE}
-# library(X)
+# library(Copeland.2022.hypoxia.flux)
 devtools::load_all()
 
 knitr::opts_chunk$set(
   echo = FALSE, 
   warning = FALSE, 
   message = FALSE, 
-  out.width = "80%", 
+  out.width = "100%", 
   out.extra = ""
 )
 
@@ -54,22 +72,33 @@ knitr::opts_chunk$set(
 
 knitr::opts_knit$set(kable.force.latex = FALSE)
 
-options(tinytex.verbose = TRUE)
-
-targets::tar_load(
-  c(
-    m1_figure, 
-  )
+options(
+  tinytex.verbose = TRUE, 
+  knitr.graphics.rel_path = FALSE
 )
+
+# targets::tar_load(
+#   c(
+#     m1_figure, 
+#   )
+# )
 ```
 
-# Summary
+# Abstract
 
 # Keywords
+
+/ / 
 
 \newpage
 
 # Introduction
+
+Cellular responses to hypoxia drive fundamental physiologic and pathologic processes from wound healing and angiogenesis to vascular remodeling and fibrosis [@semenza2012b; @lee2019]. These responses require cells to maintain energetically demanding activities, including proliferation, migration, and macromolecular biosynthesis, even in the face of a limited oxygen supply. Since metazoan cells depend primarily on respiration to meet their energy needs,  
+
+
+
+Since metazoan cells depend on respiration to meet their energy needs, they must reduce energy consumption and shift energy production away from oxidative phosphorylation when challenged by hypoxia. Cells accomplish this goal through stabilization of the hypoxia-inducible transcription factor 1α (HIF-1α), which activates the transcription of glucose transporters, glycolytic enzymes, lactate dehydrogenase, and pyruvate dehydrogenase kinase, while decreasing the expression of enzymes in the tricarboxylic acid (TCA) cycle and electron transport chain [@semenza2012b; @lee2020b]. Although HIF-1α is constitutively expressed, it is hydroxylated by prolyl hydroxylase enzymes (PHDs) in normoxia and targeted for proteasomal degradation. PHDs are the principal oxygen sensors in metazoan cells [@kaelin2008a]. PHDs are α-ketoglutarate-dependent dioxygenase enzymes that require molecular oxygen for their enzymatic activity. When oxygen tension falls, PHD activity decreases, leading to HIF-1α stabilization and activation of its associated transcriptional program. Overall, the HIF-1 transcriptional program should increase glycolytic capacity and divert glucose-derived pyruvate from oxidative phosphorylation toward lactate fermentation to maintain ATP production. 
 
 \newpage
 
@@ -81,13 +110,28 @@ targets::tar_load(
 
 \newpage
 
+# Materials and Methods
+
+## Data Availability
+
+\newpage
+
 # Acknowledgements
 
 # Author Contributions
 
-# Declaration of Interests
+# Disclosures and competing interests
 
 \newpage
+
+# References
+
+::: {#refs} 
+:::
+
+\newpage
+
+# Tables
 
 \newpage
 
@@ -114,21 +158,6 @@ out <-
     ~ cat("Figure ", stringr::str_extract(.y, "\\d"), ": (ref:", .y, ")\n\n", sep = "")
   )
 ```
-
-\newpage
-
-# Tables
-
-\newpage
-
-# Methods
-
-\newpage
-
-# References
-
-::: {#refs} 
-:::
 
 \newpage
 
