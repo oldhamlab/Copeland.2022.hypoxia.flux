@@ -184,10 +184,10 @@
     },
     "DBI": {
       "Package": "DBI",
-      "Version": "1.1.3",
+      "Version": "1.1.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "b2866e62bab9378c3cc9476a1954226b",
+      "Hash": "dcd1743af4336156873e3ce3c950b8b9",
       "Requirements": []
     },
     "DESeq2": {
@@ -323,13 +323,13 @@
     },
     "KEGGREST": {
       "Package": "KEGGREST",
-      "Version": "1.36.2",
+      "Version": "1.36.0",
       "Source": "Bioconductor",
       "git_url": "https://git.bioconductor.org/packages/KEGGREST",
       "git_branch": "RELEASE_3_15",
-      "git_last_commit": "8ddcc9e",
-      "git_last_commit_date": "2022-06-08",
-      "Hash": "1e248b1df651373522170c6348bd51f7",
+      "git_last_commit": "591818b",
+      "git_last_commit_date": "2022-04-26",
+      "Hash": "e718cd8ccc6fcdc817a84a2c01f6b43c",
       "Requirements": [
         "Biostrings",
         "httr",
@@ -403,10 +403,10 @@
     },
     "RCurl": {
       "Package": "RCurl",
-      "Version": "1.98-1.7",
+      "Version": "1.98-1.6",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "b70bf7bef94b2a3fa09795b0594f3695",
+      "Hash": "53a4a5e55370f1a1a4afd92356252946",
       "Requirements": [
         "bitops"
       ]
@@ -437,10 +437,10 @@
     },
     "RcppArmadillo": {
       "Package": "RcppArmadillo",
-      "Version": "0.11.2.0.0",
+      "Version": "0.11.1.1.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "1d3c02a90401734e893954c7f8f92f3e",
+      "Hash": "631929e53829901562986c504f86104b",
       "Requirements": [
         "Rcpp"
       ]
@@ -500,10 +500,10 @@
     },
     "XML": {
       "Package": "XML",
-      "Version": "3.99-0.10",
+      "Version": "3.99-0.9",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "f140675d766cf765bf06a5f14afb149d",
+      "Hash": "6e75b3884423e21eda89b424a98e091d",
       "Requirements": []
     },
     "XVector": {
@@ -656,10 +656,10 @@
     },
     "bookdown": {
       "Package": "bookdown",
-      "Version": "0.27",
+      "Version": "0.26",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "249ccee87c5a8def5cb459fd0809cca4",
+      "Hash": "65ebdc552e88fc98c596f4797c5415ad",
       "Requirements": [
         "htmltools",
         "jquerylib",
@@ -752,10 +752,10 @@
     },
     "car": {
       "Package": "car",
-      "Version": "3.1-0",
+      "Version": "3.0-13",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "afd3f5c7d144f00d05db8e7701af7829",
+      "Hash": "69e00596e08b7f64e5a7d16447bec44d",
       "Requirements": [
         "MASS",
         "abind",
@@ -1623,10 +1623,10 @@
     },
     "gtools": {
       "Package": "gtools",
-      "Version": "3.9.2.2",
+      "Version": "3.9.2.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "cb9db9447a50d3e2d968fec4bcc0d2cd",
+      "Hash": "be8f98adb534ef22cfc57a3577e0449f",
       "Requirements": []
     },
     "haven": {
@@ -1757,10 +1757,10 @@
     },
     "igraph": {
       "Package": "igraph",
-      "Version": "1.3.2",
+      "Version": "1.3.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "48e890b2ccaeb5cdce18f14781ae76d6",
+      "Hash": "820595efd173f9bac4ea76c1be007299",
       "Requirements": [
         "Matrix",
         "magrittr",
@@ -2196,10 +2196,10 @@
     },
     "nlme": {
       "Package": "nlme",
-      "Version": "3.1-158",
+      "Version": "3.1-157",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "9469aeaeddf4f48a7ac70877d0b7ba36",
+      "Hash": "dbca60742be0c9eddc5205e5c7ca1f44",
       "Requirements": [
         "lattice"
       ]
@@ -2242,10 +2242,10 @@
     },
     "parallelly": {
       "Package": "parallelly",
-      "Version": "1.32.0",
+      "Version": "1.31.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "022489ebce2ef2438db4583fae118240",
+      "Hash": "115faaa1a50897c3e2339d1cb7d3d493",
       "Requirements": []
     },
     "patchwork": {
@@ -2409,10 +2409,10 @@
     },
     "processx": {
       "Package": "processx",
-      "Version": "3.6.1",
+      "Version": "3.5.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "a11891e28c1f1e5ddd773ba1b8c07cf6",
+      "Hash": "8bbae1a548d0d3fdf6647bdd9d35bf6d",
       "Requirements": [
         "R6",
         "ps"
@@ -2455,10 +2455,10 @@
     },
     "ps": {
       "Package": "ps",
-      "Version": "1.7.1",
+      "Version": "1.7.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "8b93531308c01ad0e56d9eadcc0c4fcd",
+      "Hash": "eef74b13f32cae6bb0d495e53317c44c",
       "Requirements": []
     },
     "purrr": {
@@ -2592,10 +2592,10 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.15.5",
+      "Version": "0.15.4",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6a38294e7d12f5d8e656b08c5bd8ae34",
+      "Hash": "c1078316e1d4f70275fc1ea60c0bc431",
       "Requirements": []
     },
     "reprex": {
@@ -2655,14 +2655,10 @@
     "rnaseq.lf.hypoxia.molidustat": {
       "Package": "rnaseq.lf.hypoxia.molidustat",
       "Version": "0.0.1",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "wmoldham",
-      "RemoteRepo": "rnaseq.lf.hypoxia.molidustat",
-      "RemoteRef": "master",
-      "RemoteSha": "1b6563bac8ba50019e90f7e6c6ed7d2f49a90ea5",
-      "Hash": "da2ae8a78fe9597b8c69da7d04ec8929",
+      "Source": "Local",
+      "RemoteType": "local",
+      "RemoteUrl": "~/Dropbox (Partners HealthCare)/_data/rnaseq.lf.hypoxia.molidustat/",
+      "Hash": "d85dc22e6b0e258809b35366e357d588",
       "Requirements": [
         "SummarizedExperiment"
       ]
@@ -3028,6 +3024,25 @@
         "vctrs"
       ]
     },
+    "tidygraph": {
+      "Package": "tidygraph",
+      "Version": "1.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "19f5f240d255ff0bf91e76d062fdc176",
+      "Requirements": [
+        "R6",
+        "cli",
+        "cpp11",
+        "dplyr",
+        "igraph",
+        "magrittr",
+        "pillar",
+        "rlang",
+        "tibble",
+        "tidyr"
+      ]
+    },
     "tidyr": {
       "Package": "tidyr",
       "Version": "1.2.0",
@@ -3102,10 +3117,10 @@
     },
     "tinytex": {
       "Package": "tinytex",
-      "Version": "0.40",
+      "Version": "0.39",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "e7b654da5e77bc4e5435a966329cd25f",
+      "Hash": "29f67ab15405b390b90e56ff22198ead",
       "Requirements": [
         "xfun"
       ]
