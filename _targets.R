@@ -626,6 +626,10 @@ list(
     cosmos_reverse,
     run_cosmos("reverse", cosmos_prep_reverse, carnival_options)
   ),
+  tar_target(
+    cosmos_res,
+    format_cosmos(cosmos_forward, cosmos_reverse)
+  ),
 
   # manuscript --------------------------------------------------------------
 
@@ -653,7 +657,7 @@ list(
   # ),
   # tar_target(
   #   csl,
-  #   system.file("manuscript/cell-metabolism.csl", package = "Copeland.2022.hypoxia.flux"),
+  #   system.file("manuscript/embo.csl", package = "Copeland.2022.hypoxia.flux"),
   #   format = "file"
   # ),
   # tar_render(

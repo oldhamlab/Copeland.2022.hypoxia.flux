@@ -102,3 +102,82 @@ run_cosmos <- function(
 
   do.call(fun, args)
 }
+
+format_cosmos <- function(forward, reverse){
+
+  # edges
+
+  f_edge <- format_edges(forward)
+  r_edge <- format_edges(reverse)
+  edges <-
+    dplyr::bind_rows(f_edge, r_edge) |>
+    dplyr::group_by(from, to)
+  # dplyr::summarise(weight = mean(weight))
+  edge_nodes <- unique(c(edges$from, edges$to))
+
+  # nodes
+
+  f_node <- format_nodes(forward)
+  r_node <- format_nodes(reverse)
+
+  nodes <-
+    dplyr::full_join(
+      f_node,
+      r_node,
+      by = c("node", "type", "measured"),
+      suffix = c(".f", ".r")
+    ) |>
+    dplyr::filter(node %in% edge_nodes) |>
+    tibble::as_tibble() |>
+    tidyr::replace_na(list(activity.f = 0, activity.r = 0)) |>
+    dplyr::mutate(
+      activity = ifelse(abs(activity.f) > abs(activity.r), activity.f, activity.r)
+    ) |>
+    dplyr::select(node, measured, activity) |>
+    dplyr::distinct() |>
+    dplyr::group_by(node) |>
+    dplyr::filter(abs(activity) == max(abs(activity)))
+
+  # graph
+
+  tidygraph::tbl_graph(
+    nodes = nodes,
+    edges = edges,
+    directed = TRUE,
+    node_key = "node"
+  )
+}
+
+format_names <- function(vec){
+  hmdbs <- stringr::str_extract(vec, "HMDB\\d*(?=_)")
+  subs <- cosmosR:::HMDB_mapper_vec[hmdbs]
+
+  vec |>
+    stringr::str_replace("HMDB\\d*(?=_)", subs) |>
+    # stringr::str_replace("(?<=Gene)\\d*(?=__)", "") |>
+    stringr::str_replace("Gene", "Enz_") |>
+    stringr::str_replace("Metab__", "Met_") |>
+    stringr::str_replace("reverse", "rev")
+}
+
+format_edges <- function(raw){
+  raw[[1]] |>
+    dplyr::filter(Weight != 0) |>
+    dplyr::select(from = Node1, to = Node2, sign = Sign, weight = Weight) |>
+    dplyr::mutate(dplyr::across(c(from, to), format_names))
+}
+
+format_nodes <- function(raw){
+  raw[[3]] |>
+    dplyr::mutate(
+      measured = ifelse(NodeType %in% c("M", "P", "S", "T"), 1, 0),
+      activity = AvgAct
+    ) |>
+    dplyr::select(
+      node = Node,
+      type = NodeType,
+      measured,
+      activity
+    ) |>
+    dplyr::mutate(node = format_names(node))
+}
