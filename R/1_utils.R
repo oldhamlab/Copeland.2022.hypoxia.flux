@@ -167,3 +167,20 @@ my_kable <- function(data, ...) {
     )
 }
 
+plot_image <- function(img, scale = 1, hjust = 0, vjust = 0) {
+  # blot_image <- magick::image_read_pdf(blot_image)
+  img <- magick::image_read(img)
+
+  cowplot::ggdraw() +
+    cowplot::draw_image(
+      img,
+      scale = scale,
+      hjust = hjust,
+      vjust = vjust
+    ) +
+    theme_plots() +
+    ggplot2::theme(
+      panel.border = ggplot2::element_blank(),
+      axis.line = ggplot2::element_blank()
+    )
+}

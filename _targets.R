@@ -631,55 +631,158 @@ list(
     format_cosmos(cosmos_forward, cosmos_reverse)
   ),
 
+  # m1 ----------------------------------------------------------------------
+
+  tar_target(
+    lf_hyp_05_timeline_png,
+    system.file("manuscript/ai/lf-hypoxia-timeline.png", package = "Copeland.2022.hypoxia.flux"),
+    format = "file"
+  ),
+  tar_target(
+    lf_hyp_05_timeline,
+    plot_image(lf_hyp_05_timeline_png, scale = 1.4, hjust = 0.2, vjust = 0.1)
+  ),
+  tar_target(
+    lf_hyp_05_growth_curve,
+    plot_growth_curve(flux_measurements, cell = "lf", exp = "05")
+  ),
+  tar_target(
+    lf_hyp_05_growth_rate,
+    plot_growth_rates(growth_rates, cell = "lf", exp = "05")
+  ),
+  tar_target(
+    lf_hyp_05_blot_png,
+    path_to_manuscript("ai/lf_05_hif1a-ldha-blots.png"),
+    format = "file"
+  ),
+  tar_target(
+    lf_hyp_05_blot,
+    plot_image(lf_hyp_05_blot_png, scale = 1.3, hjust = 0.2, vjust = 0)
+  ),
+  tar_target(
+    lf_hyp_05_hif1a_prot,
+    plot_expression(blot_norm, "lf_05", "hif1a", "HIF-1α protein\n(normalized)")
+  ),
+  tar_target(
+    lf_hyp_05_ldha_prot,
+    plot_expression(blot_norm, "lf_05", "ldha", "LDHA protein\n(normalized)")
+  ),
+  tar_target(
+    lf_hyp_05_glut1_rna,
+    plot_expression(mrna_norm, "lf_05", "glut1", "GLUT1 mRNA\n(normalized)")
+  ),
+  tar_target(
+    lf_hyp_05_ldha_rna,
+    plot_expression(mrna_norm, "lf_05", "ldha", "LDHA mRNA\n(normalized)")
+  ),
+  tar_target(
+    m1,
+    arrange_fluxes(
+      lf_hyp_05_timeline,
+      lf_hyp_05_growth_curve,
+      lf_hyp_05_growth_rate,
+      lf_hyp_05_blot,
+      lf_hyp_05_hif1a_prot,
+      lf_hyp_05_glut1_rna,
+      lf_hyp_05_ldha_rna,
+      lf_hyp_05_ldha_prot
+    )
+  ),
+  tar_target(
+    m1_figure,
+    write_figures(m1, "m1.png"),
+    format = "file"
+  ),
+
+  # s1 ----------------------------------------------------------------------
+
+  tar_target(
+    viability_plot,
+    plot_time_lines(viability, y = viability, ylab = "Cell viability (%)", clr = "oxygen")
+  ),
+  tar_target(
+    lf_dna_curve,
+    plot_cells_per_dna(dna_per_cell_clean, "lf")
+  ),
+  tar_target(
+    pasmc_dna_curve,
+    plot_cells_per_dna(dna_per_cell_clean, "pasmc")
+  ),
+  tar_target(
+    dna_count_hypoxia_file,
+    path_to_data("dna-count-hypoxia.csv"),
+    format = "file"
+  ),
+  tar_target(
+    dna_count_hypoxia,
+    clean_dna_count_hypoxia(dna_count_hypoxia_file)
+  ),
+  tar_target(
+    dna_count_hypoxia_plot,
+    plot_dna_count_hypoxia(dna_count_hypoxia)
+  ),
+  tar_target(
+    evap_plot,
+    plot_evap_data(evap_clean)
+  ),
+  # tar_target(
+  #   s1e,
+  #   plot_k(degradation_rates, k)
+  # ),
+  tar_target(
+    s1,
+    arrange_s1(
+      viability_plot,
+      lf_dna_curve,
+      pasmc_dna_curve,
+      dna_count_hypoxia_plot,
+      evap_plot
+      # k_plot
+    )
+  ),
+  tar_target(
+    s1_figure,
+    write_figures(s1, "s1.png"),
+    format = "file"
+  ),
+
   # manuscript --------------------------------------------------------------
 
-  # tar_target(
-  #   template,
-  #   system.file("manuscript/template.docx", package = "Copeland.2022.hypoxia.flux"),
-  #   format = "file"
-  # ),
-  # tar_target(
-  #   pkgs,
-  #   system.file("manuscript/packages.bib", package = "Copeland.2022.hypoxia.flux"),
-  #   format = "file"
-  # ),
-  # tar_target(
-  #   bib_file,
-  #   rbbt::bbt_update_bib(
-  #     path = "manuscript/manuscript.Rmd",
-  #     path_bib = "manuscript/library.json"
-  #   )
-  # ),
-  # tar_target(
-  #   bib,
-  #   system.file("manuscript/library.json", package = "Copeland.2022.hypoxia.flux"),
-  #   format = "file"
-  # ),
-  # tar_target(
-  #   csl,
-  #   system.file("manuscript/embo.csl", package = "Copeland.2022.hypoxia.flux"),
-  #   format = "file"
-  # ),
-  # tar_render(
-  #   manuscript,
-  #   path = path_to_manuscript("manuscript.Rmd"),
-  #   output_dir = path_to_manuscript(""),
-  #   output_format = bookdown::word_document2(
-  #     reference_docx = template,
-  #     df_print = "kable",
-  #     fig_caption = TRUE,
-  #     number_sections = FALSE,
-  #     pandoc_args = c(
-  #       "--lua-filter=scholarly-metadata.lua",
-  #       "--lua-filter=author-info-blocks.lua",
-  #       "--lua-filter=pagebreak.lua"
-  #     )
-  #   ),
-  #   params = list(
-  #     bibliography = c(bib, pkgs),
-  #     csl = csl
-  #   )
-  # ),
+  tar_target(
+    template,
+    system.file("manuscript/template.docx", package = "Copeland.2022.hypoxia.flux"),
+    format = "file"
+  ),
+  tar_target(
+    pkgs,
+    system.file("manuscript/packages.bib", package = "Copeland.2022.hypoxia.flux"),
+    format = "file"
+  ),
+  tar_target(
+    csl,
+    system.file("manuscript/embo.csl", package = "Copeland.2022.hypoxia.flux"),
+    format = "file"
+  ),
+  tar_render(
+    manuscript,
+    path = path_to_manuscript("manuscript.Rmd"),
+    output_dir = path_to_manuscript(""),
+    output_format = bookdown::word_document2(
+      reference_docx = template,
+      df_print = "kable",
+      fig_caption = TRUE,
+      number_sections = FALSE,
+      pandoc_args = c(
+        "--lua-filter=scholarly-metadata.lua",
+        "--lua-filter=author-info-blocks.lua",
+        "--lua-filter=pagebreak.lua"
+      )
+    ),
+    params = list(
+      bibliography = c("manuscript/library.json", pkgs),
+      csl = csl
+    )
+  ),
   # tar_render(
   #   supplement,
   #   path = path_to_manuscript("supplement.Rmd"),
