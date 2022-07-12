@@ -26,7 +26,8 @@ tar_option_set(
   packages = c("tidyverse", "patchwork", "scales"),
   # packages = c("tidyverse", "patchwork", "xcms"),
   # imports = c("rnaseq.lf.hypoxia.molidustat"),
-  format = "qs"
+  format = "qs",
+  error = "continue"
 )
 
 # targets -----------------------------------------------------------------
@@ -286,7 +287,7 @@ list(
 
   tar_target(
     reactions_file,
-    path_to_reports("modeling/matlab-input/reactions_01.csv"),
+    path_to_reports("modeling/matlab-input/reactions_02.csv"),
     format = "file"
   ),
   tar_target(

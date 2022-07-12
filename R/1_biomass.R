@@ -102,7 +102,7 @@ calculate_biomass_equations <- function(biomass) {
       dplyr::select(.data$metabolite, .data$coefficient) |>
       dplyr::mutate(
         metabolite = dplyr::case_when(
-          .data$metabolite %in% c("AcCoA") ~ stringr::str_c(metabolite, ".c"),
+          .data$metabolite %in% c("AcCoA", "ASP") ~ stringr::str_c(metabolite, ".c"),
           TRUE ~ metabolite
         ))
   }
