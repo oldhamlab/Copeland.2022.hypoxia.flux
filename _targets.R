@@ -635,12 +635,12 @@ list(
 
   tar_target(
     lf_hyp_05_timeline_png,
-    system.file("manuscript/ai/lf-hypoxia-timeline.png", package = "Copeland.2022.hypoxia.flux"),
+    system.file("manuscript/ai/lf_hyp_05_timeline.png", package = "Copeland.2022.hypoxia.flux"),
     format = "file"
   ),
   tar_target(
     lf_hyp_05_timeline,
-    plot_image(lf_hyp_05_timeline_png, scale = 1.4, hjust = 0.2, vjust = 0.1)
+    plot_image(lf_hyp_05_timeline_png, scale = 1.6, hjust = 0.2, vjust = 0.1)
   ),
   tar_target(
     lf_hyp_05_growth_curve,
@@ -676,6 +676,14 @@ list(
     plot_expression(mrna_norm, "lf_05", "ldha", "LDHA mRNA\n(normalized)")
   ),
   tar_target(
+    lf_hyp_05_high,
+    plot_high_fluxes(fluxes, "lf", "05")
+  ),
+  tar_target(
+    lf_hyp_05_low,
+    plot_low_fluxes(fluxes, "lf", "05")
+  ),
+  tar_target(
     m1,
     arrange_fluxes(
       lf_hyp_05_timeline,
@@ -685,7 +693,9 @@ list(
       lf_hyp_05_hif1a_prot,
       lf_hyp_05_glut1_rna,
       lf_hyp_05_ldha_rna,
-      lf_hyp_05_ldha_prot
+      lf_hyp_05_ldha_prot,
+      lf_hyp_05_high,
+      lf_hyp_05_low
     )
   ),
   tar_target(
@@ -725,10 +735,10 @@ list(
     evap_plot,
     plot_evap_data(evap_clean)
   ),
-  # tar_target(
-  #   s1e,
-  #   plot_k(degradation_rates, k)
-  # ),
+  tar_target(
+    k_plot,
+    plot_k(degradation_rates, k)
+  ),
   tar_target(
     s1,
     arrange_s1(
@@ -736,13 +746,232 @@ list(
       lf_dna_curve,
       pasmc_dna_curve,
       dna_count_hypoxia_plot,
-      evap_plot
-      # k_plot
+      evap_plot,
+      k_plot
     )
   ),
   tar_target(
     s1_figure,
     write_figures(s1, "s1.png"),
+    format = "file"
+  ),
+
+  # s2 ----------------------------------------------------------------------
+
+  tar_target(
+    lf_hyp_02_timeline_png,
+    system.file("manuscript/ai/lf_hyp_02_timeline.png", package = "Copeland.2022.hypoxia.flux"),
+    format = "file"
+  ),
+  tar_target(
+    lf_hyp_02_timeline,
+    plot_image(lf_hyp_02_timeline_png, scale = 1.6, hjust = 0.2, vjust = 0.1)
+  ),
+  tar_target(
+    lf_hyp_02_growth_curve,
+    plot_growth_curve(flux_measurements, cell = "lf", exp = "02")
+  ),
+  tar_target(
+    lf_hyp_02_growth_rate,
+    plot_growth_rates(growth_rates, cell = "lf", exp = "02")
+  ),
+  tar_target(
+    lf_hyp_02_blot_png,
+    path_to_manuscript("ai/lf_02_hif1a-ldha-blots.png"),
+    format = "file"
+  ),
+  tar_target(
+    lf_hyp_02_blot,
+    plot_image(lf_hyp_02_blot_png, scale = 1.3, hjust = 0.2, vjust = 0)
+  ),
+  tar_target(
+    lf_hyp_02_hif1a_prot,
+    plot_expression(blot_norm, "lf_02", "hif1a", "HIF-1α protein\n(normalized)")
+  ),
+  tar_target(
+    lf_hyp_02_ldha_prot,
+    plot_expression(blot_norm, "lf_02", "ldha", "LDHA protein\n(normalized)")
+  ),
+  tar_target(
+    lf_hyp_02_glut1_rna,
+    plot_expression(mrna_norm, "lf_02", "glut1", "GLUT1 mRNA\n(normalized)")
+  ),
+  tar_target(
+    lf_hyp_02_ldha_rna,
+    plot_expression(mrna_norm, "lf_02", "ldha", "LDHA mRNA\n(normalized)")
+  ),
+  tar_target(
+    lf_hyp_02_high,
+    plot_high_fluxes(fluxes, "lf", "02")
+  ),
+  tar_target(
+    lf_hyp_02_low,
+    plot_low_fluxes(fluxes, "lf", "02")
+  ),
+  tar_target(
+    s2,
+    arrange_fluxes(
+      lf_hyp_02_timeline,
+      lf_hyp_02_growth_curve,
+      lf_hyp_02_growth_rate,
+      lf_hyp_02_blot,
+      lf_hyp_02_hif1a_prot,
+      lf_hyp_02_glut1_rna,
+      lf_hyp_02_ldha_rna,
+      lf_hyp_02_ldha_prot,
+      lf_hyp_02_high,
+      lf_hyp_02_low
+    )
+  ),
+  tar_target(
+    s2_figure,
+    write_figures(s2, "s2.png"),
+    format = "file"
+  ),
+
+  # s3 ----------------------------------------------------------------------
+
+  tar_target(
+    pasmc_hyp_05_timeline_png,
+    system.file("manuscript/ai/pasmc_hyp_05_timeline.png", package = "Copeland.2022.hypoxia.flux"),
+    format = "file"
+  ),
+  tar_target(
+    pasmc_hyp_05_timeline,
+    plot_image(pasmc_hyp_05_timeline_png, scale = 1.6, hjust = 0.2, vjust = 0.1)
+  ),
+  tar_target(
+    pasmc_hyp_05_growth_curve,
+    plot_growth_curve(flux_measurements, cell = "pasmc", exp = "05")
+  ),
+  tar_target(
+    pasmc_hyp_05_growth_rate,
+    plot_growth_rates(growth_rates, cell = "pasmc", exp = "05")
+  ),
+  tar_target(
+    pasmc_hyp_05_blot_png,
+    path_to_manuscript("ai/pasmc_05_hif1a-ldha-blots.png"),
+    format = "file"
+  ),
+  tar_target(
+    pasmc_hyp_05_blot,
+    plot_image(pasmc_hyp_05_blot_png, scale = 1.3, hjust = 0.2, vjust = 0)
+  ),
+  tar_target(
+    pasmc_hyp_05_hif1a_prot,
+    plot_expression(blot_norm, "pasmc_05", "hif1a", "HIF-1α protein\n(normalized)")
+  ),
+  tar_target(
+    pasmc_hyp_05_ldha_prot,
+    plot_expression(blot_norm, "pasmc_05", "ldha", "LDHA protein\n(normalized)")
+  ),
+  tar_target(
+    pasmc_hyp_05_glut1_rna,
+    plot_expression(mrna_norm, "pasmc_05", "glut1", "GLUT1 mRNA\n(normalized)")
+  ),
+  tar_target(
+    pasmc_hyp_05_ldha_rna,
+    plot_expression(mrna_norm, "pasmc_05", "ldha", "LDHA mRNA\n(normalized)")
+  ),
+  tar_target(
+    pasmc_hyp_05_high,
+    plot_high_fluxes(fluxes, "pasmc", "05")
+  ),
+  tar_target(
+    pasmc_hyp_05_low,
+    plot_low_fluxes(fluxes, "pasmc", "05")
+  ),
+  tar_target(
+    s3,
+    arrange_fluxes(
+      pasmc_hyp_05_timeline,
+      pasmc_hyp_05_growth_curve,
+      pasmc_hyp_05_growth_rate,
+      pasmc_hyp_05_blot,
+      pasmc_hyp_05_hif1a_prot,
+      pasmc_hyp_05_glut1_rna,
+      pasmc_hyp_05_ldha_rna,
+      pasmc_hyp_05_ldha_prot,
+      pasmc_hyp_05_high,
+      pasmc_hyp_05_low
+    )
+  ),
+  tar_target(
+    s3_figure,
+    write_figures(s3, "s3.png"),
+    format = "file"
+  ),
+
+  # m2 ----------------------------------------------------------------------
+
+  tar_target(
+    lf_bay_timeline_png,
+    system.file("manuscript/ai/lf_bay_timeline.png", package = "Copeland.2022.hypoxia.flux"),
+    format = "file"
+  ),
+  tar_target(
+    lf_bay_timeline,
+    plot_image(lf_bay_timeline_png, scale = 1.6, hjust = 0.2, vjust = 0.1)
+  ),
+  tar_target(
+    lf_bay_growth_curve,
+    plot_growth_curve(flux_measurements, cell = "lf", exp = "bay")
+  ),
+  tar_target(
+    lf_bay_growth_rate,
+    plot_growth_rates(growth_rates, cell = "lf", exp = "bay")
+  ),
+  tar_target(
+    lf_bay_blot_png,
+    path_to_manuscript("ai/lf_bay_hif1a-ldha-blots.png"),
+    format = "file"
+  ),
+  tar_target(
+    lf_bay_blot,
+    plot_image(lf_bay_blot_png, scale = 1.3, hjust = 0.2, vjust = 0)
+  ),
+  tar_target(
+    lf_bay_hif1a_prot,
+    plot_expression(blot_norm, "lf_bay", "hif1a", "HIF-1α protein\n(normalized)")
+  ),
+  tar_target(
+    lf_bay_ldha_prot,
+    plot_expression(blot_norm, "lf_bay", "ldha", "LDHA protein\n(normalized)")
+  ),
+  tar_target(
+    lf_bay_glut1_rna,
+    plot_expression(mrna_norm, "lf_bay", "glut1", "GLUT1 mRNA\n(normalized)")
+  ),
+  tar_target(
+    lf_bay_ldha_rna,
+    plot_expression(mrna_norm, "lf_bay", "ldha", "LDHA mRNA\n(normalized)")
+  ),
+  tar_target(
+    lf_bay_high,
+    plot_high_fluxes(fluxes, "lf", "bay")
+  ),
+  tar_target(
+    lf_bay_low,
+    plot_low_fluxes(fluxes, "lf", "bay")
+  ),
+  tar_target(
+    m2,
+    arrange_fluxes(
+      lf_bay_timeline,
+      lf_bay_growth_curve,
+      lf_bay_growth_rate,
+      lf_bay_blot,
+      lf_bay_hif1a_prot,
+      lf_bay_glut1_rna,
+      lf_bay_ldha_rna,
+      lf_bay_ldha_prot,
+      lf_bay_high,
+      lf_bay_low
+    )
+  ),
+  tar_target(
+    m2_figure,
+    write_figures(m2, "m2.png"),
     format = "file"
   ),
 

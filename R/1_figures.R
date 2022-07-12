@@ -1,6 +1,8 @@
 # 1_figures.R
 
-# plot setup
+
+# setup -------------------------------------------------------------------
+
 clrs <- c(RColorBrewer::brewer.pal(4, "Set1")[1:4], "#08306b", RColorBrewer::brewer.pal(9, "Set1")[9:8])
 names(clrs) <- c("21%", "0.5%", "DMSO", "BAY", "0.2%", "siCTL", "siMYC")
 
@@ -91,10 +93,18 @@ plot_time_lines <- function(
     #   alpha = 0.25,
     #   show.legend = FALSE
     # ) +
+    # ggplot2::stat_summary(
+    #   geom = "linerange",
+    #   fun.data = ggplot2::mean_se,
+    #   size = 0.5,
+    #   show.legend = FALSE
+    # ) +
     ggplot2::stat_summary(
-      geom = "linerange",
+      geom = "errorbar",
       fun.data = ggplot2::mean_se,
-      size = 0.5,
+      color = "black",
+      width = 2,
+      size = 0.25,
       show.legend = FALSE
     ) +
     ggplot2::stat_summary(
@@ -171,6 +181,7 @@ plot_growth_rates <- function(
     broom::tidy() |>
     dplyr::mutate(
       group = stringr::str_extract(contrast, "(?<= - ).*"),
+      x = 1.5,
       y = Inf,
       vjust = 1,
       label = annot_p(p.value)
@@ -197,13 +208,6 @@ plot_growth_rates <- function(
       show.legend = FALSE,
       alpha = 0.5
     ) +
-    ggplot2::stat_summary(
-      geom = "errorbar",
-      fun.data = ggplot2::mean_se,
-      width = 0.2,
-      size = 0.25,
-      show.legend = FALSE
-    ) +
     ggbeeswarm::geom_beeswarm(
       ggplot2::aes(fill = group),
       pch = 21,
@@ -213,9 +217,17 @@ plot_growth_rates <- function(
       color = "white",
       show.legend = FALSE
     ) +
+    ggplot2::stat_summary(
+      geom = "errorbar",
+      fun.data = ggplot2::mean_se,
+      width = 0.2,
+      size = 0.25,
+      show.legend = FALSE
+    ) +
     ggplot2::geom_text(
       data = annot,
       ggplot2::aes(
+        x = x,
         label = label,
         y = y,
         vjust = vjust
@@ -233,7 +245,7 @@ plot_growth_rates <- function(
     ) +
     theme_plots() +
     ggplot2::coord_cartesian(
-      ylim = c(0, NA),
+      # ylim = c(0, NA),
       clip = "off"
     ) +
     NULL
@@ -269,10 +281,18 @@ plot_cells_per_dna <- function(dna_per_cell_clean, cell = c("lf", "pasmc")) {
       size = 0.5,
       se = FALSE
     ) +
+    # ggplot2::stat_summary(
+    #   geom = "linerange",
+    #   fun.data = "mean_se",
+    #   size = 0.5,
+    #   show.legend = FALSE
+    # ) +
     ggplot2::stat_summary(
-      geom = "linerange",
-      fun.data = "mean_se",
-      size = 0.5,
+      geom = "errorbar",
+      fun.data = ggplot2::mean_se,
+      color = "black",
+      width = 7500,
+      size = 0.25,
       show.legend = FALSE
     ) +
     ggplot2::stat_summary(
@@ -335,11 +355,11 @@ plot_dna_count_hypoxia <- function(dna_count_hypoxia) {
 }
 
 plot_evap_data <- function(evap_clean) {
-  evap_clean %>%
-    dplyr::filter(experiment == "05" & cell_type == "lf") %>%
+  evap_clean |>
+    dplyr::filter(experiment == "05" & cell_type == "lf") |>
     dplyr::mutate(
       oxygen = factor(oxygen, levels = c("21%", "0.5%"))
-    ) %>%
+    ) |>
     ggplot2::ggplot() +
     ggplot2::aes(
       x = time,
@@ -354,10 +374,18 @@ plot_evap_data <- function(evap_clean) {
       size = 0.5,
       show.legend = FALSE
     ) +
+    # ggplot2::stat_summary(
+    #   geom = "linerange",
+    #   fun.data = "mean_se",
+    #   size = 0.5,
+    #   show.legend = FALSE
+    # ) +
     ggplot2::stat_summary(
-      geom = "linerange",
-      fun.data = "mean_se",
-      size = 0.5,
+      geom = "errorbar",
+      fun.data = ggplot2::mean_se,
+      color = "black",
+      width = 2,
+      size = 0.25,
       show.legend = FALSE
     ) +
     ggplot2::stat_summary(
@@ -380,15 +408,15 @@ plot_evap_data <- function(evap_clean) {
 
 plot_k <- function(degradation_rates, k) {
   annot <-
-    k %>%
-    dplyr::select(-k) %>%
+    k |>
+    dplyr::select(-k) |>
     dplyr::mutate(
       label = "*",
       ypos = Inf,
-      vjust = 1.5
+      vjust = 1
     )
 
-  degradation_rates %>%
+  degradation_rates |>
     dplyr::mutate(
       group = dplyr::case_when(
         oxygen == "21%" & treatment == "None" ~ "21%",
@@ -396,8 +424,8 @@ plot_k <- function(degradation_rates, k) {
         treatment == "DMSO" ~ "DMSO"
       ),
       group = factor(group, levels = c("21%", "0.5%", "DMSO"))
-    ) %>%
-    dplyr::left_join(annot, by = c("metabolite", "oxygen", "treatment")) %>%
+    ) |>
+    dplyr::left_join(annot, by = c("metabolite", "oxygen", "treatment")) |>
     ggplot2::ggplot() +
     ggplot2::aes(
       x = reorder(toupper(abbreviation), k),
@@ -419,7 +447,7 @@ plot_k <- function(degradation_rates, k) {
     ggplot2::stat_summary(
       ggplot2::aes(group = group),
       geom = "errorbar",
-      fun.data = "mean_se",
+      fun.data = ggplot2::mean_se,
       position = ggplot2::position_dodge(width = 0.6),
       width = 0.2,
       size = 0.25,
@@ -451,7 +479,10 @@ plot_k <- function(degradation_rates, k) {
       values = clrs,
       limits = force
     ) +
-    ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.2)) +
+    ggplot2::guides(
+      fill = ggplot2::guide_legend(override.aes = list(alpha = 1))
+    ) +
+    # ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.2)) +
     theme_plots() +
     ggplot2::theme(
       panel.grid.major.x = ggplot2::element_line(color = "gray90"),
@@ -462,18 +493,243 @@ plot_k <- function(degradation_rates, k) {
     )
 }
 
-arrange_fluxes <- function(p1, p2, p3, p4, p5, p6, p7, p8, p9) {
+plot_high_fluxes <- function(
+    df,
+    cell = c("lf", "pasmc"),
+    exper = c("02", "05", "bay")
+) {
+
+  x <-
+    df |>
+    dplyr::filter(
+      cell_type %in% cell &
+        experiment %in% exper &
+        metabolite %in% c("lactate", "glucose")
+    )
+
+  annot <-
+    x |>
+    dplyr::group_by(abbreviation) |>
+    tidyr::nest() |>
+    dplyr::mutate(
+      model = purrr::map(
+        data,
+        ~lmerTest::lmer(flux ~ group + (1 | date), data = .x) |>
+          emmeans::emmeans(~ group) |>
+          pairs() |>
+          broom::tidy()
+      )
+    ) |>
+    tidyr::unnest(c(model)) |>
+    dplyr::mutate(
+      group = stringr::str_extract(contrast, "(?<= - ).*"),
+      y = Inf,
+      vjust = 1,
+      label = annot_p(p.value)
+    )
+
+  x |>
+    dplyr::group_by(abbreviation) |>
+    dplyr::mutate(grand_mean = mean(flux)) |>
+    dplyr::group_by(abbreviation, date) |>
+    dplyr::mutate(
+      exp_mean = mean(flux),
+      adj = exp_mean - grand_mean,
+      flux_corr = flux - adj
+    ) |>
+    ggplot2::ggplot() +
+    ggplot2::aes(
+      x = reorder(toupper(abbreviation), flux),
+      y = flux_corr
+    ) +
+    ggplot2::stat_summary(
+      ggplot2::aes(fill = group),
+      geom = "col",
+      fun = "mean",
+      # width = 0.6,
+      position = ggplot2::position_dodge2(),
+      show.legend = TRUE,
+      alpha = 0.5
+    ) +
+    ggplot2::geom_hline(
+      yintercept = 0,
+      color = "black",
+      lwd = 0.25
+    ) +
+    ggbeeswarm::geom_beeswarm(
+      ggplot2::aes(fill = group),
+      dodge.width = 0.9,
+      pch = 21,
+      size = 1,
+      stroke = 0.25,
+      cex = 4,
+      color = "white",
+      show.legend = FALSE
+    ) +
+    ggplot2::stat_summary(
+      ggplot2::aes(group = group),
+      geom = "errorbar",
+      fun.data = ggplot2::mean_se,
+      position = ggplot2::position_dodge(width = 0.9),
+      width = 0.2,
+      size = 0.25,
+      show.legend = FALSE
+    ) +
+    ggplot2::geom_text(
+      data = annot,
+      ggplot2::aes(
+        x = abbreviation,
+        label = label,
+        y = y,
+        vjust = vjust
+      ),
+      family = "Calibri",
+      size = 8/ggplot2::.pt,
+      inherit.aes = FALSE
+    ) +
+    ggplot2::labs(
+      x = "Metabolite",
+      y = "Flux (fmol/cell/h)",
+      fill = NULL
+    ) +
+    ggplot2::scale_fill_manual(values = clrs, limits = force) +
+    ggplot2::scale_y_continuous(
+      expand = ggplot2::expansion(mult = 0.2),
+      breaks = scales::extended_breaks(n = 7)
+    ) +
+    ggplot2::guides(
+      fill = ggplot2::guide_legend(override.aes = list(alpha = 1))
+    ) +
+    theme_plots() +
+    ggplot2::theme(
+      legend.key.width = ggplot2::unit(0.5, "lines"),
+      legend.key.height = ggplot2::unit(0.5, "lines"),
+      legend.position = "bottom",
+      legend.box.margin = ggplot2::margin(t = -10)
+    )
+}
+
+plot_low_fluxes <- function(
+    df,
+    cell = c("lf", "pasmc"),
+    exper = c("02", "05", "bay")
+) {
+
+  x <-
+    df |>
+    dplyr::filter(
+      cell_type %in% cell &
+        experiment %in% exper &
+        metabolite %nin% c("lactate", "glucose")
+    )
+
+  annot <-
+    x |>
+    dplyr::group_by(abbreviation) |>
+    tidyr::nest() |>
+    dplyr::mutate(
+      model = purrr::map(
+        data,
+        ~lmerTest::lmer(flux ~ group + (1 | date), data = .x) |>
+          emmeans::emmeans(~ group) |>
+          pairs() |>
+          broom::tidy()
+      )
+    ) |>
+    tidyr::unnest(c(model)) |>
+    dplyr::mutate(
+      group = stringr::str_extract(contrast, "(?<= - ).*"),
+      y = Inf,
+      vjust = 1,
+      label = annot_p(p.value)
+    )
+
+  x |>
+    dplyr::group_by(abbreviation) |>
+    dplyr::mutate(grand_mean = mean(flux)) |>
+    dplyr::group_by(abbreviation, date) |>
+    dplyr::mutate(
+      exp_mean = mean(flux),
+      adj = exp_mean - grand_mean,
+      flux_corr = flux - adj
+    ) |>
+    ggplot2::ggplot() +
+    ggplot2::aes(
+      x = reorder(toupper(abbreviation), flux),
+      y = flux
+    ) +
+    ggplot2::stat_summary(
+      ggplot2::aes(fill = group),
+      geom = "col",
+      fun = "mean",
+      position = ggplot2::position_dodge2(),
+      # width = 0.9,
+      alpha = 0.5,
+      show.legend = TRUE
+    ) +
+    ggplot2::geom_hline(
+      yintercept = 0,
+      color = "black",
+      lwd = 0.25
+    ) +
+    ggplot2::stat_summary(
+      ggplot2::aes(group = group),
+      geom = "errorbar",
+      fun.data = ggplot2::mean_se,
+      position = ggplot2::position_dodge(width = 0.9),
+      width = 0.2,
+      size = 0.25,
+      show.legend = FALSE
+    ) +
+    ggplot2::geom_text(
+      data = annot,
+      ggplot2::aes(
+        x = abbreviation,
+        y = y,
+        vjust = vjust,
+        label = label,
+        group = group
+      ),
+      family = "Calibri",
+      size = 8/ggplot2::.pt
+    ) +
+    ggplot2::labs(
+      x = "Metabolite",
+      y = "Flux (fmol/cell/h)",
+      fill = NULL
+    ) +
+    ggplot2::scale_fill_manual(values = clrs, limits = force) +
+    ggplot2::scale_y_continuous(
+      trans = ggallin::pseudolog10_trans,
+      breaks = c(-100, -10, 0, 10),
+      limits = c(-250, 50)
+    ) +
+    ggplot2::guides(
+      fill = ggplot2::guide_legend(override.aes = list(alpha = 1))
+    ) +
+    theme_plots() +
+    ggplot2::theme(
+      panel.grid.major.x = ggplot2::element_line(color = "gray90"),
+      legend.key.width = ggplot2::unit(0.5, "lines"),
+      legend.key.height = ggplot2::unit(0.5, "lines"),
+      legend.position = "bottom",
+      legend.box.margin = ggplot2::margin(t = -10)
+    )
+}
+
+arrange_fluxes <- function(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10) {
   layout <- "
   abc
   def
-  gh#
+  ghi
+  jjj
   "
 
-  p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 +
+  p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9 + p10 +
     theme_patchwork(
       design = layout,
       widths = unit(1, "in"),
-      heights = unit(1.25, "in"),
+      heights = unit(1, "in"),
       guides = "collect"
     ) &
     theme(
@@ -484,16 +740,17 @@ arrange_fluxes <- function(p1, p2, p3, p4, p5, p6, p7, p8, p9) {
     )
 }
 
-arrange_s1 <- function(p1, p2, p3, p4, p5) {
+arrange_s1 <- function(p1, p2, p3, p4, p5, p6) {
   layout <- "
   abc
   de#
+  fff
   "
 
-  p1 + p2 + p3 + p4 + p5 +
+  p1 + p2 + p3 + p4 + p5 + p6 +
     theme_patchwork(
       design = layout,
       widths = unit(1, "in"),
-      heights = unit(1.25, "in")
+      heights = unit(1, "in")
     )
 }
