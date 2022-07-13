@@ -19,7 +19,7 @@ biomasseqn = [biomasseqn num2str(biomass{height(biomass), 2}) ' ' char(biomass{h
 clear biomass;
 
 % reaction equations
-reactions = readtable('reactions_02.csv');
+reactions = readtable('reactions_03.csv');
 % reactions = rmmissing(reactions);
 reaction_list = [biomasseqn; reactions.equation]; 
 reaction_ids = ['BIOMASS'; reactions.name];
@@ -129,7 +129,7 @@ f.std = fluxes.se';
 % f.std = 0.1 * f.val;
 
 % set fixed rates
-fixed_flux_equations = {'sPYR' 'sMAL' 'sASP'}';
+fixed_flux_equations = {'sPYR' 'sMAL' 'sASP' 'sCIT'}';
 
 for i=1:length(fixed_flux_equations)
     for j=1:length(r)
@@ -170,7 +170,7 @@ m.states{'CO2','c'}.bal = false;
 for metabolite = {'LAC.x' 'PYR.x' 'ALA.x' 'GLN.x' 'GLU.x' 'ASP.x'}
     m.states{char(metabolite)}.bal = false;
 end
-for pool = {'PYR.ms' 'ASP.ms' 'MAL.ms'}
+for pool = {'PYR.ms' 'ASP.ms' 'MAL.ms' 'CIT.ms'}
     m.states{char(pool)}.val = 0;
     m.states{char(pool)}.fix = true;
 end
