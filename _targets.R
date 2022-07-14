@@ -4,6 +4,8 @@ devtools::load_all()
 library(targets)
 library(tarchetypes)
 
+extrafont::loadfonts(quiet = TRUE)
+
 invisible(
   lapply(
     list.files(path = "R", pattern = "\\.R$", full.names = TRUE),
@@ -973,6 +975,34 @@ list(
   tar_target(
     m2_figure,
     write_figures(m2, "m2.png"),
+    format = "file"
+  ),
+
+  # m3 ----------------------------------------------------------------------
+
+  tar_target(
+    mid_glc6_pyr,
+    plot_mids(pruned_mids, "lf", "PYR", track = "glc6")
+  ),
+  tar_target(
+    mid_glc6_cit,
+    plot_mids(pruned_mids, "lf", "CIT", track = "glc6")
+  ),
+  tar_target(
+    mid_q5_cit,
+    plot_mids(pruned_mids, "lf", "CIT", track = "q5")
+  ),
+  tar_target(
+    m3,
+    arrange_m3(
+      mid_glc6_pyr,
+      mid_glc6_cit,
+      mid_q5_cit
+    )
+  ),
+  tar_target(
+    m3_figure,
+    write_figures(m3, "m3.png"),
     format = "file"
   ),
 
