@@ -993,17 +993,45 @@ list(
     plot_mids(pruned_mids, "lf", "CIT", track = "q5")
   ),
   tar_target(
+    mid_q5_m5_cit,
+    plot_m5_citrate(pruned_mids)
+  ),
+  tar_target(
     m3,
     arrange_m3(
       mid_glc6_pyr,
       mid_glc6_cit,
-      mid_q5_cit
+      mid_q5_cit,
+      mid_q5_m5_cit
     )
   ),
   tar_target(
     m3_figure,
     write_figures(m3, "m3.png"),
     format = "file"
+  ),
+
+  # s4 ----------------------------------------------------------------------
+
+  tar_target(
+    lf_mids,
+    plot_all_mids(pruned_mids, "lf")
+  ),
+  tar_target(
+    s4_figure,
+    write_figures(lf_mids, "s4.png")
+  ),
+
+
+  # s5 ----------------------------------------------------------------------
+
+  tar_target(
+    pasmc_mids,
+    plot_all_mids(pruned_mids, "pasmc", t = 36)
+  ),
+  tar_target(
+    s5_figure,
+    write_figures(pasmc_mids, "s5.png")
   ),
 
   # manuscript --------------------------------------------------------------

@@ -712,7 +712,7 @@ plot_low_fluxes <- function(
     ) +
     theme_plots() +
     ggplot2::theme(
-      panel.grid.major.x = ggplot2::element_line(color = "gray90"),
+      panel.grid.major.x = ggplot2::element_line(color = "gray80", size = 0.1),
       legend.key.width = ggplot2::unit(0.5, "lines"),
       legend.key.height = ggplot2::unit(0.5, "lines"),
       legend.position = "bottom",
@@ -753,7 +753,6 @@ annot_mids_main <- function(a, formula) {
 plot_mids <- function(df, cell, metab, t = 72, track) {
   tracer_labels <- c(
     glc2 = expression(paste("[1,2-"^13, "C"[2], "]-GLC")),
-    # glc6 = expression(paste("[U-"^13, "C"[6], "]-GLC")),
     glc6 = bquote("[U-"^13 * "C"[6] * "]-GLC →" ~ .(metab)),
     q5 = bquote("[U-"^13 * "C"[5] * "]-GLN →" ~ .(metab)),
     lac3 = expression(paste("[U-"^13, "C"[3], "]-LAC"))
@@ -764,9 +763,9 @@ plot_mids <- function(df, cell, metab, t = 72, track) {
     df |>
     dplyr::filter(
       cell_type == cell &
-        metabolite %in% metab &
+        metabolite == metab &
         time == t &
-        tracer %in% track
+        tracer == track
     ) |>
     dplyr::filter(
       !(metabolite == "CIT" & isotope == "M6")
@@ -854,6 +853,242 @@ plot_mids <- function(df, cell, metab, t = 72, track) {
     )
 }
 
+plot_all_mids <- function(df, cell, t = 72, track) {
+  tracer_labels <- c(
+    expression(paste("[1,2-"^13, "C"[2], "] glucose")),
+    expression(paste("[U-"^13, "C"[6], "] glucose")),
+    expression(paste("[U-"^13, "C"[5], "] glutamine")),
+    expression(paste("[U-"^13, "C"[3], "] lactate"))
+  )
+  tracer_levels <- c("glc2", "glc6", "q5", "lac3")
+  metab <- c(
+    "FBP",
+    "3PG",
+    "PYR",
+    # "ALA",
+    # "SER",
+    "LAC",
+    "CIT",
+    "AKG",
+    # "GLN",
+    "GLU",
+    "MAL"
+    # "ASP"
+  )
+
+  x <-
+    df |>
+    dplyr::filter(
+      cell_type == cell &
+        time == t &
+        metabolite %in% metab
+    ) |>
+    dplyr::filter(
+      !(metabolite == "CIT" & isotope == "M6")
+    ) |>
+    dplyr::mutate(
+      metabolite = factor(metabolite, levels = metab),
+      metabolite = forcats::fct_recode(metabolite, "`3PG`" = "3PG"),
+      tracer = factor(tracer, levels = tracer_levels, labels = tracer_labels),
+      isotope = stringr::str_replace(isotope, "M", ""),
+      group = dplyr::case_when(
+        oxygen == "21%" & treatment == "None" ~ "21%",
+        oxygen == "0.5%" & treatment == "None" ~ "0.5%",
+        oxygen == "21%" & treatment == "DMSO" ~ "DMSO",
+        oxygen == "21%" & treatment == "BAY" ~ "BAY"
+      ),
+      group = factor(group, levels = c("21%", "0.5%", "DMSO", "BAY"))
+    )
+
+  annot <-
+    x |>
+    dplyr::group_by(tracer, metabolite) |>
+    tidyr::nest() |>
+    dplyr::mutate(annot = purrr::map(data, annot_mids_main)) |>
+    tidyr::unnest(c(annot))
+
+  ggplot2::ggplot(x) +
+    ggplot2::aes(
+      x = isotope,
+      y = mid
+    ) +
+    ggplot2::facet_grid(
+      tracer ~ metabolite,
+      labeller = ggplot2::label_parsed,
+      # switch = "y",
+      scales = "free_x",
+      space = "free_x"
+    ) +
+    ggplot2::stat_summary(
+      ggplot2::aes(fill = group),
+      geom = "col",
+      fun = "mean",
+      position = ggplot2::position_dodge(width = 0.6),
+      width = 0.6,
+      show.legend = TRUE
+    ) +
+    ggplot2::geom_hline(
+      yintercept = 0,
+      color = "black",
+      lwd = 0.1
+    ) +
+    ggplot2::stat_summary(
+      ggplot2::aes(group = group),
+      geom = "errorbar",
+      fun.data = "mean_se",
+      position = ggplot2::position_dodge(width = 0.6),
+      width = 0.2,
+      size = 0.25,
+      show.legend = FALSE
+    ) +
+    ggplot2::geom_text(
+      data = annot,
+      ggplot2::aes(
+        x = -Inf,
+        y = Inf,
+        vjust = 1.5,
+        hjust = -0.3,
+        label = annot
+      ),
+      family = "Calibri",
+      size = 8/ggplot2::.pt
+    ) +
+    ggplot2::labs(
+      x = "Isotope",
+      y = "Mole fraction",
+      fill = NULL
+    ) +
+    ggplot2::scale_y_continuous(
+      breaks = seq(0, 1, 0.25),
+      limits = c(0, 1.1)
+    ) +
+    ggplot2::theme(
+      strip.placement = "outside",
+      legend.title = ggplot2::element_blank()
+    ) +
+    ggplot2::scale_fill_manual(values = clrs, limits = force) +
+    theme_plots() +
+    ggplot2::theme(
+      panel.grid.major.y = ggplot2::element_line(color = "grey80", size = 0.1),
+      legend.key.width = ggplot2::unit(0.5, "lines"),
+      legend.key.height = ggplot2::unit(0.5, "lines"),
+      legend.position = "bottom",
+      legend.box.margin = ggplot2::margin(t = -10),
+      axis.line = ggplot2::element_blank(),
+      panel.border = ggplot2::element_rect(color = "black", fill = NA, size = 0.25)
+    ) +
+    theme_patchwork(
+      widths = unit(9.5, "in"),
+      heights = unit(7.5, "in"),
+      tags = NULL
+    )
+}
+
+plot_m5_citrate <- function(df) {
+  x <-
+    df |>
+    dplyr::filter(
+      metabolite == "CIT" &
+        tracer == "q5" &
+        treatment == "None" &
+        isotope == "M5" &
+        method == "sim"
+    ) |>
+    dplyr::filter(
+      (cell_type == "lf" & time == 48) |
+        (cell_type == "pasmc" & time == 36)
+    )
+
+  annot <-
+    x |>
+    dplyr::group_by(cell_type) |>
+    tidyr::nest() |>
+    dplyr::mutate(
+      model = purrr::map(
+        data,
+        ~lmerTest::lmer(mid ~ oxygen + (1 | date), data = .x) |>
+          emmeans::emmeans(~ oxygen) |>
+          pairs() |>
+          broom::tidy()
+      )
+    ) |>
+    tidyr::unnest(c(model)) |>
+    dplyr::mutate(
+      x = 1.5,
+      y = Inf,
+      vjust = 1,
+      label = annot_p(p.value)
+    )
+
+  x |>
+    dplyr::group_by(cell_type) |>
+    dplyr::mutate(grand_mean = mean(mid)) |>
+    dplyr::group_by(cell_type, date) |>
+    dplyr::mutate(
+      exp_mean = mean(mid),
+      adj = exp_mean - grand_mean,
+      mid_corr = mid - adj
+    ) |>
+    ggplot2::ggplot() +
+    ggplot2::aes(
+      x = oxygen,
+      y = mid_corr
+    ) +
+    ggplot2::facet_wrap(
+      ~cell_type,
+      labeller = ggplot2::as_labeller(toupper)
+    ) +
+    ggplot2::stat_summary(
+      ggplot2::aes(fill = oxygen),
+      geom = "col",
+      fun = "mean",
+      # width = 0.6,
+      show.legend = FALSE,
+      alpha = 0.5
+    ) +
+    ggbeeswarm::geom_beeswarm(
+      ggplot2::aes(fill = oxygen),
+      pch = 21,
+      size = 1,
+      stroke = 0.25,
+      cex = 4,
+      color = "white",
+      show.legend = FALSE
+    ) +
+    ggplot2::stat_summary(
+      geom = "errorbar",
+      fun.data = ggplot2::mean_se,
+      width = 0.2,
+      size = 0.25,
+      show.legend = FALSE
+    ) +
+    ggplot2::geom_text(
+      data = annot,
+      ggplot2::aes(
+        x = x,
+        label = label,
+        y = y,
+        vjust = vjust
+      ),
+      family = "Calibri",
+      size = 8/ggplot2::.pt
+    ) +
+    ggplot2::labs(
+      x = "Oxygen",
+      y = "M5 Citrate fraction"
+    ) +
+    ggplot2::scale_fill_manual(
+      values = clrs,
+      limits = force
+    ) +
+    theme_plots() +
+    ggplot2::coord_cartesian(
+      # ylim = c(0, NA),
+      clip = "off"
+    ) +
+    NULL
+}
+
 arrange_fluxes <- function(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10) {
   layout <- "
   abc
@@ -892,15 +1127,15 @@ arrange_s1 <- function(p1, p2, p3, p4, p5, p6) {
     )
 }
 
-arrange_m3 <- function(p1, p2, p3) {
+arrange_m3 <- function(p1, p2, p3, p4) {
   layout <- "
-  abc
+  abcd
   "
 
-  p1 + p2 + p3 +
+  p1 + p2 + p3 + p4 +
     theme_patchwork(
       design = layout,
-      widths = unit(c(1, 1.5, 1.5), "in"),
+      widths = unit(c(1, 1.5, 1.5, 1), "in"),
       heights = unit(1, "in"),
       guides = "collect"
     ) &
