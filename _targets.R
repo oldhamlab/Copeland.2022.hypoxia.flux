@@ -29,7 +29,8 @@ tar_option_set(
   # packages = c("tidyverse", "patchwork", "xcms"),
   # imports = c("rnaseq.lf.hypoxia.molidustat"),
   format = "qs",
-  error = "continue"
+  # error = "continue"
+  error = NULL
 )
 
 # targets -----------------------------------------------------------------
@@ -572,7 +573,7 @@ list(
   ),
   tar_target(
     metab_tar_pca_plot,
-    plot_metab_pca(metab_tar_pca, metab_tar_clean)
+    plot_metab_pca(metab_tar_clean, metab_tar_pca)
   ),
   tar_target(
     metab_tar_limma,
@@ -591,7 +592,8 @@ list(
     values = list(
       names = list("hyp", "bay", "hyp_bay", "int"),
       colors = list(clrs[2:1], clrs[4:3], clrs[2:1], clrs[c(2, 4)]),
-      xlab = list("Hypoxia/Normoxia", "BAY/DMSO", "Hypoxia/Normoxia", "ΔHypoxia/ΔBAY")
+      xlab = list("Hypoxia/Normoxia", "BAY/DMSO", "Hypoxia/Normoxia", "ΔHypoxia/ΔBAY"),
+      title = list("Hypoxia", "BAY", "Hypoxia/Normoxia in BAY", "ΔHypoxia/ΔBAY")
     ),
     names = names,
     tar_target(
@@ -606,12 +608,16 @@ list(
       metab_tar_msea,
       run_msea(metab_tar_res, metab_pathways)
     ),
+    tar_target(
+      metab_tar_msea_table,
+      plot_msea_table(metab_tar_msea, title, colors, names)
+    ),
     NULL
   ),
-  # tar_target(
-  #   metab_venn,
-  #   plot_metab_venn(metab_hyp, metab_bay)
-  # ),
+  tar_target(
+    metab_venn,
+    plot_metab_venn(metab_tar_res_hyp, metab_tar_res_bay)
+  ),
   tar_render(
     metabolomics_report,
     path = path_to_reports("metabolomics-targeted.Rmd"),
@@ -1151,6 +1157,75 @@ list(
   tar_target(
     m4_figure,
     write_figures(m4, "m4.png")
+  ),
+
+  # m5 ----------------------------------------------------------------------
+
+  tar_target(
+    hyp_bay_fluxes_stats,
+    analyze_hyp_bay_fluxes(growth_rates, fluxes)
+  ),
+  tar_target(
+    hyp_bay_fluxes_growth,
+    plot_hyp_bay_fluxes(hyp_bay_fluxes_stats$data, hyp_bay_fluxes_stats$annot, "growth", "Growth Rate (/h)")
+  ),
+  tar_target(
+    hyp_bay_fluxes_glc,
+    plot_hyp_bay_fluxes(hyp_bay_fluxes_stats$data, hyp_bay_fluxes_stats$annot, "glucose", "Glucose\n(fmol/cell/h)") + ggplot2::scale_y_reverse()
+  ),
+  tar_target(
+    hyp_bay_fluxes_lac,
+    plot_hyp_bay_fluxes(hyp_bay_fluxes_stats$data, hyp_bay_fluxes_stats$annot, "lactate", "Lactate\n(fmol/cell/h)")
+  ),
+  tar_target(
+    m5,
+    arrange_m5(
+      hyp_bay_fluxes_growth,
+      hyp_bay_fluxes_glc,
+      hyp_bay_fluxes_lac,
+      metab_tar_pca_plot,
+      metab_tar_vol_hyp_bay,
+      metab_tar_msea_hyp_bay
+    )
+  ),
+  tar_target(
+    m5_figure,
+    write_figures(m5, "m5.png")
+  ),
+
+  # s8 ----------------------------------------------------------------------
+
+  tar_target(
+    msea_hyp,
+    patchwork::wrap_elements(
+      full =
+        plot_image(path_to_manuscript("ai/msea_hyp.png"), vjust = 0) +
+        ggplot2::coord_fixed()
+    ) +
+      theme_plots()
+  ),
+  tar_target(
+    msea_bay,
+    patchwork::wrap_elements(
+      full =
+        plot_image(path_to_manuscript("ai/msea_bay.png"), vjust = 0) +
+        ggplot2::coord_fixed()
+    ) +
+      theme_plots()
+  ),
+  tar_target(
+    s8,
+    arrange_s8(
+      metab_tar_vol_hyp,
+      metab_tar_vol_bay,
+      metab_venn,
+      msea_hyp,
+      msea_bay
+    )
+  ),
+  tar_target(
+    s8_figure,
+    write_figures(s8, "s8.png")
   ),
 
   # tables ------------------------------------------------------------------

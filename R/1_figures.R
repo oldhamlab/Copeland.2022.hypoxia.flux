@@ -187,18 +187,10 @@ plot_growth_rates <- function(
       label = annot_p(p.value)
     )
 
-  x |>
-    dplyr::group_by(date) |>
-    dplyr::mutate(
-      grand_mean = mean(x$mu),
-      group_mean = mean(mu),
-      adj = group_mean - grand_mean,
-      mu_corr = mu + adj
-    ) |>
-    ggplot2::ggplot() +
+  ggplot2::ggplot(x) +
     ggplot2::aes(
       x = group,
-      y = mu_corr
+      y = mu
     ) +
     ggplot2::stat_summary(
       ggplot2::aes(fill = group),
@@ -528,19 +520,10 @@ plot_high_fluxes <- function(
       label = annot_p(p.value)
     )
 
-  x |>
-    dplyr::group_by(abbreviation) |>
-    dplyr::mutate(grand_mean = mean(flux)) |>
-    dplyr::group_by(abbreviation, date) |>
-    dplyr::mutate(
-      exp_mean = mean(flux),
-      adj = exp_mean - grand_mean,
-      flux_corr = flux - adj
-    ) |>
-    ggplot2::ggplot() +
+  ggplot2::ggplot(x) +
     ggplot2::aes(
       x = reorder(toupper(abbreviation), flux),
-      y = flux_corr
+      y = flux
     ) +
     ggplot2::stat_summary(
       ggplot2::aes(fill = group),
@@ -647,16 +630,7 @@ plot_low_fluxes <- function(
       label = annot_p(p.value)
     )
 
-  x |>
-    dplyr::group_by(abbreviation) |>
-    dplyr::mutate(grand_mean = mean(flux)) |>
-    dplyr::group_by(abbreviation, date) |>
-    dplyr::mutate(
-      exp_mean = mean(flux),
-      adj = exp_mean - grand_mean,
-      flux_corr = flux - adj
-    ) |>
-    ggplot2::ggplot() +
+  ggplot2::ggplot(x) +
     ggplot2::aes(
       x = reorder(toupper(abbreviation), flux),
       y = flux
@@ -1020,19 +994,10 @@ plot_m5_citrate <- function(df) {
       label = annot_p(p.value)
     )
 
-  x |>
-    dplyr::group_by(cell_type) |>
-    dplyr::mutate(grand_mean = mean(mid)) |>
-    dplyr::group_by(cell_type, date) |>
-    dplyr::mutate(
-      exp_mean = mean(mid),
-      adj = exp_mean - grand_mean,
-      mid_corr = mid - adj
-    ) |>
-    ggplot2::ggplot() +
+  ggplot2::ggplot(x) +
     ggplot2::aes(
       x = oxygen,
-      y = mid_corr
+      y = mid
     ) +
     ggplot2::facet_wrap(
       ~cell_type,
@@ -1355,6 +1320,79 @@ plot_lactate_mids <- function(df, cell, t = 72) {
     )
 }
 
+plot_hyp_bay_fluxes <- function(df, annot, metab, ylab) {
+  df |>
+    dplyr::filter(metabolite == metab) |>
+    ggplot2::ggplot() +
+    ggplot2::aes(
+      x = oxygen,
+      y = flux
+    ) +
+    ggplot2::stat_summary(
+      ggplot2::aes(fill = treatment),
+      geom = "col",
+      fun = "mean",
+      # width = 0.6,
+      position = ggplot2::position_dodge2(),
+      show.legend = TRUE,
+      alpha = 0.5
+    ) +
+    ggbeeswarm::geom_beeswarm(
+      ggplot2::aes(fill = treatment),
+      dodge.width = 0.9,
+      pch = 21,
+      size = 1,
+      stroke = 0.25,
+      cex = 4,
+      color = "white",
+      show.legend = FALSE
+    ) +
+    ggplot2::stat_summary(
+      ggplot2::aes(group = treatment),
+      geom = "errorbar",
+      fun.data = ggplot2::mean_se,
+      position = ggplot2::position_dodge(width = 0.9),
+      width = 0.2,
+      size = 0.25,
+      show.legend = FALSE
+    ) +
+    ggplot2::geom_text(
+      data = dplyr::filter(annot, metabolite == metab),
+      ggplot2::aes(
+        x = oxygen,
+        y = y_pos,
+        vjust = vjust,
+        label = lab,
+      ),
+      family = "Calibri",
+      size = 8/ggplot2::.pt
+    ) +
+    ggplot2::labs(
+      x = "Oxygen",
+      y = ylab,
+      fill = NULL
+    ) +
+    ggplot2::scale_fill_manual(
+      values = clrs,
+      limits = force
+    ) +
+    ggplot2::scale_y_continuous(
+      expand = ggplot2::expansion(mult = c(0.05, 0.1)),
+      breaks = scales::pretty_breaks(n = 6)
+    ) +
+    ggplot2::guides(
+      fill = ggplot2::guide_legend(override.aes = list(alpha = 1))
+    ) +
+    theme_plots() +
+    ggplot2::theme(
+      legend.key.width = ggplot2::unit(0.5, "lines"),
+      legend.key.height = ggplot2::unit(0.5, "lines"),
+      legend.position = "bottom",
+      legend.box.margin = ggplot2::margin(t = -10)
+    ) +
+    NULL
+}
+
 arrange_fluxes <- function(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10) {
   layout <- "
   abc
@@ -1463,6 +1501,29 @@ arrange_m4 <- function(p1, p2, p3) {
     theme_patchwork(
       # design = layout,
       widths = unit(3, "in"),
+      heights = unit(c(1, 1), "in")
+    ) &
+    theme(
+      legend.position = "bottom",
+      legend.key.width = ggplot2::unit(0.5, "lines"),
+      legend.key.height = ggplot2::unit(0.5, "lines"),
+      legend.box.margin = ggplot2::margin(t = -10)
+    )
+}
+
+arrange_m5 <- function(p1, p2, p3, p4, p5, p6) {
+  layout <- "
+  abc
+  d##
+  "
+
+  (
+    (p1 + p2 + p3) + patchwork::plot_layout(guides = "collect")
+  ) /
+    (p4 + p5) +
+    theme_patchwork(
+      # design = layout,
+      widths = unit(5, "in"),
       heights = unit(c(1, 1.5), "in")
     ) &
     theme(
@@ -1470,6 +1531,21 @@ arrange_m4 <- function(p1, p2, p3) {
       legend.key.width = ggplot2::unit(0.5, "lines"),
       legend.key.height = ggplot2::unit(0.5, "lines"),
       legend.box.margin = ggplot2::margin(t = -10)
+    )
+}
+
+arrange_s8 <- function(p1, p2, p3, p4, p5) {
+  layout <- "
+  ad
+  be
+  c#
+  "
+
+  p1 + p2 + p3 + p4 + p5 +
+    theme_patchwork(
+      design = layout,
+      widths = unit(2.5, "in"),
+      heights = unit(c(1.5), "in")
     )
 }
 

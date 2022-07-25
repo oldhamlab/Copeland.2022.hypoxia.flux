@@ -49,8 +49,8 @@ tbl_to_se <- function(tbl_se, assay_name){
       rt_min = min(rt, na.rm = TRUE),
       rt_max = max(rt, na.rm = TRUE)
     ) |>
-    tibble::column_to_rownames(attr(tbl_se, "f_names")) %>%
-    .[match(rownames(assay_data), rownames(.)), ]
+    tibble::column_to_rownames(attr(tbl_se, "f_names")) |>
+    {\(x) x[match(rownames(assay_data), rownames(x)), ]}()
 
   sample_data <-
     tbl_se |>
@@ -59,8 +59,8 @@ tbl_to_se <- function(tbl_se, assay_name){
       attr(tbl_se, "s_data")
     ) |>
     dplyr::distinct() |>
-    tibble::column_to_rownames(attr(tbl_se, "s_names")) %>%
-    .[match(colnames(assay_data), rownames(.)), ]
+    tibble::column_to_rownames(attr(tbl_se, "s_names")) |>
+    {\(x) x[match(colnames(assay_data), rownames(x)), ]}()
 
   SummarizedExperiment::SummarizedExperiment(
     assays = assay_data,
@@ -221,21 +221,21 @@ log_transform <- function(pqn){
 
 annot_metabs <- function(se){
   fdata <-
-    SummarizedExperiment::rowData(se) %>%
-    data.frame() %>%
+    SummarizedExperiment::rowData(se) |>
+    data.frame() |>
     tibble::as_tibble(rownames = "HMDB")
 
   ah <- AnnotationHub::AnnotationHub()
   df <-
-    ah[["AH91792"]] %>%
-    dplyr::filter(HMDB %in% fdata$HMDB) %>%
-    dplyr::group_by(HMDB) %>%
-    dplyr::arrange(HMDB, KEGG, ChEBI, .by_group = TRUE) %>%
-    dplyr::slice(1) %>%
+    ah[["AH91792"]] |>
+    dplyr::filter(HMDB %in% fdata$HMDB) |>
+    dplyr::group_by(HMDB) |>
+    dplyr::arrange(HMDB, KEGG, ChEBI, .by_group = TRUE) |>
+    dplyr::slice(1) |>
     dplyr::select(-Name)
 
   annot_fdata <-
-    dplyr::left_join(fdata, df, by ="HMDB") %>%
+    dplyr::left_join(fdata, df, by ="HMDB") |>
     tibble::column_to_rownames("HMDB")
 
   SummarizedExperiment::rowData(se) <- annot_fdata
@@ -323,9 +323,12 @@ plot_metab_pca <- function(clean, df) {
     ggplot2::scale_x_continuous(expand = ggplot2::expansion(add = c(3, 3))) +
     ggplot2::scale_y_continuous(expand = ggplot2::expansion(add = c(2, 2))) +
     theme_plots() +
+    ggplot2::coord_fixed(clip = "off") +
     ggplot2::theme(
       legend.position = "bottom",
-      legend.key.size = ggplot2::unit(1, units = "lines")
+      legend.key.size = ggplot2::unit(1, units = "lines"),
+      axis.line = ggplot2::element_blank(),
+      panel.border = ggplot2::element_rect(color = "black", fill = NA, size = 0.25)
     )
 }
 
@@ -378,7 +381,13 @@ index_metab_limma <- function(se, res, comp){
     )
 }
 
-plot_metab_volcano <- function(results, mois = NULL, colors = NULL, xlab = NULL){
+plot_metab_volcano <- function(
+    results,
+    mois = NULL,
+    colors = NULL,
+    xlab = NULL,
+    nudge = 5.5
+    ) {
   left <-
     results |>
     dplyr::filter(logFC < 0) |>
@@ -404,7 +413,7 @@ plot_metab_volcano <- function(results, mois = NULL, colors = NULL, xlab = NULL)
       max.overlaps = 20,
       segment.size = 0.1,
       # nudge_x = -4,
-      nudge_x = -5.5 - left$logFC,
+      nudge_x = -nudge - left$logFC,
       hjust = 0,
       segment.color = "black",
       direction = "y",
@@ -422,7 +431,7 @@ plot_metab_volcano <- function(results, mois = NULL, colors = NULL, xlab = NULL)
       segment.size = 0.1,
       segment.color = "black",
       # nudge_x = 4.5,
-      nudge_x = 5.5 - right$logFC,
+      nudge_x = nudge - right$logFC,
       hjust = 1,
       direction = "y",
       family = "Calibri",
@@ -447,17 +456,25 @@ plot_metab_volcano <- function(results, mois = NULL, colors = NULL, xlab = NULL)
       fill = colors[[2]]
     ) +
     ggplot2::scale_color_manual(values = c("black", "darkred")) +
-    ggplot2::scale_y_continuous(trans = c("log10", "reverse")) +
+    ggplot2::scale_y_continuous(
+      trans = c("log10", "reverse"),
+      labels = scales::label_log()
+      ) +
     ggplot2::scale_x_continuous(
-      breaks = seq(-4, 4, 2),
-      labels = scales::math_format(2^.x),
-      expand = ggplot2::expansion(mult = 1)
+      breaks = scales::pretty_breaks(n = 7),
+      limits = c(-nudge - 0.25, nudge + 0.25),
+      labels = scales::math_format(2^.x)
     ) +
     ggplot2::labs(
       x = xlab,
       y = "Adjusted p-value"
     ) +
-    theme_plots()
+    theme_plots() +
+    ggplot2::theme(
+      axis.line = ggplot2::element_blank(),
+      panel.border = ggplot2::element_rect(color = "black", fill = NA, size = 0.25)
+    ) +
+    NULL
 }
 
 plot_moi <- function(se, moi){
@@ -535,34 +552,134 @@ plot_moi <- function(se, moi){
 
 read_metab_pathways <- function(filename){
   cols <- c("entrez_gene_ids", "metabolites")
-  readr::read_tsv(filename, col_types = "cccc") %>%
-    tidyr::unite("pathway", source, pathway, sep = " | ") %>%
+  readr::read_tsv(filename, col_types = "cccc") |>
+    tidyr::unite("pathway", source, pathway, sep = " | ") |>
     dplyr::mutate(
       dplyr::across(
         tidyselect::any_of(cols),
         ~stringr::str_split(.x, pattern = ",")
       )
-    ) %>%
-    dplyr::select(pathway, tidyselect::any_of(cols)) %>%
+    ) |>
+    dplyr::select(pathway, tidyselect::any_of(cols)) |>
     tibble::deframe()
 }
 
 run_msea <- function(tt, pathways){
   stats <-
-    tt %>%
-    dplyr::filter(!is.na(KEGG)) %>%
-    dplyr::mutate(KEGG = stringr::str_c("kegg:", KEGG)) %>%
-    dplyr::select(KEGG, t) %>%
+    tt |>
+    dplyr::filter(!is.na(KEGG)) |>
+    dplyr::mutate(KEGG = stringr::str_c("kegg:", KEGG)) |>
+    dplyr::select(KEGG, t) |>
     tibble::deframe()
 
   fgsea::fgsea(
     pathways = pathways,
     stats = stats,
-    minSize = 3,
+    # minSize = 3,
     BPPARAM = BiocParallel::bpparam()
-  ) %>%
-    tibble::as_tibble() %>%
-    dplyr::filter(pval < 0.05) %>%
-    tidyr::separate(pathway, c("source", "pathway"), sep = " \\| ") %>%
+  ) |>
+    tibble::as_tibble() |>
+    dplyr::filter(pval < 0.05) |>
+    tidyr::separate(pathway, c("source", "pathway"), sep = " \\| ") |>
     dplyr::arrange(desc(NES))
+}
+
+plot_metab_venn <- function(hyp, bay) {
+  nm <- hyp$hmdb
+  hyp_hmdb <-
+    hyp |>
+    dplyr::filter(adj.P.Val < 0.05) |>
+    dplyr::pull(hmdb)
+  bay_hmdb <-
+    bay|>
+    dplyr::filter(adj.P.Val < 0.05) |>
+    dplyr::pull(hmdb)
+  bay_deg <- nm %in% bay_hmdb
+  hyp_deg <- nm %in% hyp_hmdb
+
+  tibble::tibble(nm, hyp_deg, bay_deg) |>
+    ggplot2::ggplot() +
+    ggplot2::aes(A = hyp_deg, B = bay_deg) +
+    ggvenn::geom_venn(
+      set_names = c("0.5%", "BAY"),
+      digits = 0,
+      show_percentage = TRUE,
+      fill_color = clrs[c(2, 4)],
+      fill_alpha = 0.5,
+      stroke_size = 0.25,
+      set_name_size = 8/ggplot2::.pt,
+      text_size = 6/ggplot2::.pt
+    ) +
+    ggplot2::annotate(
+      geom = "text",
+      x = 1,
+      y = -1.2,
+      label = "133 total",
+      size = 6/ggplot2::.pt
+    ) +
+    theme_plots() +
+    ggplot2::labs(
+      x = NULL,
+      y = NULL
+    ) +
+    ggplot2::coord_fixed(
+      xlim = c(-1.75, 1.75),
+      ylim = c(-1.2, 1.2),
+      clip = "off"
+    ) +
+    ggplot2::theme(
+      panel.border = ggplot2::element_blank(),
+      axis.text = ggplot2::element_blank(),
+      axis.ticks = ggplot2::element_blank(),
+      axis.line = ggplot2::element_blank()
+    )
+}
+
+plot_msea_table <- function(df, title, clr, filename) {
+  x <-
+    df |>
+    dplyr::filter(source == "KEGG") |>
+    dplyr::select(pathway, NES) |>
+    dplyr::mutate(pathway = stringr::str_replace(pathway, " - Homo.*$", ""))
+
+  tab <-
+    gt::gt(x) |>
+    gt::tab_header(
+      title = title
+    ) |>
+    gt::cols_label(
+      pathway = "PATHWAY"
+    ) |>
+    gt::fmt_scientific(
+      columns = c("NES")
+    ) |>
+    gt::data_color(
+      columns = NES,
+      colors = scales::col_numeric(
+        palette = colorRamp(c(clr[2], "white", clr[1]), interpolate = "linear"),
+        domain = c(-2, 2)
+      )
+    ) |>
+    gt::tab_style(
+      style = gt::cell_text(weight = "bold"),
+      locations = list(
+        gt::cells_title(),
+        gt::cells_column_labels()
+      )
+    ) |>
+    # gt::tab_style(
+    #   style = gt::cell_borders(sides = "bottom"),
+    #   locations = list(
+    #     gt::cells_body(rows = x$NES == min(x$NES[x$NES > 0]))
+    #   )
+    # ) |>
+    gt::cols_align("center", c(NES)) |>
+    gtExtras::gt_theme_538() |>
+    gt::opt_table_font(font = "Calibri")
+
+  gt::gtsave(
+    tab,
+    filename = path_to_manuscript(stringr::str_c("ai/msea_", filename, ".png"))
+  )
+  tab
 }

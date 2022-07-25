@@ -1,8 +1,8 @@
 # 1_extracellular-fluxes.R
 
 clean_flux_meta <- function(file_list){
-  file_list %>%
-    rlang::set_names(stringr::str_extract(basename(.), "^.+(?=_)")) |>
+  file_list |>
+    {\(x) rlang::set_names(x, stringr::str_extract(basename(x), "^.+(?=_)"))}() |>
     purrr::map_dfr(
       readr::read_csv,
       col_types = "dccccdc",
@@ -26,7 +26,7 @@ clean_fluxes <- function(data_list){
   df <-
     data_list[c("dna", "glc", "lac", "pyr")] |>
     dplyr::bind_rows(.id = "metabolite") |>
-    dplyr::filter(!is.na(.data$a)) %>%
+    dplyr::filter(!is.na(.data$a)) |>
     dplyr::select(where(~any(!is.na(.)))) |>
     clean_technical_replicates() |>
     tidyr::separate(.data$experiment, c("cell_type", "experiment", "batch", "date"), "_")
@@ -152,8 +152,8 @@ clean_flux_std <- function(df){
       "glycine", "05", "2017-11-06", "a", "b", "fld", 10
     )
 
-  df %>%
-    dplyr::filter(!(detector == "fld" & conc > 900)) %>%
+  df |>
+    dplyr::filter(!(detector == "fld" & conc > 900)) |>
     dplyr::anti_join(outliers, by = c(
       "metabolite",
       "experiment",
@@ -162,7 +162,7 @@ clean_flux_std <- function(df){
       "run",
       "detector",
       "conc"
-    )) %>%
+    )) |>
     make_std_curves()
 }
 
@@ -501,8 +501,8 @@ plot_raw_curves <- function(data, title, y, xlab = "Time (h)", ylab, ...){
 }
 
 plot_growth_curves <- function(flux_measurements){
-  flux_measurements %>%
-    dplyr::filter(metabolite == "cells") %>%
+  flux_measurements |>
+    dplyr::filter(metabolite == "cells") |>
     plot_masses(
       plot_raw_curves,
       y = conc,
@@ -512,8 +512,8 @@ plot_growth_curves <- function(flux_measurements){
 }
 
 plot_degradation_curves <- function(flux_measurements){
-  flux_measurements %>%
-    dplyr::filter(type == "empty") %>%
+  flux_measurements |>
+    dplyr::filter(type == "empty") |>
     plot_masses(
       plot_raw_curves,
       y = log(nmol),
@@ -532,9 +532,9 @@ calculate_degradation_rates <- function(df){
     fit
   }
 
-  df %>%
-    dplyr::select(-c(.data$title, .data$plots)) %>%
-    tidyr::unnest(c(.data$data)) %>%
+  df |>
+    dplyr::select(-c(.data$title, .data$plots)) |>
+    tidyr::unnest(c(.data$data)) |>
     dplyr::group_by(
       .data$cell_type,
       .data$experiment,
@@ -545,36 +545,36 @@ calculate_degradation_rates <- function(df){
       .data$oxygen,
       .data$virus,
       .data$treatment
-    ) %>%
-    tidyr::nest() %>%
+    ) |>
+    tidyr::nest() |>
     dplyr::mutate(
       model = purrr::map(.data$data, degradation_m),
       summary = map(.data$model, broom::tidy)
-    ) %>%
-    tidyr::unnest(c(.data$summary)) %>%
-    dplyr::filter(term == "k") %>%
+    ) |>
+    tidyr::unnest(c(.data$summary)) |>
+    dplyr::filter(term == "k") |>
     dplyr::select(-c(
       .data$term,
       .data$model,
       .data$data,
       .data$std.error,
       .data$statistic
-    )) %>%
+    )) |>
     dplyr::rename(k = .data$estimate)
 }
 
 clean_degradation_rates <- function(degradation_rates){
   k <-
-    degradation_rates %>%
-    dplyr::group_by(.data$metabolite, .data$oxygen, .data$treatment, .data$virus) %>%
-    wmo::remove_nested_outliers(k, remove = TRUE) %>%
-    tidyr::nest() %>%
+    degradation_rates |>
+    dplyr::group_by(.data$metabolite, .data$oxygen, .data$treatment, .data$virus) |>
+    wmo::remove_nested_outliers(k, remove = TRUE) |>
+    tidyr::nest() |>
     dplyr::mutate(
       ttest = purrr::map(.data$data, ~ t.test(.x$k, mu = 0)),
       summary = purrr::map(.data$ttest, broom::tidy)
-    ) %>%
-    tidyr::unnest(c(.data$summary)) %>%
-    dplyr::filter(p.value < 0.01) %>%
+    ) |>
+    tidyr::unnest(c(.data$summary)) |>
+    dplyr::filter(p.value < 0.01) |>
     dplyr::select(
       .data$metabolite,
       .data$oxygen,
@@ -584,23 +584,23 @@ clean_degradation_rates <- function(degradation_rates){
     )
 
   hyp_02 <-
-    k %>%
-    dplyr::filter(oxygen == "0.5%") %>%
+    k |>
+    dplyr::filter(oxygen == "0.5%") |>
     dplyr::mutate(oxygen = forcats::fct_recode(oxygen, "0.2%" = "0.5%"))
 
   bay <-
-    k %>%
-    dplyr::filter(treatment == "DMSO") %>%
+    k |>
+    dplyr::filter(treatment == "DMSO") |>
     dplyr::mutate(treatment = forcats::fct_recode(treatment, "BAY" = "DMSO"))
 
-  dplyr::bind_rows(k, hyp_02, bay) %>%
-    dplyr::mutate(k = -k) %>%
+  dplyr::bind_rows(k, hyp_02, bay) |>
+    dplyr::mutate(k = -k) |>
     dplyr::arrange(metabolite, oxygen, virus, treatment)
 }
 
 plot_mass_curves <- function(flux_measurements){
-  flux_measurements %>%
-    dplyr::filter(type == "cells" & metabolite != "cells") %>%
+  flux_measurements |>
+    dplyr::filter(type == "cells" & metabolite != "cells") |>
     plot_masses(
       plot_raw_curves,
       y = log(nmol),
@@ -610,10 +610,10 @@ plot_mass_curves <- function(flux_measurements){
 }
 
 plot_flux_curves <- function(mass_curves, k, growth_rates){
-  mass_curves %>%
-    dplyr::select(-c(.data$title, .data$plots)) %>%
-    tidyr::unnest(c(data)) %>%
-    dplyr::left_join(k, by = c("metabolite", "oxygen", "treatment", "virus")) %>%
+  mass_curves |>
+    dplyr::select(-c(.data$title, .data$plots)) |>
+    tidyr::unnest(c(data)) |>
+    dplyr::left_join(k, by = c("metabolite", "oxygen", "treatment", "virus")) |>
     dplyr::left_join(growth_rates, by = c(
       "cell_type",
       "experiment",
@@ -622,12 +622,12 @@ plot_flux_curves <- function(mass_curves, k, growth_rates){
       "oxygen",
       "treatment",
       "virus"
-    )) %>%
+    )) |>
     dplyr::mutate(
       k = tidyr::replace_na(.data$k, 0),
       x = exp((.data$mu + .data$k) * .data$time) - 1,
       y = .data$nmol * exp(.data$k * .data$time)
-    ) %>%
+    ) |>
     plot_masses(
       plot_raw_curves,
       y = y,
@@ -701,4 +701,42 @@ calculate_fluxes <- function(flux_curves){
       .data$treatment,
       .data$date
     )
+}
+
+analyze_hyp_bay_fluxes <- function(growth, fluxes) {
+  df <-
+    growth |>
+    dplyr::filter(experiment == "05-bay") |>
+    dplyr::rename(flux = mu) |>
+    dplyr::select(-X0) |>
+    dplyr::mutate(metabolite = "growth") |>
+    dplyr::bind_rows(dplyr::filter(fluxes, experiment == "05-bay"))
+
+  annot <-
+    df |>
+    dplyr::group_by(metabolite) |>
+    tidyr::nest() |>
+    dplyr::mutate(
+      m = purrr::map(data, ~lmerTest::lmer(flux ~ oxygen * treatment + (1 | date), data = .x)),
+      res = purrr::map(m, ~emmeans::emmeans(
+        .x,
+        "pairwise" ~ oxygen * treatment,
+        simple = "each",
+        adjust = "Sidak",
+        combine = TRUE
+      )[["contrasts"]]
+      ),
+      out = purrr::map(res, broom::tidy)
+    ) |>
+    tidyr::unnest(c(out)) |>
+    dplyr::filter(oxygen != ".") |>
+    dplyr::select(metabolite, oxygen, adj.p.value) |>
+    dplyr::mutate(
+      oxygen = factor(oxygen, levels = c("21%", "0.5%")),
+      y_pos = Inf,
+      vjust = 2,
+      lab = annot_p(adj.p.value)
+    )
+
+  list(data = df, annot = annot)
 }
