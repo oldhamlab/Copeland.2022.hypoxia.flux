@@ -304,7 +304,8 @@ plot_metab_pca <- function(clean, df) {
       pch = 21,
       color = "white",
       size = 2,
-      show.legend = FALSE
+      show.legend = FALSE,
+      stroke = 0.2
     ) +
     ggplot2::labs(
       x = paste0("PC1: ", percent_variance[1], "% variance"),
@@ -441,19 +442,22 @@ plot_metab_volcano <- function(
       data = subset(results, adj.P.Val > 0.05),
       pch = 21,
       color = "white",
-      fill = "grey80"
+      fill = "grey80",
+      stroke = 0.2
     ) +
     ggplot2::geom_point(
       data = subset(results, logFC > 0 & adj.P.Val < 0.05),
       pch = 21,
       color = "white",
-      fill = colors[[1]]
+      fill = colors[[1]],
+      stroke = 0.2
     ) +
     ggplot2::geom_point(
       data = subset(results, logFC < 0 & adj.P.Val < 0.05),
       pch = 21,
       color = "white",
-      fill = colors[[2]]
+      fill = colors[[2]],
+      stroke = 0.2
     ) +
     ggplot2::scale_color_manual(values = c("black", "darkred")) +
     ggplot2::scale_y_continuous(

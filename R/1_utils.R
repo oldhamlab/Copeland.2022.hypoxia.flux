@@ -184,3 +184,9 @@ plot_image <- function(img, scale = 1, hjust = 0, vjust = 0) {
       axis.line = ggplot2::element_blank()
     )
 }
+
+write_table <- function(table, filename) {
+  file <- path_to_manuscript(stringr::str_c("ai/", filename, ".png"))
+  gt::gtsave(table, filename = file)
+  file
+}

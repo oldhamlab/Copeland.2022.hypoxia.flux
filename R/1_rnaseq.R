@@ -86,6 +86,7 @@ plot_rnaseq_pca <- function(pca_data){
       pch = 21,
       color = "white",
       size = 2,
+      stroke = 0.2,
       show.legend = FALSE
     ) +
     ggplot2::labs(
@@ -107,7 +108,9 @@ plot_rnaseq_pca <- function(pca_data){
     theme_plots() +
     ggplot2::theme(
       legend.position = "bottom",
-      legend.key.size = ggplot2::unit(1, units = "lines")
+      legend.key.size = ggplot2::unit(1, units = "lines"),
+      axis.line = ggplot2::element_blank(),
+      panel.border = ggplot2::element_rect(color = "black", fill = NA, size = 0.25)
     )
 }
 
@@ -146,7 +149,7 @@ identify_deg <- function(dds, comp){
     dplyr::arrange(padj)
 }
 
-plot_rnaseq_volcano <- function(results, gois = NULL, xlab = NULL){
+plot_rnaseq_volcano <- function(results, gois = NULL, xlab = NULL, nudge = 8){
   df <-
     tibble::as_tibble(results)
 
@@ -174,7 +177,7 @@ plot_rnaseq_volcano <- function(results, gois = NULL, xlab = NULL){
       size = 5/ggplot2::.pt,
       max.overlaps = 20,
       segment.size = 0.1,
-      nudge_x = -8 - left$log2FoldChange,
+      nudge_x = -nudge - left$log2FoldChange,
       hjust = 0,
       direction = "y",
       family = "Calibri",
@@ -190,7 +193,7 @@ plot_rnaseq_volcano <- function(results, gois = NULL, xlab = NULL){
       size = 5/ggplot2::.pt,
       max.overlaps = 20,
       segment.size = 0.1,
-      nudge_x = 8 - right$log2FoldChange,
+      nudge_x = nudge - right$log2FoldChange,
       hjust = 1,
       direction = "y",
       segment.color = "black",
@@ -198,23 +201,30 @@ plot_rnaseq_volcano <- function(results, gois = NULL, xlab = NULL){
       show.legend = FALSE
     ) +
     ggplot2::geom_hex(
-      bins = c(250, 15),
+      bins = c(50, 2),
       show.legend = FALSE
     ) +
     ggplot2::scale_fill_viridis_c(trans = "log10") +
     ggplot2::scale_color_manual(values = c("black", "darkred")) +
-    ggplot2::scale_y_continuous(trans = c("log10", "reverse")) +
+    ggplot2::scale_y_continuous(
+      trans = c("log10", "reverse"),
+      labels = scales::label_log()
+    ) +
     ggplot2::scale_x_continuous(
-      breaks = seq(-6, 6, 2),
-      labels = scales::math_format(2^.x),
-      expand = ggplot2::expansion(mult = 0.3)
+      breaks = scales::pretty_breaks(n = 7),
+      limits = c(-nudge - 0.25, nudge + 0.25),
+      labels = scales::math_format(2^.x)
     ) +
     ggplot2::labs(
       x = xlab,
       y = "Adjusted p-value"
     ) +
     theme_plots() +
-    ggplot2::coord_cartesian(xlim = c(-6, 6), clip = "off")
+    ggplot2::theme(
+      axis.line = ggplot2::element_blank(),
+      panel.border = ggplot2::element_rect(color = "black", fill = NA, size = 0.25)
+    ) +
+    NULL
 }
 
 get_unique_symbol_ids <- function(dds){
@@ -392,6 +402,48 @@ plot_gsea <- function(rnaseq_gsea, sources, lbls, vals){
     NULL
 }
 
+plot_gsea_table <- function(df, title, clr) {
+  x <-
+    df |>
+    dplyr::filter(source == "HALLMARK" & padj < 0.05) |>
+    dplyr::select(pathway, NES) |>
+    dplyr::mutate(pathway = stringr::str_replace_all(pathway, "_", " "))
+
+  gt::gt(x) |>
+    gt::tab_header(
+      title = title
+    ) |>
+    gt::cols_label(
+      pathway = "PATHWAY"
+    ) |>
+    gt::fmt_number(
+      columns = c("NES")
+    ) |>
+    gt::data_color(
+      columns = NES,
+      colors = scales::col_numeric(
+        palette = colorRamp(c(clr[2], "white", clr[1]), interpolate = "linear"),
+        domain = c(-3.3, 3.3)
+      )
+    ) |>
+    gt::tab_style(
+      style = gt::cell_text(weight = "bold"),
+      locations = list(
+        gt::cells_title(),
+        gt::cells_column_labels()
+      )
+    ) |>
+    # gt::tab_style(
+    #   style = gt::cell_borders(sides = "bottom"),
+    #   locations = list(
+    #     gt::cells_body(rows = x$NES == min(x$NES[x$NES > 0]))
+    #   )
+    # ) |>
+    gt::cols_align("center", c(NES)) |>
+    gtExtras::gt_theme_538() |>
+    gt::opt_table_font(font = "Calibri")
+}
+
 run_tfea <- function(dds){
   # vst if using scale as method
   # dds <- DESeq2::vst(dds, blind = FALSE)
@@ -471,4 +523,288 @@ index_tfea <- function(tfea, comp){
     number = Inf
   ) |>
     tibble::as_tibble(rownames = "tf")
+}
+
+plot_rnaseq_venn <- function(hyp, bay) {
+  nm <- hyp$symbol
+  hyp_symbol <-
+    hyp |>
+    dplyr::filter(padj < 0.05) |>
+    dplyr::pull(symbol)
+  bay_symbol <-
+    bay|>
+    dplyr::filter(padj < 0.05) |>
+    dplyr::pull(symbol)
+  bay_deg <- nm %in% bay_symbol
+  hyp_deg <- nm %in% hyp_symbol
+
+  tibble::tibble(nm, hyp_deg, bay_deg) |>
+    ggplot2::ggplot() +
+    ggplot2::aes(A = hyp_deg, B = bay_deg) +
+    ggvenn::geom_venn(
+      set_names = c("0.5%", "BAY"),
+      digits = 0,
+      show_percentage = TRUE,
+      fill_color = clrs[c(2, 4)],
+      fill_alpha = 0.5,
+      stroke_size = 0.25,
+      set_name_size = 8/ggplot2::.pt,
+      text_size = 6/ggplot2::.pt
+    ) +
+    ggplot2::annotate(
+      geom = "text",
+      x = 1,
+      y = -1.2,
+      label = "20609 total",
+      size = 6/ggplot2::.pt
+    ) +
+    theme_plots() +
+    ggplot2::labs(
+      x = NULL,
+      y = NULL,
+      title = "Transcripts"
+    ) +
+    ggplot2::coord_fixed(
+      xlim = c(-1.75, 1.75),
+      ylim = c(-1.2, 1.2),
+      clip = "off"
+    ) +
+    ggplot2::theme(
+      panel.border = ggplot2::element_blank(),
+      axis.text = ggplot2::element_blank(),
+      axis.ticks = ggplot2::element_blank(),
+      axis.line = ggplot2::element_blank(),
+      plot.title = ggplot2::element_text(size = 8),
+    )
+}
+
+plot_gsea_venn <- function(hyp, bay) {
+  nm <- hyp$pathway
+  hyp_pathway <-
+    hyp |>
+    dplyr::filter(padj < 0.05) |>
+    dplyr::pull(pathway)
+  bay_pathway <-
+    bay|>
+    dplyr::filter(padj < 0.05) |>
+    dplyr::pull(pathway)
+  bay_deg <- nm %in% bay_pathway
+  hyp_deg <- nm %in% hyp_pathway
+
+  tibble::tibble(nm, hyp_deg, bay_deg) |>
+    ggplot2::ggplot() +
+    ggplot2::aes(A = hyp_deg, B = bay_deg) +
+    ggvenn::geom_venn(
+      set_names = c("0.5%", "BAY"),
+      digits = 0,
+      show_percentage = TRUE,
+      fill_color = clrs[c(2, 4)],
+      fill_alpha = 0.5,
+      stroke_size = 0.25,
+      set_name_size = 8/ggplot2::.pt,
+      text_size = 6/ggplot2::.pt
+    ) +
+    ggplot2::annotate(
+      geom = "text",
+      x = 1,
+      y = -1.2,
+      label = "50 total",
+      size = 6/ggplot2::.pt
+    ) +
+    theme_plots() +
+    ggplot2::labs(
+      x = NULL,
+      y = NULL,
+      title = "Hallmark gene sets"
+    ) +
+    ggplot2::coord_fixed(
+      xlim = c(-1.75, 1.75),
+      ylim = c(-1.2, 1.2),
+      clip = "off"
+    ) +
+    ggplot2::theme(
+      panel.border = ggplot2::element_blank(),
+      axis.text = ggplot2::element_blank(),
+      axis.ticks = ggplot2::element_blank(),
+      axis.line = ggplot2::element_blank(),
+      plot.title = ggplot2::element_text(size = 8),
+    )
+}
+
+plot_pathway_volcanoes <- function(deg, pathways, sets, title, nudge = 3) {
+  targets <-
+    pathways[sets] |>
+    unlist() |>
+    unique()
+
+  results <-
+    deg |>
+    dplyr::filter(symbol %in% targets)
+
+  left <-
+    results |>
+    dplyr::filter(log2FoldChange < 0  & padj < 0.05) |>
+    dplyr::slice_min(stat, n = 10)
+
+  right <-
+    results |>
+    dplyr::filter(log2FoldChange > 0 & padj < 0.05) |>
+    dplyr::slice_max(stat, n = 10)
+
+  ggplot2::ggplot(results) +
+    ggplot2::aes(
+      x = log2FoldChange,
+      y = padj
+    ) +
+    ggrepel::geom_text_repel(
+      data = left,
+      ggplot2::aes(label = symbol),
+      size = 5/ggplot2::.pt,
+      max.overlaps = 20,
+      segment.size = 0.1,
+      nudge_x = -nudge - left$log2FoldChange,
+      hjust = 0,
+      segment.color = "black",
+      direction = "y",
+      family = "Calibri",
+      show.legend = FALSE
+    ) +
+    ggrepel::geom_text_repel(
+      data = right,
+      ggplot2::aes(label = symbol),
+      size = 5/ggplot2::.pt,
+      max.overlaps = 20,
+      segment.size = 0.1,
+      nudge_x = nudge - right$log2FoldChange,
+      hjust = 0,
+      segment.color = "black",
+      direction = "y",
+      family = "Calibri",
+      show.legend = FALSE
+    ) +
+    ggplot2::geom_point(
+      data = subset(results, padj > 0.05),
+      pch = 21,
+      color = "white",
+      fill = "grey80",
+      stroke = 0.2
+    ) +
+    ggplot2::geom_point(
+      data = subset(results, log2FoldChange > 0 & padj < 0.05),
+      pch = 21,
+      color = "white",
+      fill = clrs[[2]],
+      stroke = 0.2
+    ) +
+    ggplot2::geom_point(
+      data = subset(results, log2FoldChange < 0 & padj < 0.05),
+      pch = 21,
+      color = "white",
+      fill = clrs[[1]],
+      stroke = 0.2
+    ) +
+    ggplot2::scale_y_continuous(
+      trans = c("log10", "reverse"),
+      labels = scales::label_log()
+    ) +
+    ggplot2::scale_x_continuous(
+      breaks = scales::pretty_breaks(n = 7),
+      limits = c(-nudge - 0.25, nudge + 0.25),
+      labels = scales::math_format(2^.x)
+    ) +
+    ggplot2::labs(
+      x = "Hypoxia/Normoxia in BAY",
+      y = "Adjusted p-value",
+      title = title
+    ) +
+    theme_plots() +
+    ggplot2::theme(
+      axis.line = ggplot2::element_blank(),
+      panel.border = ggplot2::element_rect(color = "black", fill = NA, size = 0.25)
+    ) +
+    NULL
+}
+
+plot_tfea_volcanoes <- function(tf, xlab,colors, nudge = 5) {
+  left <-
+    tf |>
+    dplyr::filter(logFC < 0  & adj.P.Val < 0.05) |>
+    dplyr::slice_min(t, n = 10)
+
+  right <-
+    tf |>
+    dplyr::filter(logFC > 0 & adj.P.Val < 0.05) |>
+    dplyr::slice_max(t, n = 10)
+
+  ggplot2::ggplot(tf) +
+    ggplot2::aes(
+      x = logFC,
+      y = adj.P.Val
+    ) +
+    ggrepel::geom_text_repel(
+      data = left,
+      ggplot2::aes(label = tf),
+      size = 5/ggplot2::.pt,
+      max.overlaps = 20,
+      segment.size = 0.1,
+      nudge_x = -nudge - left$logFC,
+      hjust = 0,
+      segment.color = "black",
+      direction = "y",
+      family = "Calibri",
+      show.legend = FALSE
+    ) +
+    ggrepel::geom_text_repel(
+      data = right,
+      ggplot2::aes(label = tf),
+      size = 5/ggplot2::.pt,
+      max.overlaps = 20,
+      segment.size = 0.1,
+      nudge_x = nudge - right$logFC,
+      hjust = 0,
+      segment.color = "black",
+      direction = "y",
+      family = "Calibri",
+      show.legend = FALSE
+    ) +
+    ggplot2::geom_point(
+      data = subset(tf, adj.P.Val > 0.05),
+      pch = 21,
+      color = "white",
+      fill = "grey80",
+      stroke = 0.2
+    ) +
+    ggplot2::geom_point(
+      data = subset(tf, logFC > 0 & adj.P.Val < 0.05),
+      pch = 21,
+      color = "white",
+      fill = colors[[1]],
+      stroke = 0.2
+    ) +
+    ggplot2::geom_point(
+      data = subset(tf, logFC < 0 & adj.P.Val < 0.05),
+      pch = 21,
+      color = "white",
+      fill = colors[[2]],
+      stroke = 0.2
+    ) +
+    ggplot2::scale_y_continuous(
+      trans = c("log10", "reverse"),
+      labels = scales::label_log()
+    ) +
+    ggplot2::scale_x_continuous(
+      breaks = scales::pretty_breaks(n = 7),
+      limits = c(-nudge - 0.25, nudge + 0.25),
+      labels = scales::math_format(2^.x)
+    ) +
+    ggplot2::labs(
+      x = xlab,
+      y = "Adjusted p-value"
+    ) +
+    theme_plots() +
+    ggplot2::theme(
+      axis.line = ggplot2::element_blank(),
+      panel.border = ggplot2::element_rect(color = "black", fill = NA, size = 0.25)
+    ) +
+    NULL
 }

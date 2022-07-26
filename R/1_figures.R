@@ -119,6 +119,7 @@ plot_time_lines <- function(
       pch = 21,
       color = "white",
       size = 1.5,
+      stroke = 0.2,
       show.legend = FALSE
     ) +
     ggplot2::labs(
@@ -204,7 +205,7 @@ plot_growth_rates <- function(
       ggplot2::aes(fill = group),
       pch = 21,
       size = 1,
-      stroke = 0.25,
+      stroke = 0.2,
       cex = 4,
       color = "white",
       show.legend = FALSE
@@ -294,7 +295,8 @@ plot_cells_per_dna <- function(dna_per_cell_clean, cell = c("lf", "pasmc")) {
       color = "white",
       fill = "black",
       size = 1.5,
-      show.legend = FALSE
+      show.legend = FALSE,
+      stroke = 0.2
     ) +
     ggplot2::labs(
       x = "Cell count",
@@ -328,7 +330,9 @@ plot_dna_count_hypoxia <- function(dna_count_hypoxia) {
       color = "white",
       # alpha = 0.3,
       size = 1.5,
-      show.legend = FALSE) +
+      stroke = 0.2,
+      show.legend = FALSE
+      ) +
     ggplot2::labs(
       x = "Cell count",
       y = "DNA (ng)"
@@ -386,6 +390,7 @@ plot_evap_data <- function(evap_clean) {
       pch = 21,
       color = "white",
       size = 1.5,
+      stroke = 0.2,
       show.legend = FALSE
     ) +
     ggplot2::labs(
@@ -544,7 +549,7 @@ plot_high_fluxes <- function(
       dodge.width = 0.9,
       pch = 21,
       size = 1,
-      stroke = 0.25,
+      stroke = 0.2,
       cex = 4,
       color = "white",
       show.legend = FALSE
@@ -1015,7 +1020,7 @@ plot_m5_citrate <- function(df) {
       ggplot2::aes(fill = oxygen),
       pch = 21,
       size = 1,
-      stroke = 0.25,
+      stroke = 0.2,
       cex = 4,
       color = "white",
       show.legend = FALSE
@@ -1118,6 +1123,7 @@ plot_mid_time_course <- function(df, cells, o2, treat, color) {
       pch = 21,
       color = "white",
       size = 1.5,
+      stroke = 0.2,
       show.legend = TRUE
     ) +
     ggplot2::labs(
@@ -1181,7 +1187,8 @@ plot_exch_flux <- function(df, enzyme) {
       pch = 21,
       position = ggplot2::position_dodge(width = 0.5),
       color = "white",
-      size = 1.5
+      size = 1.5,
+      stroke = 0.2
     ) +
     ggplot2::scale_fill_manual(values = clrs, limits = force) +
     ggplot2::labs(
@@ -1342,7 +1349,7 @@ plot_hyp_bay_fluxes <- function(df, annot, metab, ylab) {
       dodge.width = 0.9,
       pch = 21,
       size = 1,
-      stroke = 0.25,
+      stroke = 0.2,
       cex = 4,
       color = "white",
       show.legend = FALSE
@@ -1432,7 +1439,7 @@ plot_nad <- function(df, annot, metab, ylab) {
       dodge.width = 0.9,
       pch = 21,
       size = 1,
-      stroke = 0.25,
+      stroke = 0.2,
       cex = 4,
       color = "white",
       show.legend = FALSE
@@ -1475,7 +1482,7 @@ plot_nad <- function(df, annot, metab, ylab) {
       values = clrs,
       limits = force,
       aesthetics = c("fill", "color")
-      ) +
+    ) +
     ggplot2::labs(
       x = "Oxygen",
       y = ylab,
@@ -1643,6 +1650,36 @@ arrange_s8 <- function(p1, p2, p3, p4, p5) {
   "
 
   p1 + p2 + p3 + p4 + p5 +
+    theme_patchwork(
+      design = layout,
+      widths = unit(2.5, "in"),
+      heights = unit(c(1.5), "in")
+    )
+}
+
+arrange_s9 <- function(p1, p2, p3, p4, p5, p6, p7, p8) {
+  layout <- "
+  aeg
+  beh
+  cf#
+  df#
+  "
+
+  p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 +
+    theme_patchwork(
+      design = layout,
+      widths = unit(2.5, "in"),
+      heights = unit(c(1.5), "in")
+    )
+}
+
+arrange_m6 <- function(p1, p2, p3, p4, p5, p6, p7) {
+  layout <- "
+  acdf
+  bce#
+  "
+
+  p1 + p2 + p3 + p4 + p5 + p6 +
     theme_patchwork(
       design = layout,
       widths = unit(2.5, "in"),

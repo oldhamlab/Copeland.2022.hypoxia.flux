@@ -30,7 +30,8 @@ tar_option_set(
   # imports = c("rnaseq.lf.hypoxia.molidustat"),
   format = "qs",
   # error = "continue"
-  error = NULL
+  error = NULL,
+  # debug = "gsea_deg_oxphos"
 )
 
 # targets -----------------------------------------------------------------
@@ -529,9 +530,11 @@ list(
       xlab = c(
         "Hypoxia/Normoxia",
         "BAY/DMSO",
-        "Hypoxia/Normoxia",
+        "Hypoxia/Normoxia in BAY",
         "ΔHypoxia/ΔBAY"
-      )
+      ),
+      colors = list(clrs[2:1], clrs[4:3], clrs[2:1], clrs[c(2, 4)]),
+      filename = stringr::str_c("gsea_", c("hyp", "bay", "hyp_bay", "int"))
     ),
     names = names,
     tar_target(
@@ -540,17 +543,44 @@ list(
     ),
     tar_target(
       rnaseq_vol,
-      plot_rnaseq_volcano(deg, xlab)
+      plot_rnaseq_volcano(deg, xlab = xlab)
     ),
     tar_target(
       gsea,
       run_gsea(deg, hallmark_pathways)
     ),
     tar_target(
+      gsea_table,
+      plot_gsea_table(gsea, title = xlab, clr = colors)
+    ),
+    tar_target(
+      gsea_table_file,
+      write_table(gsea_table, filename),
+      format = "file"
+    ),
+    tar_target(
+      gsea_table_plot,
+      patchwork::wrap_elements(full = plot_image(gsea_table_file, vjust = 0)) +
+        ggplot2::coord_fixed() +
+        theme_plots()
+    ),
+    tar_target(
       tfea_res,
       index_tfea(tfea_fit, names)
     ),
+    tar_target(
+      tfea_plot,
+      plot_tfea_volcanoes(tfea_res, xlab = xlab, colors = colors, nudge = 10)
+    ),
     NULL
+  ),
+  tar_target(
+    rnaseq_venn,
+    plot_rnaseq_venn(deg_hyp, deg_bay)
+  ),
+  tar_target(
+    gsea_venn,
+    plot_gsea_venn(gsea_hyp, gsea_bay)
   ),
   tar_render(
     rnaseq_report,
@@ -605,7 +635,8 @@ list(
       names = list("hyp", "bay", "hyp_bay", "int"),
       colors = list(clrs[2:1], clrs[4:3], clrs[2:1], clrs[c(2, 4)]),
       xlab = list("Hypoxia/Normoxia", "BAY/DMSO", "Hypoxia/Normoxia", "ΔHypoxia/ΔBAY"),
-      title = list("Hypoxia", "BAY", "Hypoxia/Normoxia in BAY", "ΔHypoxia/ΔBAY")
+      title = list("Hypoxia", "BAY", "Hypoxia/Normoxia in BAY", "ΔHypoxia/ΔBAY"),
+      filename = stringr::str_c("msea_", list("hyp", "bay", "hyp_bay", "int"))
     ),
     names = names,
     tar_target(
@@ -625,15 +656,14 @@ list(
       plot_msea_table(metab_tar_msea, title, colors, names)
     ),
     tar_target(
+      msea_table_file,
+      write_table(metab_tar_msea_table, filename),
+      format = "file"
+    ),
+    tar_target(
       msea,
-      patchwork::wrap_elements(
-        full =
-          plot_image(
-            path_to_manuscript(stringr::str_c("ai/msea_", names, ".png")),
-            vjust = 0
-          ) +
-          ggplot2::coord_fixed()
-      ) +
+      patchwork::wrap_elements(full = plot_image(msea_table_file, vjust = 0)) +
+        ggplot2::coord_fixed() +
         theme_plots()
     ),
     NULL
@@ -655,14 +685,6 @@ list(
       "KEGG | Citrate cycle (TCA cycle) - Homo sapiens (human)"
     )
   ),
-  # tar_target(
-  #   pro_leading_edge,
-  #   plot_leading_edge(
-  #     metab_tar_res_hyp_bay,
-  #     metab_pathways,
-  #     "KEGG | Arginine and proline metabolism - Homo sapiens (human)"
-  #   )
-  # ),
 
   # myc ---------------------------------------------------------------------
 
@@ -1252,6 +1274,72 @@ list(
   tar_target(
     s8_figure,
     write_figures(s8, "s8.png")
+  ),
+
+  # s9 ----------------------------------------------------------------------
+
+  tar_target(
+    s9,
+    arrange_s9(
+      rnaseq_vol_hyp,
+      rnaseq_vol_bay,
+      rnaseq_venn,
+      gsea_venn,
+      gsea_table_plot_hyp,
+      gsea_table_plot_bay,
+      tfea_plot_hyp,
+      tfea_plot_bay
+    )
+  ),
+  tar_target(
+    s9_figure,
+    write_figures(s9, "s9.png")
+  ),
+
+  # m6 ----------------------------------------------------------------------
+
+  tar_map(
+    values = list(
+      sets = list(
+        c("HALLMARK_E2F_TARGETS", "HALLMARK_G2M_CHECKPOINT"),
+        c("HALLMARK_MYC_TARGETS_V1", "HALLMARK_MYC_TARGETS_V2"),
+        "HALLMARK_OXIDATIVE_PHOSPHORYLATION"
+      ),
+      titles = list(
+        "E2F Targets and G2/M Checkpoint",
+        "MYC Targets",
+        "Oxidative Phosphorylation"
+      ),
+      names = list(
+        "e2f",
+        "myc",
+        "oxphos")
+    ),
+    names = names,
+    tar_target(
+      gsea_deg,
+      plot_pathway_volcanoes(
+        deg_hyp_bay,
+        hallmark_pathways,
+        sets = sets,
+        title = titles
+      )
+    )
+  ),
+  tar_target(
+    m6,
+    arrange_m6(
+      rnaseq_pca,
+      rnaseq_vol_hyp_bay,
+      gsea_table_plot_hyp_bay,
+      gsea_deg_e2f,
+      gsea_deg_myc,
+      tfea_plot_hyp_bay
+    )
+  ),
+  tar_target(
+    m6_figure,
+    write_figures(m6, "m6.png")
   ),
 
   # tables ------------------------------------------------------------------
