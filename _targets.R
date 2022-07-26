@@ -478,6 +478,18 @@ list(
     nad_annot,
     annot_nad(nad_final)
   ),
+  tar_target(
+    nad_plot,
+    plot_nad(nad_final, nad_annot, "NAD", "NAD\n(nmol/cell)")
+  ),
+  tar_target(
+    nadh_plot,
+    plot_nad(nad_final, nad_annot, "NADH", "NADH\n(nmol/cell)")
+  ),
+  tar_target(
+    nadh_ratio_plot,
+    plot_nad(nad_final, nad_annot, "Ratio", "NADH/NAD ratio")
+  ),
 
   # rnaseq ------------------------------------------------------------------
 
@@ -612,6 +624,18 @@ list(
       metab_tar_msea_table,
       plot_msea_table(metab_tar_msea, title, colors, names)
     ),
+    tar_target(
+      msea,
+      patchwork::wrap_elements(
+        full =
+          plot_image(
+            path_to_manuscript(stringr::str_c("ai/msea_", names, ".png")),
+            vjust = 0
+          ) +
+          ggplot2::coord_fixed()
+      ) +
+        theme_plots()
+    ),
     NULL
   ),
   tar_target(
@@ -623,6 +647,22 @@ list(
     path = path_to_reports("metabolomics-targeted.Rmd"),
     output_dir = system.file("analysis/pdfs", package = "Copeland.2022.hypoxia.flux")
   ),
+  tar_target(
+    tca_leading_edge,
+    plot_leading_edge(
+      metab_tar_res_hyp_bay,
+      metab_pathways,
+      "KEGG | Citrate cycle (TCA cycle) - Homo sapiens (human)"
+    )
+  ),
+  # tar_target(
+  #   pro_leading_edge,
+  #   plot_leading_edge(
+  #     metab_tar_res_hyp_bay,
+  #     metab_pathways,
+  #     "KEGG | Arginine and proline metabolism - Homo sapiens (human)"
+  #   )
+  # ),
 
   # myc ---------------------------------------------------------------------
 
@@ -1185,7 +1225,11 @@ list(
       hyp_bay_fluxes_lac,
       metab_tar_pca_plot,
       metab_tar_vol_hyp_bay,
-      metab_tar_msea_hyp_bay
+      msea_hyp_bay,
+      tca_leading_edge,
+      nad_plot,
+      nadh_plot,
+      nadh_ratio_plot
     )
   ),
   tar_target(
@@ -1195,24 +1239,6 @@ list(
 
   # s8 ----------------------------------------------------------------------
 
-  tar_target(
-    msea_hyp,
-    patchwork::wrap_elements(
-      full =
-        plot_image(path_to_manuscript("ai/msea_hyp.png"), vjust = 0) +
-        ggplot2::coord_fixed()
-    ) +
-      theme_plots()
-  ),
-  tar_target(
-    msea_bay,
-    patchwork::wrap_elements(
-      full =
-        plot_image(path_to_manuscript("ai/msea_bay.png"), vjust = 0) +
-        ggplot2::coord_fixed()
-    ) +
-      theme_plots()
-  ),
   tar_target(
     s8,
     arrange_s8(

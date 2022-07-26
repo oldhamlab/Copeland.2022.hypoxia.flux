@@ -734,7 +734,7 @@ analyze_hyp_bay_fluxes <- function(growth, fluxes) {
     dplyr::mutate(
       oxygen = factor(oxygen, levels = c("21%", "0.5%")),
       y_pos = Inf,
-      vjust = 2,
+      vjust = 1,
       lab = annot_p(adj.p.value)
     )
 

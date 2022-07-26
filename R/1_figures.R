@@ -1393,6 +1393,108 @@ plot_hyp_bay_fluxes <- function(df, annot, metab, ylab) {
     NULL
 }
 
+plot_nad <- function(df, annot, metab, ylab) {
+  annot <- dplyr::filter(annot, measurement == metab)
+  annot1 <-
+    dplyr::filter(annot, oxygen != ".") |>
+    dplyr::mutate(
+      treatment = "BAY",
+      treatment = factor(treatment, levels = c("DMSO", "BAY")),
+      oxygen = factor(oxygen, levels = c("21%", "0.5%"))
+    )
+  annot2 <-
+    dplyr::filter(annot, treatment != ".") |>
+    dplyr::mutate(
+      oxygen = "21%",
+      treatment = factor(treatment, levels = c("DMSO", "BAY")),
+      oxygen = factor(oxygen, levels = c("21%", "0.5%"))
+    )
+
+  df |>
+    dplyr::filter(treatment != "None" & measurement == metab) |>
+    ggplot2::ggplot() +
+    ggplot2::aes(
+      x = treatment,
+      y = value,
+      fill = oxygen
+    ) +
+    ggplot2::stat_summary(
+      # ggplot2::aes(fill = treatment),
+      geom = "col",
+      fun = "mean",
+      # width = 0.6,
+      position = ggplot2::position_dodge2(),
+      show.legend = TRUE,
+      alpha = 0.5
+    ) +
+    ggbeeswarm::geom_beeswarm(
+      # ggplot2::aes(fill = treatment),
+      dodge.width = 0.9,
+      pch = 21,
+      size = 1,
+      stroke = 0.25,
+      cex = 4,
+      color = "white",
+      show.legend = FALSE
+    ) +
+    ggplot2::stat_summary(
+      # ggplot2::aes(group = treatment),
+      geom = "errorbar",
+      fun.data = ggplot2::mean_se,
+      position = ggplot2::position_dodge(width = 0.9),
+      width = 0.2,
+      size = 0.25,
+      show.legend = FALSE
+    ) +
+    ggplot2::geom_text(
+      data = annot1,
+      ggplot2::aes(
+        color = oxygen,
+        y = y,
+        label = lab,
+        vjust = vjust
+      ),
+      family = "Calibri",
+      size = 8/ggplot2::.pt,
+      position = ggplot2::position_dodge(width = 0.6),
+      show.legend = FALSE
+    ) +
+    ggplot2::geom_text(
+      data = annot2,
+      ggplot2::aes(
+        y = y,
+        label = lab,
+        vjust = vjust
+      ),
+      family = "Calibri",
+      size = 8/ggplot2::.pt,
+      color = "black",
+      show.legend = FALSE
+    ) +
+    ggplot2::scale_color_manual(
+      values = clrs,
+      limits = force,
+      aesthetics = c("fill", "color")
+      ) +
+    ggplot2::labs(
+      x = "Oxygen",
+      y = ylab,
+      fill = NULL,
+      color = NULL
+    ) +
+    ggplot2::guides(
+      fill = ggplot2::guide_legend(override.aes = list(alpha = 1))
+    ) +
+    theme_plots() +
+    ggplot2::theme(
+      legend.key.width = ggplot2::unit(0.5, "lines"),
+      legend.key.height = ggplot2::unit(0.5, "lines"),
+      legend.position = "bottom",
+      legend.box.margin = ggplot2::margin(t = -10)
+    )
+
+}
+
 arrange_fluxes <- function(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10) {
   layout <- "
   abc
@@ -1511,20 +1613,19 @@ arrange_m4 <- function(p1, p2, p3) {
     )
 }
 
-arrange_m5 <- function(p1, p2, p3, p4, p5, p6) {
-  layout <- "
-  abc
-  d##
-  "
+arrange_m5 <- function(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10) {
+  row1 <- patchwork::wrap_plots(p1, p2, p3, guides = "collect")
 
-  (
-    (p1 + p2 + p3) + patchwork::plot_layout(guides = "collect")
-  ) /
-    (p4 + p5) +
+  row2 <- patchwork::wrap_plots(p4, p5)
+
+  row3 <- patchwork::wrap_plots(p6, p7)
+
+  row4 <- patchwork::wrap_plots(p8, p9, p10, guides = "collect")
+
+  row1 / row2 / row3 / row4 +
     theme_patchwork(
-      # design = layout,
       widths = unit(5, "in"),
-      heights = unit(c(1, 1.5), "in")
+      heights = unit(c(1, 1.5, 1.5, 1), "in")
     ) &
     theme(
       legend.position = "bottom",

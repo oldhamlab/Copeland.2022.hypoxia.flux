@@ -387,7 +387,7 @@ plot_metab_volcano <- function(
     colors = NULL,
     xlab = NULL,
     nudge = 5.5
-    ) {
+) {
   left <-
     results |>
     dplyr::filter(logFC < 0) |>
@@ -459,7 +459,7 @@ plot_metab_volcano <- function(
     ggplot2::scale_y_continuous(
       trans = c("log10", "reverse"),
       labels = scales::label_log()
-      ) +
+    ) +
     ggplot2::scale_x_continuous(
       breaks = scales::pretty_breaks(n = 7),
       limits = c(-nudge - 0.25, nudge + 0.25),
@@ -682,4 +682,124 @@ plot_msea_table <- function(df, title, clr, filename) {
     filename = path_to_manuscript(stringr::str_c("ai/msea_", filename, ".png"))
   )
   tab
+}
+
+plot_leading_edge <- function(tt, pathways, nm) {
+
+  x <-
+    tt |>
+    dplyr::filter(!is.na(KEGG)) |>
+    dplyr::mutate(KEGG = stringr::str_c("kegg:", KEGG))
+
+  stats <-
+    x |>
+    dplyr::select(KEGG, t) |>
+    tibble::deframe()
+
+  rnk <- rank(-stats)
+  ord <- order(rnk)
+
+  stats_adj <- stats[ord]
+  stats_adj <- stats_adj / max(abs(stats_adj))
+
+  pathway <- pathways[[nm]]
+  pathway <- unname(as.vector(na.omit(match(pathway, names(stats_adj)))))
+  pathway <- sort(pathway)
+
+  gsea_res <-
+    fgsea::calcGseaStat(
+      stats_adj,
+      selectedStats = pathway,
+      returnAllExtremes = TRUE
+    )
+
+  bottoms <- gsea_res$bottoms
+  tops <- gsea_res$tops
+
+  n <- length(stats_adj)
+  xs <- as.vector(rbind(pathway - 1, pathway))
+  ys <- as.vector(rbind(bottoms, tops))
+  nms <- as.vector(rbind(names(bottoms), names(tops)))
+  df <-
+    tibble::tibble(
+      x = c(0, xs, n + 1),
+      y = c(0, ys, 0),
+      names = c(NA_character_, nms, NA_character_)
+    ) |>
+    dplyr::left_join(
+      dplyr::select(x, metabolite, KEGG), by = c("names" = "KEGG")
+    )
+
+  annot <-
+    df |>
+    dplyr::filter(!is.na(metabolite)) |>
+    dplyr::group_by(metabolite) |>
+    dplyr::summarise(x = max(x)) |>
+    dplyr::mutate(metabolite = dplyr::case_when(
+      metabolite == "2-oxoglutarate" ~ "AKG",
+      metabolite == "phosphoenolpyruvate" ~ "PEP",
+      metabolite == "malate" ~ "MAL",
+      metabolite == "fumarate" ~ "FUM",
+      metabolite == "aconitate" ~ "ACO",
+      metabolite == "pyruvate" ~ "PYR",
+      metabolite == "citrate" ~ "CIT",
+      metabolite == "succinate" ~ "SUC",
+      TRUE ~ metabolite
+    ))
+
+  diff <- (max(tops) - min(bottoms)) / 8
+
+  ggplot2::ggplot(df) +
+    ggplot2::aes(
+      x = x,
+      y = y
+    ) +
+    ggplot2::geom_line(color = clrs[[3]]) +
+    ggplot2::geom_hline(
+      yintercept = 0,
+      colour = "black",
+      size = 0.25
+    ) +
+    ggplot2::geom_segment(
+      data = data.frame(x = pathway),
+      ggplot2::aes(
+        x = x,
+        y = -diff/2,
+        xend = x,
+        yend = diff/2
+      ),
+      size = 0.1) +
+    ggrepel::geom_text_repel(
+      data = annot,
+      ggplot2::aes(
+        y = diff/2,
+        label = metabolite
+      ),
+      angle = 90,
+      size = 5/ggplot2::.pt,
+      max.overlaps = 20,
+      segment.size = 0.1,
+      nudge_y = 0.2,
+      # nudge_x = -3,
+      hjust = 1,
+      # vjust = 0.5,
+      direction = "x",
+      min.segment.length = 0.3
+    ) +
+    ggplot2::labs(
+      x = "Rank",
+      y = "Enrichment score",
+      title = "KEGG: Citrate cycle"
+    ) +
+    ggplot2::scale_y_continuous(expand = expansion(mult = c(0.1, 0.35))) +
+    theme_plots() +
+    ggplot2::theme(
+      plot.title = ggplot2::element_text(
+        # margin = ggplot2::margin(b = 1),
+        size = 8
+      ),
+      axis.line = ggplot2::element_blank(),
+      panel.border = ggplot2::element_rect(color = "black", fill = NA, size = 0.25)
+    ) +
+    NULL
 }
