@@ -333,10 +333,9 @@ get_msigdb_pathways <- function(species = 'Homo sapiens', category = NULL, subca
         gs_name
       )
     ) |>
-    tidyr::nest()
-
-  purrr::map(x$data, ~unlist(unname(as.list(.x)), recursive = FALSE)) |>
-    rlang::set_names(x$gs_name)
+    tidyr::nest() |>
+    dplyr::summarise(gs_symbol = unlist(data, recursive = FALSE)) |>
+    tibble::deframe()
 }
 
 run_gsea <- function(results, pathways){

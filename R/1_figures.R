@@ -332,7 +332,7 @@ plot_dna_count_hypoxia <- function(dna_count_hypoxia) {
       size = 1.5,
       stroke = 0.2,
       show.legend = FALSE
-      ) +
+    ) +
     ggplot2::labs(
       x = "Cell count",
       y = "DNA (ng)"
@@ -1400,6 +1400,111 @@ plot_hyp_bay_fluxes <- function(df, annot, metab, ylab) {
     NULL
 }
 
+plot_hyp_bay_densities <- function(df, annot, prot, ylab) {
+  annot1 <-
+    dplyr::filter(annot, !is.na(treatment)) |>
+    dplyr::mutate(
+      treatment = factor(treatment, levels = c("DMSO", "BAY")),
+      oxygen = factor(oxygen, levels = c("21%", "0.5%"))
+    )
+  annot2 <-
+    dplyr::filter(annot, is.na(treatment)) |>
+    dplyr::mutate(
+      treatment = factor(treatment, levels = c("DMSO", "BAY")),
+      oxygen = factor(oxygen, levels = c("21%", "0.5%"))
+    )
+
+  df |>
+    dplyr::mutate(
+      treatment = factor(treatment, levels = c("DMSO", "BAY")),
+      oxygen = factor(oxygen, levels = c("21%", "0.5%"))
+    ) |>
+    ggplot2::ggplot() +
+    ggplot2::aes(
+      x = oxygen,
+      y = fold_change
+    ) +
+    ggplot2::stat_summary(
+      ggplot2::aes(fill = treatment),
+      geom = "col",
+      fun = "mean",
+      # width = 0.6,
+      position = ggplot2::position_dodge2(),
+      show.legend = TRUE,
+      alpha = 0.5
+    ) +
+    ggbeeswarm::geom_beeswarm(
+      ggplot2::aes(fill = treatment),
+      dodge.width = 0.9,
+      pch = 21,
+      size = 1,
+      stroke = 0.2,
+      cex = 4,
+      color = "white",
+      show.legend = FALSE
+    ) +
+    ggplot2::stat_summary(
+      ggplot2::aes(group = treatment),
+      geom = "errorbar",
+      fun.data = ggplot2::mean_se,
+      position = ggplot2::position_dodge(width = 0.9),
+      width = 0.2,
+      size = 0.25,
+      show.legend = FALSE
+    ) +
+    ggplot2::geom_text(
+      data = annot1,
+      ggplot2::aes(
+        color = treatment,
+        y = y_pos,
+        label = lab,
+        vjust = vjust
+      ),
+      family = "Calibri",
+      size = 8/ggplot2::.pt,
+      position = ggplot2::position_dodge(width = 0.9),
+      show.legend = FALSE
+    ) +
+    ggplot2::geom_text(
+      data = annot2,
+      ggplot2::aes(
+        y = y_pos,
+        label = lab,
+        vjust = vjust
+      ),
+      family = "Calibri",
+      size = 8/ggplot2::.pt,
+      color = "black",
+      show.legend = FALSE
+    ) +
+    ggplot2::labs(
+      x = "Oxygen",
+      y = ylab,
+      fill = NULL,
+      color = NULL
+    ) +
+    ggplot2::scale_fill_manual(
+      values = clrs,
+      limits = force,
+      aesthetics = c("fill", "color")
+    ) +
+    ggplot2::scale_y_continuous(
+      expand = ggplot2::expansion(mult = c(0.05, 0.1)),
+      breaks = scales::pretty_breaks(n = 6)
+    ) +
+    ggplot2::guides(
+      fill = ggplot2::guide_legend(override.aes = list(alpha = 1))
+    ) +
+    theme_plots() +
+    ggplot2::theme(
+      legend.key.width = ggplot2::unit(0.5, "lines"),
+      legend.key.height = ggplot2::unit(0.5, "lines"),
+      legend.position = "bottom",
+      legend.box.margin = ggplot2::margin(t = -10)
+    ) +
+    NULL
+}
+
 plot_nad <- function(df, annot, metab, ylab) {
   annot <- dplyr::filter(annot, measurement == metab)
   annot1 <-
@@ -1684,6 +1789,21 @@ arrange_m6 <- function(p1, p2, p3, p4, p5, p6, p7) {
       design = layout,
       widths = unit(2.5, "in"),
       heights = unit(c(1.5), "in")
+    )
+}
+
+arrange_m7 <- function(p1, p2, p3, p4, p5, p6, p7, p8, p9) {
+  layout <- "
+  abc
+  def
+  ghi
+  "
+
+  p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9 +
+    theme_patchwork(
+      design = layout,
+      widths = unit(1, "in"),
+      heights = unit(c(1), "in")
     )
 }
 

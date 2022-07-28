@@ -1,7 +1,5 @@
 # 1_myc.R
 
-# 1_myc.R
-
 combine_fluxes <- function(growth_rates, fluxes, exp) {
   growth_rates |>
     dplyr::filter(experiment == exp) |>
@@ -76,17 +74,27 @@ plot_myc <- function(df, annot, metab, ylab, x, fill) {
       ),
       geom = "col",
       fun = "mean",
-      position = ggplot2::position_dodge(width = 0.6),
-      width = 0.6,
+      position = ggplot2::position_dodge2(),
+      alpha = 0.5,
       show.legend = TRUE
+    ) +
+    ggbeeswarm::geom_beeswarm(
+      ggplot2::aes(fill = {{fill}}),
+      dodge.width = 0.9,
+      pch = 21,
+      size = 1,
+      stroke = 0.2,
+      cex = 4,
+      color = "white",
+      show.legend = FALSE
     ) +
     ggplot2::stat_summary(
       ggplot2::aes(
         group = {{fill}}
       ),
       geom = "errorbar",
-      fun.data = "mean_se",
-      position = ggplot2::position_dodge(width = 0.6),
+      fun.data = ggplot2::mean_se,
+      position = ggplot2::position_dodge(width = 0.9),
       width = 0.2,
       size = 0.25,
       show.legend = FALSE,
@@ -100,9 +108,10 @@ plot_myc <- function(df, annot, metab, ylab, x, fill) {
         vjust = vjust,
         label = lab,
       ),
+      position = ggplot2::position_dodge(width = 0.9),
       family = "Calibri",
       color = "black",
-      size = 6/ggplot2::.pt,
+      size = 8/ggplot2::.pt,
       show.legend = FALSE
     ) +
     ggplot2::labs(
@@ -111,17 +120,23 @@ plot_myc <- function(df, annot, metab, ylab, x, fill) {
       color = NULL,
       fill = NULL
     ) +
-    ggplot2::scale_fill_manual(values = clrs, limits = force) +
+    ggplot2::scale_fill_manual(
+      values = clrs,
+      limits = force
+      ) +
     ggplot2::scale_y_continuous(
       expand = ggplot2::expansion(mult = c(0.05, 0.1)),
       breaks = scales::pretty_breaks(n = 6)
     ) +
-    # ggplot2::coord_cartesian(ylim = c(-750, 1250)) +
+    ggplot2::guides(
+      fill = ggplot2::guide_legend(override.aes = list(alpha = 1))
+    ) +
     theme_plots() +
     ggplot2::theme(
       legend.key.width = ggplot2::unit(0.5, "lines"),
       legend.key.height = ggplot2::unit(0.5, "lines"),
       legend.position = "bottom",
       legend.box.margin = ggplot2::margin(t = -10)
-    )
+    ) +
+    NULL
 }

@@ -718,46 +718,46 @@ list(
 
   # cosmos ------------------------------------------------------------------
 
-  tar_target(
-    carnival_options,
-    set_carnival_options()
-  ),
-  tar_target(
-    cosmos_network,
-    get_cosmos_network()
-  ),
-  tar_target(
-    cosmos_tf,
-    format_tf(tfea_res_int)
-  ),
-  tar_target(
-    cosmos_metab,
-    format_metab(metab_tar_res_int)
-  ),
-  tar_target(
-    cosmos_deg,
-    format_deg(deg_int)
-  ),
-  tar_target(
-    cosmos_prep_forward,
-    preprocess("forward", cosmos_network, cosmos_tf, cosmos_metab, cosmos_deg, carnival_options)
-  ),
-  tar_target(
-    cosmos_prep_reverse,
-    preprocess("reverse", cosmos_network, cosmos_tf, cosmos_metab, cosmos_deg, carnival_options)
-  ),
-  tar_target(
-    cosmos_forward,
-    run_cosmos("forward", cosmos_prep_forward, carnival_options)
-  ),
-  tar_target(
-    cosmos_reverse,
-    run_cosmos("reverse", cosmos_prep_reverse, carnival_options)
-  ),
-  tar_target(
-    cosmos_res,
-    format_cosmos(cosmos_forward, cosmos_reverse)
-  ),
+  # tar_target(
+  #   carnival_options,
+  #   set_carnival_options()
+  # ),
+  # tar_target(
+  #   cosmos_network,
+  #   get_cosmos_network()
+  # ),
+  # tar_target(
+  #   cosmos_tf,
+  #   format_tf(tfea_res_int)
+  # ),
+  # tar_target(
+  #   cosmos_metab,
+  #   format_metab(metab_tar_res_int)
+  # ),
+  # tar_target(
+  #   cosmos_deg,
+  #   format_deg(deg_int)
+  # ),
+  # tar_target(
+  #   cosmos_prep_forward,
+  #   preprocess("forward", cosmos_network, cosmos_tf, cosmos_metab, cosmos_deg, carnival_options)
+  # ),
+  # tar_target(
+  #   cosmos_prep_reverse,
+  #   preprocess("reverse", cosmos_network, cosmos_tf, cosmos_metab, cosmos_deg, carnival_options)
+  # ),
+  # tar_target(
+  #   cosmos_forward,
+  #   run_cosmos("forward", cosmos_prep_forward, carnival_options)
+  # ),
+  # tar_target(
+  #   cosmos_reverse,
+  #   run_cosmos("reverse", cosmos_prep_reverse, carnival_options)
+  # ),
+  # tar_target(
+  #   cosmos_res,
+  #   format_cosmos(cosmos_forward, cosmos_reverse)
+  # ),
 
   # m1 ----------------------------------------------------------------------
 
@@ -1340,6 +1340,71 @@ list(
   tar_target(
     m6_figure,
     write_figures(m6, "m6.png")
+  ),
+
+  # m7 ----------------------------------------------------------------------
+
+  tar_target(
+    myc_blot_file,
+    path_to_manuscript("ai/lf_05-bay_myc-blots.png"),
+    format = "file"
+  ),
+  tar_target(
+    myc_blot,
+    plot_blot(myc_blot_file)
+  ),
+  tar_target(
+    myc_blot_quant,
+    analyze_hyp_bay_densities(blot_norm, "myc")
+  ),
+  tar_target(
+    myc_blot_plot,
+    plot_hyp_bay_densities(myc_blot_quant$data, myc_blot_quant$annot, "myc",  "MYC protein\n(normalized)")
+  ),
+  tar_target(
+    model_image_file,
+    path_to_manuscript("ai/working-model.png"),
+    format = "file"
+  ),
+  tar_target(
+    model_image,
+    plot_image(model_image_file)
+  ),
+  tar_target(
+    simyc_image_file,
+    path_to_manuscript("ai/lf_05-simyc_myc-blots.png"),
+    format = "file"
+  ),
+  tar_target(
+    simyc_image,
+    plot_image(simyc_image_file)
+  ),
+  tar_target(
+    oemyc_image_file,
+    path_to_manuscript("ai/lf_bay-myc_myc-blots.png"),
+    format = "file"
+  ),
+  tar_target(
+    oemyc_image,
+    plot_image(oemyc_image_file)
+  ),
+  tar_target(
+    m7,
+    arrange_m7(
+      myc_blot,
+      myc_blot_plot,
+      model_image,
+      simyc_image,
+      myc_growth_plot_simyc,
+      myc_lactate_plot_simyc,
+      oemyc_image,
+      myc_growth_plot_oemyc,
+      myc_lactate_plot_oemyc
+    )
+  ),
+  tar_target(
+    m7_figure,
+    write_figures(m7, "m7.png")
   ),
 
   # tables ------------------------------------------------------------------

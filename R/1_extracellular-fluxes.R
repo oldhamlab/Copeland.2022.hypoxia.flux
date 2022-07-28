@@ -722,7 +722,7 @@ analyze_hyp_bay_fluxes <- function(growth, fluxes) {
         .x,
         "pairwise" ~ oxygen * treatment,
         simple = "each",
-        adjust = "Sidak",
+        adjust = "mvt",
         combine = TRUE
       )[["contrasts"]]
       ),
