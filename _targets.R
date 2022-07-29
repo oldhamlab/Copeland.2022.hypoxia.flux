@@ -718,46 +718,46 @@ list(
 
   # cosmos ------------------------------------------------------------------
 
-  # tar_target(
-  #   carnival_options,
-  #   set_carnival_options()
-  # ),
-  # tar_target(
-  #   cosmos_network,
-  #   get_cosmos_network()
-  # ),
-  # tar_target(
-  #   cosmos_tf,
-  #   format_tf(tfea_res_int)
-  # ),
-  # tar_target(
-  #   cosmos_metab,
-  #   format_metab(metab_tar_res_int)
-  # ),
-  # tar_target(
-  #   cosmos_deg,
-  #   format_deg(deg_int)
-  # ),
-  # tar_target(
-  #   cosmos_prep_forward,
-  #   preprocess("forward", cosmos_network, cosmos_tf, cosmos_metab, cosmos_deg, carnival_options)
-  # ),
-  # tar_target(
-  #   cosmos_prep_reverse,
-  #   preprocess("reverse", cosmos_network, cosmos_tf, cosmos_metab, cosmos_deg, carnival_options)
-  # ),
-  # tar_target(
-  #   cosmos_forward,
-  #   run_cosmos("forward", cosmos_prep_forward, carnival_options)
-  # ),
-  # tar_target(
-  #   cosmos_reverse,
-  #   run_cosmos("reverse", cosmos_prep_reverse, carnival_options)
-  # ),
-  # tar_target(
-  #   cosmos_res,
-  #   format_cosmos(cosmos_forward, cosmos_reverse)
-  # ),
+  tar_target(
+    carnival_options,
+    set_carnival_options()
+  ),
+  tar_target(
+    cosmos_network,
+    get_cosmos_network()
+  ),
+  tar_target(
+    cosmos_tf,
+    format_tf(tfea_res_int)
+  ),
+  tar_target(
+    cosmos_metab,
+    format_metab(metab_tar_res_int)
+  ),
+  tar_target(
+    cosmos_deg,
+    format_deg(deg_int)
+  ),
+  tar_target(
+    cosmos_prep_forward,
+    preprocess("forward", cosmos_network, cosmos_tf, cosmos_metab, cosmos_deg, carnival_options)
+  ),
+  tar_target(
+    cosmos_prep_reverse,
+    preprocess("reverse", cosmos_network, cosmos_tf, cosmos_metab, cosmos_deg, carnival_options)
+  ),
+  tar_target(
+    cosmos_forward,
+    run_cosmos("forward", cosmos_prep_forward, carnival_options)
+  ),
+  tar_target(
+    cosmos_reverse,
+    run_cosmos("reverse", cosmos_prep_reverse, carnival_options)
+  ),
+  tar_target(
+    cosmos_res,
+    format_cosmos(cosmos_forward, cosmos_reverse)
+  ),
 
   # m1 ----------------------------------------------------------------------
 
@@ -1306,7 +1306,7 @@ list(
         "HALLMARK_OXIDATIVE_PHOSPHORYLATION"
       ),
       titles = list(
-        "E2F Targets and G2/M Checkpoint",
+        "E2F Targets and\nG2/M Checkpoint",
         "MYC Targets",
         "Oxidative Phosphorylation"
       ),
@@ -1368,7 +1368,7 @@ list(
   ),
   tar_target(
     model_image,
-    plot_image(model_image_file)
+    plot_image(model_image_file, scale = 1.7, hjust = 0.25, vjust = 0.1)
   ),
   tar_target(
     simyc_image_file,
@@ -1395,7 +1395,7 @@ list(
       myc_blot_plot,
       model_image,
       simyc_image,
-      myc_growth_plot_simyc,
+      myc_growth_plot_simyc + ggplot2::geom_hline(yintercept = 0, size = 0.25),
       myc_lactate_plot_simyc,
       oemyc_image,
       myc_growth_plot_oemyc,
@@ -1409,6 +1409,10 @@ list(
 
   # tables ------------------------------------------------------------------
 
+  tar_target(
+    resources_table,
+    create_resources()
+  ),
   tar_target(
     lf_hypoxia_table,
     format_flux_table(map_flux_differences, "lf", "0.5%", " SSR 391.7 [311.2-416.6] (95% CI, 362 DOF)", " SSR 334.3 [311.2-416.6] (95% CI, 362 DOF)")
@@ -1459,27 +1463,26 @@ list(
       csl = csl
     )
   ),
-  # tar_render(
-  #   supplement,
-  #   path = path_to_manuscript("supplement.Rmd"),
-  #   output_dir = path_to_manuscript(""),
-  #   output_format = bookdown::word_document2(
-  #     reference_docx = template,
-  #     df_print = "kable",
-  #     fig_caption = TRUE,
-  #     number_sections = FALSE,
-  #     pandoc_args = c(
-  #       "--lua-filter=scholarly-metadata.lua",
-  #       "--lua-filter=author-info-blocks.lua",
-  #       "--lua-filter=pagebreak.lua",
-  #       "--lua-filter=multiple-bibliographies.lua"
-  #     )
-  #   ),
-  #   params = list(
-  #     bibliography = c(bib, pkgs),
-  #     csl = csl
-  #   )
-  # ),
-
+  tar_render(
+    supplement,
+    path = path_to_manuscript("supplement.Rmd"),
+    output_dir = path_to_manuscript(""),
+    output_format = bookdown::word_document2(
+      reference_docx = template,
+      df_print = "kable",
+      fig_caption = TRUE,
+      number_sections = FALSE,
+      pandoc_args = c(
+        "--lua-filter=scholarly-metadata.lua",
+        "--lua-filter=author-info-blocks.lua",
+        "--lua-filter=pagebreak.lua",
+        "--lua-filter=multiple-bibliographies.lua"
+      )
+    ),
+    params = list(
+      bibliography = c(bib, pkgs),
+      csl = csl
+    )
+  ),
   NULL
 )

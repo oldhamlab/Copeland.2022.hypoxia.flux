@@ -178,7 +178,7 @@ plot_growth_rates <- function(
   annot <-
     lmerTest::lmer(mu ~ group + (1 | date), data = x) |>
     emmeans::emmeans(~ group) |>
-    pairs() |>
+    pairs(adjust = "mvt") |>
     broom::tidy() |>
     dplyr::mutate(
       group = stringr::str_extract(contrast, "(?<= - ).*"),
@@ -1589,7 +1589,7 @@ plot_nad <- function(df, annot, metab, ylab) {
       aesthetics = c("fill", "color")
     ) +
     ggplot2::labs(
-      x = "Oxygen",
+      x = "Treatment",
       y = ylab,
       fill = NULL,
       color = NULL
@@ -1787,7 +1787,7 @@ arrange_m6 <- function(p1, p2, p3, p4, p5, p6, p7) {
   p1 + p2 + p3 + p4 + p5 + p6 +
     theme_patchwork(
       design = layout,
-      widths = unit(2.5, "in"),
+      widths = unit(1.5, "in"),
       heights = unit(c(1.5), "in")
     )
 }
@@ -1805,6 +1805,74 @@ arrange_m7 <- function(p1, p2, p3, p4, p5, p6, p7, p8, p9) {
       widths = unit(1, "in"),
       heights = unit(c(1), "in")
     )
+}
+
+create_resources <- function() {
+  tibble::tribble(
+    ~category, ~`REAGENT or RESOURCE`, ~SOURCE, ~IDENTIFIER,
+    "Antibodies", "HIF-1α", "BD Biosciences", "610958",
+    "Antibodies", "c-MYC", "Cell Signaling Technologies", "D84C12",
+    "Antibodies", "LDHA", "Cell Signaling Technologies", "2012",
+    "Antibodies", "HRP-α-Rabbit IgG", "Cell Signaling Technologies", "7074",
+    "Antibodies", "HRP-α-Mouse IgG", "Cell Signaling Technologies", "7076",
+    "Bacterial and virus strains", "c-MYC adenovirus", "Vector Biolabs", "1285",
+    "Bacterial and virus strains", "YFP adenovirus", "Oldham et al., 2015", "",
+    "Chemicals, peptides, and recombinant proteins", "[1,2-^13^C~1~] glucose", "Cambridge Isotope Labs", "CLM-504-PK",
+    "Chemicals, peptides, and recombinant proteins", "[U-^13^C~6~] glucose", "Cambridge Isotope Labs", "CLM-1396-PK",
+    "Chemicals, peptides, and recombinant proteins", "[U-^13^C~5~] glutamine", "Cambridge Isotope Labs", "CLM-1822-H-PK",
+    "Chemicals, peptides, and recombinant proteins", "[U-^13^C~3~] lactate", "Sigma", "485926",
+    "Chemicals, peptides, and recombinant proteins", "Molidustat (BAY-85-3934)", "Cayman", "15297",
+    "Critical commercial assays", "Glucose colorimetric assay kit", "Cayman", "10009582",
+    "Critical commercial assays", "ʟ-Lactate assay kit", "Cayman", "700510",
+    "Critical commercial assays", "Pyruvate assay kit", "Cayman", "700470",
+    "Depositied data", "Raw and analyzed data", "This paper", "https://github.com/oldhamlab/Copeland.2021.hypoxia.flux",
+    "Depositied data", "RNA-seq reads", "This paper", "SRA: PRJNA721596",
+    "Depositied data", "Summarized RNA-seq data", "This paper", "https://github.com/oldhamlab/rnaseq.lf.hypoxia.molidustat",
+    "Experimental models: Cell lines", "Normal human lung fibroblasts", "Lonza", "CC-2512",
+    "Experimental models: Cell lines", "Pulmonary artery smooth muscle cells", "Lonza", "CC-2581",
+    "Oligonucleotides", "ACTB (Hs03023943_g1)", "Life Technologies", "4351370",
+    "Oligonucleotides", "GLUT1 (Hs00892681_m1)", "Life Technologies", "4351370",
+    "Oligonucleotides", "LDHA (Hs00855332_g1)", "Life Technologies", "4351370",
+    "Oligonucleotides", "MYC ON-TARGETplus siRNA", "Dharmacon", "L-003282-02-0005",
+    "Oligonucleotides", "ON-TARGETplus non-targeting control pool", "Dharmacon", "D-001810-10-05"
+  ) |>
+    flextable::as_grouped_data(groups = c("category")) |>
+    flextable::as_flextable(hide_grouplabel = TRUE) |>
+    flextable::bold(j = 1, i = ~ !is.na(category), bold = TRUE, part = "body") |>
+    flextable::bold(part = "header", bold = TRUE) |>
+    flextable::colformat_double(
+      i = ~ is.na(category),
+      j = "REAGENT or RESOURCE",
+      digits = 0,
+      big.mark = ""
+    ) |>
+    flextable::compose(
+      i = 11,
+      j = 1,
+      part = "body",
+      value = flextable::as_paragraph("[1,2-", flextable::as_sup("13"), "C", flextable::as_sub("2"), "] glucose")
+    ) |>
+    flextable::compose(
+      i = 12,
+      j = 1,
+      part = "body",
+      value = flextable::as_paragraph("[U-", flextable::as_sup("13"), "C", flextable::as_sub("6"), "] glucose")
+    ) |>
+    flextable::compose(
+      i = 13,
+      j = 1,
+      part = "body",
+      value = flextable::as_paragraph("[U-", flextable::as_sup("13"), "C", flextable::as_sub("5"), "] glutamine")
+    ) |>
+    flextable::compose(
+      i = 14,
+      j = 1,
+      part = "body",
+      value = flextable::as_paragraph("[U-", flextable::as_sup("13"), "C", flextable::as_sub("3"), "] lactate")
+    ) |>
+    flextable::font(fontname = "Calibri", part = "all") |>
+    flextable::fontsize(size = 9, part = "all") |>
+    flextable::set_table_properties(layout = "autofit")
 }
 
 format_flux_table <- function(
