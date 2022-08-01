@@ -65,11 +65,11 @@ knitr::opts_chunk$set(
   out.extra = ""
 )
 
-rbbt::bbt_update_bib(
-  path = "manuscript/manuscript.Rmd",
-  ignore = c("R-base"), 
-  path_bib = "manuscript/library.json"
-)
+# rbbt::bbt_update_bib(
+#   path = "manuscript/manuscript.Rmd",
+#   ignore = c("R-base"),
+#   path_bib = "manuscript/library.json"
+# )
 
 options(
   tinytex.verbose = TRUE, 
@@ -307,7 +307,7 @@ All metabolites except fructose 2,6-bisphosphate (FBP) and 3-phosphoglycerate (3
 
 ### Metabolomic profiling
 
-For metabolomic profiling and quantification of isotopic enrichment for FBP and 3PG, the following mobile phase gradient was used: 0 min, 80% B; 20 min, 20% B; 20.5 min, 80% B; 28 min, 80% B; 42 min, 80% B. The mass spectrometer was operated in polarity switching full scan mode from 70-1000 m/*z*. Resolution was set to 70,000 and the AGC target was 1x10^6^ ions. Peak identifications were based on an in-house library of authentic metabolite standards previously analyzed utilizing this method. For metabolomics studies, pooled quality control (QC) samples were injected at the beginning, end, and between every four samples of the run. Raw peak areas for each metabolite were corrected for instrument drift using a cubic spline model of QC peak areas. Low quality features were removed on the basis of a relative standard deviation greater than 0.2 in the QC samples and a dispersion ratio greater than 0.4 [@broadhurst2018]. Missing values were imputed using random forest. Samples peak areas were normalized using probabilistic quotient normalization [@dieterle2006]. Differentially regulated metabolites were identified using limma [@ritchie2015a]. Metabolite set enrichment analysis was performed using the fgsea package [@korotkevich2021a] with KEGG metabolite pathways [@kanehisa2000]. 
+For metabolomic profiling and quantification of isotopic enrichment for FBP and 3PG, the following mobile phase gradient was used: 0 min, 80% B; 20 min, 20% B; 20.5 min, 80% B; 28 min, 80% B; 42 min, 80% B. The mass spectrometer was operated in polarity switching full scan mode from 70-1000 m/*z*. Resolution was set to 70,000 and the AGC target was 1x10^6^ ions. Peak identifications were based on an in-house library of authentic metabolite standards previously analyzed utilizing this method. For metabolomics studies, pooled quality control (QC) samples were injected at the beginning, end, and between every four samples of the run. Raw peak areas for each metabolite were corrected for instrument drift using a cubic spline model of QC peak areas. Low quality features were removed on the basis of a relative standard deviation greater than 0.2 in the QC samples and a dispersion ratio greater than 0.4 [@broadhurst2018]. Missing values were imputed using random forest. Samples peak areas were normalized using probabilistic quotient normalization [@dieterle2006]. Differentially regulated metabolites were identified using limma [@ritchie2015a]. Metabolite set enrichment analysis was performed using the fgsea package [@korotkevich2021] with KEGG metabolite pathways [@kanehisa2000]. 
 
 ## Biomass determination
 
@@ -333,7 +333,7 @@ Cellular NAD^+^ and NADH were measured using an enzymatic fluorometric cycling a
 
 ## RNA-seq
 
-RNA was collected from LFs treated for three days ± hypoxia ± BAY as described above. Four biological replicates were analyzed. Library construction and sequencing was performed by BGI Genomics using 100 bp paired end analysis and a read depth of 50M reads per sample. Sequences were deposited in the NIH SRA (PRJNA721596). Sequences were mapped to the human GRCh38 primary assembly and counts summarized using Rsubread [@liao2019]. This data is available from the Oldham Lab GitHub repository (https://github.com/oldhamlab/rnaseq.lf.hypoxia.molidustat). Differentially expressed transcripts were identified using DESeq2 [@love2014]. Gene set enrichment and transcription factor enrichment was performed using the fgsea and DoRothEA R packages, respectively [@korotkevich2021a; @garcia-alonso2019]. 
+RNA was collected from LFs treated for three days ± hypoxia ± BAY as described above. Four biological replicates were analyzed. Library construction and sequencing was performed by BGI Genomics using 100 bp paired end analysis and a read depth of 50M reads per sample. Sequences were deposited in the NIH SRA (PRJNA721596). Sequences were mapped to the human GRCh38 primary assembly and counts summarized using Rsubread [@liao2019]. This data is available from the Oldham Lab GitHub repository (https://github.com/oldhamlab/rnaseq.lf.hypoxia.molidustat). Differentially expressed transcripts were identified using DESeq2 [@love2014]. Gene set enrichment and transcription factor enrichment was performed using the fgsea and DoRothEA R packages, respectively [@korotkevich2021; @garcia-alonso2019]. 
 
 ## Quantification and Statistical Analysis
 
