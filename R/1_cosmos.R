@@ -77,7 +77,7 @@ preprocess <- function(
       metabolic_data = metabolites,
       diff_expression_data = transcripts,
       diff_exp_threshold = 1,
-      maximum_network_depth = 6,
+      maximum_network_depth = 5,
       remove_unexpressed_nodes = remove_nodes,
       CARNIVAL_options = carnival_options
     )

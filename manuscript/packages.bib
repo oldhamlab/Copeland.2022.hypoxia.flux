@@ -1,10 +1,41 @@
+@Manual{R-abind,
+  title = {abind: Combine Multidimensional Arrays},
+  author = {Tony Plate and Richard Heiberger},
+  year = {2016},
+  note = {R package version 1.4-5},
+  url = {https://CRAN.R-project.org/package=abind},
+}
+
+@Manual{R-annotate,
+  title = {annotate: Annotation for microarrays},
+  author = {R. Gentleman},
+  year = {2022},
+  note = {R package version 1.74.0},
+}
+
+@Manual{R-AnnotationDbi,
+  title = {AnnotationDbi: Manipulation of SQLite-based annotations in Bioconductor},
+  author = {Hervé Pagès and Marc Carlson and Seth Falcon and Nianhua Li},
+  year = {2022},
+  note = {R package version 1.58.0},
+  url = {https://bioconductor.org/packages/AnnotationDbi},
+}
+
+@Manual{R-AnnotationHub,
+  title = {AnnotationHub: Client to access AnnotationHub resources},
+  author = {Martin Morgan and Lori Shepherd},
+  year = {2022},
+  note = {R package version 3.4.0},
+}
+
 @Manual{R-askpass,
   title = {askpass: Safe Password Entry for R, Git, and SSH},
   author = {Jeroen Ooms},
   year = {2019},
   note = {R package version 1.1},
-  url = {https://CRAN.R-project.org/package=askpass},
+  url = {https://github.com/jeroen/askpass#readme},
 }
+
 @Manual{R-assertthat,
   title = {assertthat: Easy Pre and Post Assertions},
   author = {Hadley Wickham},
@@ -12,253 +43,531 @@
   note = {R package version 0.2.1},
   url = {https://CRAN.R-project.org/package=assertthat},
 }
+
+@Manual{R-babelgene,
+  title = {babelgene: Gene Orthologs for Model Organisms in a Tidy Data Format},
+  author = {Igor Dolgalev},
+  year = {2022},
+  note = {R package version 22.3},
+  url = {https://igordot.github.io/babelgene/},
+}
+
 @Manual{R-backports,
   title = {backports: Reimplementations of Functions Introduced Since R-3.0.0},
   author = {Michel Lang and {R Core Team}},
-  year = {2020},
-  note = {R package version 1.1.7},
-  url = {https://CRAN.R-project.org/package=backports},
+  year = {2021},
+  note = {R package version 1.4.1},
+  url = {https://github.com/r-lib/backports},
 }
+
 @Manual{R-base,
   title = {R: A Language and Environment for Statistical Computing},
   author = {{R Core Team}},
   organization = {R Foundation for Statistical Computing},
   address = {Vienna, Austria},
-  year = {2020},
+  year = {2022},
   url = {https://www.R-project.org/},
 }
+
 @Manual{R-base64enc,
   title = {base64enc: Tools for base64 encoding},
   author = {Simon Urbanek},
   year = {2015},
   note = {R package version 0.1-3},
-  url = {https://CRAN.R-project.org/package=base64enc},
+  url = {http://www.rforge.net/base64enc},
 }
+
+@Manual{R-base64url,
+  title = {base64url: Fast and URL-Safe Base64 Encoder and Decoder},
+  author = {Michel Lang},
+  year = {2018},
+  note = {R package version 1.4},
+  url = {https://github.com/mllg/base64url},
+}
+
+@Manual{R-bcellViper,
+  title = {bcellViper: Human B-cell transcriptional interactome and normal human B-cell
+expression data},
+  author = {Mariano Javier Alvarez},
+  year = {2022},
+  note = {R package version 1.32.0},
+}
+
 @Manual{R-beeswarm,
   title = {beeswarm: The Bee Swarm Plot, an Alternative to Stripchart},
-  author = {Aron Eklund},
-  year = {2016},
-  note = {R package version 0.2.3},
-  url = {https://CRAN.R-project.org/package=beeswarm},
+  author = {Aron Eklund and James Trimble},
+  year = {2021},
+  note = {R package version 0.4.0},
+  url = {https://github.com/aroneklund/beeswarm},
 }
+
 @Manual{R-BH,
   title = {BH: Boost C++ Header Files},
   author = {Dirk Eddelbuettel and John W. Emerson and Michael J. Kane},
-  year = {2020},
-  note = {R package version 1.72.0-3},
+  year = {2021},
+  note = {R package version 1.78.0-0},
   url = {https://CRAN.R-project.org/package=BH},
 }
-@Manual{R-bibtex,
-  title = {bibtex: Bibtex Parser},
-  author = {Romain Francois},
-  year = {2020},
-  note = {R package version 0.4.2.2},
-  url = {https://CRAN.R-project.org/package=bibtex},
+
+@Manual{R-Biobase,
+  title = {Biobase: Base functions for Bioconductor},
+  author = {R. Gentleman and V. Carey and M. Morgan and S. Falcon},
+  year = {2022},
+  note = {R package version 2.56.0},
+  url = {https://bioconductor.org/packages/Biobase},
 }
+
+@Manual{R-BiocFileCache,
+  title = {BiocFileCache: Manage Files Across Sessions},
+  author = {Lori Shepherd and Martin Morgan},
+  year = {2022},
+  note = {R package version 2.4.0},
+}
+
+@Manual{R-BiocGenerics,
+  title = {BiocGenerics: S4 generic functions used in Bioconductor},
+  author = {The Bioconductor Dev Team},
+  year = {2022},
+  note = {R package version 0.42.0},
+  url = {https://bioconductor.org/packages/BiocGenerics},
+}
+
+@Manual{R-BiocManager,
+  title = {BiocManager: Access the Bioconductor Project Package Repository},
+  author = {Martin Morgan},
+  year = {2022},
+  note = {R package version 1.30.18},
+  url = {https://CRAN.R-project.org/package=BiocManager},
+}
+
+@Manual{R-BiocParallel,
+  title = {BiocParallel: Bioconductor facilities for parallel evaluation},
+  author = {Martin Morgan and Jiefei Wang and Valerie Obenchain and Michel Lang and Ryan Thompson and Nitesh Turaga},
+  year = {2022},
+  note = {R package version 1.30.3},
+  url = {https://github.com/Bioconductor/BiocParallel},
+}
+
+@Manual{R-BiocVersion,
+  title = {BiocVersion: Set the appropriate version of Bioconductor packages},
+  author = {Martin Morgan},
+  year = {2022},
+  note = {R package version 3.15.2},
+}
+
+@Manual{R-Biostrings,
+  title = {Biostrings: Efficient manipulation of biological strings},
+  author = {H. Pagès and P. Aboyoun and R. Gentleman and S. DebRoy},
+  year = {2022},
+  note = {R package version 2.64.0},
+  url = {https://bioconductor.org/packages/Biostrings},
+}
+
+@Manual{R-bit,
+  title = {bit: Classes and Methods for Fast Memory-Efficient Boolean Selections},
+  author = {Jens Oehlschlägel and Brian Ripley},
+  year = {2020},
+  note = {R package version 4.0.4},
+  url = {https://github.com/truecluster/bit},
+}
+
+@Manual{R-bit64,
+  title = {bit64: A S3 Class for Vectors of 64bit Integers},
+  author = {Jens Oehlschlägel and Leonardo Silvestri},
+  year = {2020},
+  note = {R package version 4.0.5},
+  url = {https://github.com/truecluster/bit64},
+}
+
+@Manual{R-bitops,
+  title = {bitops: Bitwise Operations},
+  author = {Steve Dutky and Martin Maechler},
+  year = {2021},
+  note = {R package version 1.0-7},
+  url = {https://github.com/mmaechler/R-bitops},
+}
+
 @Manual{R-blob,
   title = {blob: A Simple S3 Class for Representing Vectors of Binary Data
-('BLOBS')},
+(BLOBS)},
   author = {Hadley Wickham},
-  year = {2020},
-  note = {R package version 1.2.1},
+  year = {2022},
+  note = {R package version 1.2.3},
   url = {https://CRAN.R-project.org/package=blob},
 }
+
 @Manual{R-bookdown,
   title = {bookdown: Authoring Books and Technical Documents with R Markdown},
   author = {Yihui Xie},
-  year = {2020},
-  note = {R package version 0.19},
+  year = {2022},
+  note = {R package version 0.27},
   url = {https://CRAN.R-project.org/package=bookdown},
 }
+
 @Manual{R-boot,
   title = {boot: Bootstrap Functions (Originally by Angelo Canty for S)},
   author = {Angelo Canty and Brian Ripley},
-  year = {2020},
-  note = {R package version 1.3-25},
+  year = {2021},
+  note = {R package version 1.3-28},
   url = {https://CRAN.R-project.org/package=boot},
 }
+
 @Manual{R-brew,
   title = {brew: Templating Framework for Report Generation},
-  author = {Jeffrey Horner},
-  year = {2011},
-  note = {R package version 1.0-6},
+  author = {Jeffrey Horner and Greg Hunt},
+  year = {2022},
+  note = {R package version 1.0-7},
   url = {https://CRAN.R-project.org/package=brew},
 }
+
+@Manual{R-brio,
+  title = {brio: Basic R Input Output},
+  author = {Jim Hester and Gábor Csárdi},
+  year = {2021},
+  note = {R package version 1.1.3},
+  url = {https://CRAN.R-project.org/package=brio},
+}
+
 @Manual{R-broom,
-  title = {broom: Convert Statistical Analysis Objects into Tidy Tibbles},
-  author = {David Robinson and Alex Hayes},
-  year = {2020},
-  note = {R package version 0.5.6},
+  title = {broom: Convert Statistical Objects into Tidy Tibbles},
+  author = {David Robinson and Alex Hayes and Simon Couch},
+  year = {2022},
+  note = {R package version 0.8.0},
   url = {https://CRAN.R-project.org/package=broom},
 }
+
+@Manual{R-bslib,
+  title = {bslib: Custom Bootstrap 'Sass' Themes for shiny and rmarkdown},
+  author = {Carson Sievert and Joe Cheng},
+  year = {2021},
+  note = {R package version 0.3.1},
+  url = {https://CRAN.R-project.org/package=bslib},
+}
+
+@Manual{R-cachem,
+  title = {cachem: Cache R Objects with Automatic Pruning},
+  author = {Winston Chang},
+  year = {2021},
+  note = {R package version 1.0.6},
+  url = {https://CRAN.R-project.org/package=cachem},
+}
+
 @Manual{R-callr,
   title = {callr: Call R from R},
   author = {Gábor Csárdi and Winston Chang},
-  year = {2020},
-  note = {R package version 3.4.3},
+  year = {2021},
+  note = {R package version 3.7.0},
   url = {https://CRAN.R-project.org/package=callr},
 }
+
+@Manual{R-car,
+  title = {car: Companion to Applied Regression},
+  author = {John Fox and Sanford Weisberg and Brad Price},
+  year = {2022},
+  note = {R package version 3.1-0},
+  url = {https://CRAN.R-project.org/package=car},
+}
+
+@Manual{R-carData,
+  title = {carData: Companion to Applied Regression Data Sets},
+  author = {John Fox and Sanford Weisberg and Brad Price},
+  year = {2022},
+  note = {R package version 3.0-5},
+  url = {https://CRAN.R-project.org/package=carData},
+}
+
+@Manual{R-CARNIVAL,
+  title = {CARNIVAL: A CAusal Reasoning tool for Network Identification (from gene
+expression data) using Integer VALue programming},
+  author = {Enio Gjerga and Panuwat Trairatphisan and Olga Ivanova},
+  year = {2022},
+  note = {R package version 2.6.0},
+  url = {https://github.com/saezlab/CARNIVAL},
+}
+
 @Manual{R-cellranger,
   title = {cellranger: Translate Spreadsheet Cell Ranges to Rows and Columns},
   author = {Jennifer Bryan},
   year = {2016},
   note = {R package version 1.1.0},
-  url = {https://CRAN.R-project.org/package=cellranger},
+  url = {https://github.com/rsheets/cellranger},
 }
-@Manual{R-citr,
-  title = {citr: RStudio Add-in to Insert Markdown Citations},
-  author = {Frederik Aust},
-  year = {2019},
-  note = {R package version 0.3.2},
-  url = {https://github.com/crsh/citr},
+
+@Manual{R-checkmate,
+  title = {checkmate: Fast and Versatile Argument Checks},
+  author = {Michel Lang},
+  year = {2022},
+  note = {R package version 2.1.0},
+  url = {https://CRAN.R-project.org/package=checkmate},
 }
+
 @Manual{R-class,
   title = {class: Functions for Classification},
   author = {Brian Ripley},
-  year = {2020},
-  note = {R package version 7.3-17},
-  url = {https://CRAN.R-project.org/package=class},
+  year = {2022},
+  note = {R package version 7.3-20},
+  url = {http://www.stats.ox.ac.uk/pub/MASS4/},
 }
+
 @Manual{R-cli,
   title = {cli: Helpers for Developing Command Line Interfaces},
   author = {Gábor Csárdi},
-  year = {2020},
-  note = {R package version 2.0.2},
+  year = {2022},
+  note = {R package version 3.3.0},
   url = {https://CRAN.R-project.org/package=cli},
 }
+
 @Manual{R-clipr,
   title = {clipr: Read and Write from the System Clipboard},
   author = {Matthew Lincoln},
-  year = {2019},
-  note = {R package version 0.7.0},
+  year = {2022},
+  note = {R package version 0.8.0},
   url = {https://CRAN.R-project.org/package=clipr},
 }
+
 @Manual{R-cluster,
   title = {cluster: "Finding Groups in Data": Cluster Analysis Extended Rousseeuw et
 al.},
   author = {Martin Maechler and Peter Rousseeuw and Anja Struyf and Mia Hubert},
-  year = {2019},
-  note = {R package version 2.1.0},
-  url = {https://CRAN.R-project.org/package=cluster},
+  year = {2022},
+  note = {R package version 2.1.3},
+  url = {https://svn.r-project.org/R-packages/trunk/cluster/},
 }
+
 @Manual{R-codetools,
   title = {codetools: Code Analysis Tools for R},
   author = {Luke Tierney},
-  year = {2018},
-  note = {R package version 0.2-16},
-  url = {https://CRAN.R-project.org/package=codetools},
+  year = {2020},
+  note = {R package version 0.2-18},
+  url = {https://gitlab.com/luke-tierney/codetools},
 }
+
 @Manual{R-colorspace,
   title = {colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes},
   author = {Ross Ihaka and Paul Murrell and Kurt Hornik and Jason C. Fisher and Reto Stauffer and Claus O. Wilke and Claire D. McWhite and Achim Zeileis},
-  year = {2019},
-  note = {R package version 1.4-1},
+  year = {2022},
+  note = {R package version 2.0-3},
   url = {https://CRAN.R-project.org/package=colorspace},
 }
+
 @Manual{R-commonmark,
   title = {commonmark: High Performance CommonMark and Github Markdown Rendering in R},
   author = {Jeroen Ooms},
-  year = {2018},
-  note = {R package version 1.7},
+  year = {2022},
+  note = {R package version 1.8.0},
   url = {https://CRAN.R-project.org/package=commonmark},
 }
-@Manual{R-covr,
-  title = {covr: Test Coverage for Packages},
-  author = {Jim Hester},
-  year = {2020},
-  note = {R package version 3.5.0},
-  url = {https://CRAN.R-project.org/package=covr},
+
+@Manual{R-conflicted,
+  title = {conflicted: An Alternative Conflict Resolution Strategy},
+  author = {Hadley Wickham},
+  year = {2021},
+  note = {R package version 1.1.0},
+  url = {https://CRAN.R-project.org/package=conflicted},
 }
+
+@Manual{R-corrplot,
+  title = {corrplot: Visualization of a Correlation Matrix},
+  author = {Taiyun Wei and Viliam Simko},
+  year = {2021},
+  note = {R package version 0.92},
+  url = {https://github.com/taiyun/corrplot},
+}
+
+@Manual{R-cosmosR,
+  title = {cosmosR: COSMOS (Causal Oriented Search of Multi-Omic Space)},
+  author = {Aurélien Dugourd and Katharina Zirngibl},
+  year = {2022},
+  note = {R package version 1.4.0},
+  url = {https://github.com/saezlab/COSMOSR},
+}
+
 @Manual{R-cowplot,
-  title = {cowplot: Streamlined Plot Theme and Plot Annotations for 'ggplot2'},
+  title = {cowplot: Streamlined Plot Theme and Plot Annotations for ggplot2},
   author = {Claus O. Wilke},
-  year = {2019},
-  note = {R package version 1.0.0},
-  url = {https://CRAN.R-project.org/package=cowplot},
+  year = {2020},
+  note = {R package version 1.1.1},
+  url = {https://wilkelab.org/cowplot/},
 }
+
+@Manual{R-cpp11,
+  title = {cpp11: A C++11 Interface for R's C Interface},
+  author = {Jim Hester and Romain François},
+  year = {2021},
+  note = {R package version 0.4.2},
+  url = {https://CRAN.R-project.org/package=cpp11},
+}
+
 @Manual{R-crayon,
   title = {crayon: Colored Terminal Output},
   author = {Gábor Csárdi},
-  year = {2017},
-  note = {R package version 1.3.4},
-  url = {https://CRAN.R-project.org/package=crayon},
+  year = {2022},
+  note = {R package version 1.5.1},
+  url = {https://github.com/r-lib/crayon#readme},
 }
+
+@Manual{R-credentials,
+  title = {credentials: Tools for Managing SSH and Git Credentials},
+  author = {Jeroen Ooms},
+  year = {2021},
+  note = {R package version 1.3.2},
+  url = {https://CRAN.R-project.org/package=credentials},
+}
+
 @Manual{R-crosstalk,
   title = {crosstalk: Inter-Widget Interactivity for HTML Widgets},
-  author = {Joe Cheng},
-  year = {2020},
-  note = {R package version 1.1.0.1},
-  url = {https://CRAN.R-project.org/package=crosstalk},
+  author = {Joe Cheng and Carson Sievert},
+  year = {2021},
+  note = {R package version 1.2.0},
+  url = {https://rstudio.github.io/crosstalk/},
 }
+
 @Manual{R-curl,
   title = {curl: A Modern and Flexible Web Client for R},
   author = {Jeroen Ooms},
-  year = {2019},
-  note = {R package version 4.3},
+  year = {2021},
+  note = {R package version 4.3.2},
   url = {https://CRAN.R-project.org/package=curl},
 }
+
+@Manual{R-data.table,
+  title = {data.table: Extension of `data.frame`},
+  author = {Matt Dowle and Arun Srinivasan},
+  year = {2021},
+  note = {R package version 1.14.2},
+  url = {https://CRAN.R-project.org/package=data.table},
+}
+
 @Manual{R-DBI,
   title = {DBI: R Database Interface},
   author = {{R Special Interest Group on Databases (R-SIG-DB)} and Hadley Wickham and Kirill Müller},
-  year = {2019},
-  note = {R package version 1.1.0},
+  year = {2022},
+  note = {R package version 1.1.3},
   url = {https://CRAN.R-project.org/package=DBI},
 }
+
 @Manual{R-dbplyr,
-  title = {dbplyr: A 'dplyr' Back End for Databases},
-  author = {Hadley Wickham and Edgar Ruiz},
-  year = {2020},
-  note = {R package version 1.4.4},
+  title = {dbplyr: A dplyr Back End for Databases},
+  author = {Hadley Wickham and Maximilian Girlich and Edgar Ruiz},
+  year = {2022},
+  note = {R package version 2.2.1},
   url = {https://CRAN.R-project.org/package=dbplyr},
 }
+
+@Manual{R-DelayedArray,
+  title = {DelayedArray: A unified framework for working transparently with on-disk and
+in-memory array-like datasets},
+  author = {Hervé Pagès and with contributions from Peter Hickey and Aaron Lun},
+  year = {2022},
+  note = {R package version 0.22.0},
+  url = {https://bioconductor.org/packages/DelayedArray},
+}
+
 @Manual{R-desc,
   title = {desc: Manipulate DESCRIPTION Files},
   author = {Gábor Csárdi and Kirill Müller and Jim Hester},
-  year = {2018},
-  note = {R package version 1.2.0},
+  year = {2022},
+  note = {R package version 1.4.1},
   url = {https://CRAN.R-project.org/package=desc},
 }
+
+@Manual{R-DESeq2,
+  title = {DESeq2: Differential gene expression analysis based on the negative
+binomial distribution},
+  author = {Michael Love and Simon Anders and Wolfgang Huber},
+  year = {2022},
+  note = {R package version 1.36.0},
+  url = {https://github.com/mikelove/DESeq2},
+}
+
 @Manual{R-devtools,
   title = {devtools: Tools to Make Developing R Packages Easier},
-  author = {Hadley Wickham and Jim Hester and Winston Chang},
-  note = {https://devtools.r-lib.org/, https://github.com/r-lib/devtools},
-  year = {2020},
+  author = {Hadley Wickham and Jim Hester and Winston Chang and Jennifer Bryan},
+  year = {2021},
+  note = {R package version 2.4.3},
+  url = {https://CRAN.R-project.org/package=devtools},
 }
+
+@Manual{R-diffobj,
+  title = {diffobj: Diffs for R Objects},
+  author = {Brodie Gaslam},
+  year = {2021},
+  note = {R package version 0.3.5},
+  url = {https://github.com/brodieG/diffobj},
+}
+
 @Manual{R-digest,
   title = {digest: Create Compact Hash Digests of R Objects},
   author = {Dirk Eddelbuettel},
-  year = {2020},
-  note = {R package version 0.6.25},
+  year = {2021},
+  note = {R package version 0.6.29},
   url = {https://CRAN.R-project.org/package=digest},
 }
+
+@Manual{R-doRNG,
+  title = {doRNG: Generic Reproducible Parallel Backend for foreach Loops},
+  author = {Renaud Gaujoux},
+  year = {2020},
+  note = {R package version 1.8.2},
+  url = {https://renozao.github.io/doRNG},
+}
+
+@Manual{R-dorothea,
+  title = {dorothea: Collection Of Human And Mouse TF Regulons},
+  author = {Christian H. Holland and Luz Garcia-Alonso},
+  year = {2022},
+  note = {https://saezlab.github.io/dorothea/},
+}
+
 @Manual{R-dplyr,
   title = {dplyr: A Grammar of Data Manipulation},
   author = {Hadley Wickham and Romain François and Lionel Henry and Kirill Müller},
-  note = {https://dplyr.tidyverse.org,
-https://github.com/tidyverse/dplyr},
-  year = {2020},
+  year = {2022},
+  note = {R package version 1.0.9},
+  url = {https://CRAN.R-project.org/package=dplyr},
 }
+
 @Manual{R-DT,
-  title = {DT: A Wrapper of the JavaScript Library 'DataTables'},
+  title = {DT: A Wrapper of the JavaScript Library DataTables},
   author = {Yihui Xie and Joe Cheng and Xianying Tan},
-  year = {2020},
-  note = {R package version 0.13},
-  url = {https://CRAN.R-project.org/package=DT},
+  year = {2022},
+  note = {R package version 0.23},
+  url = {https://github.com/rstudio/DT},
 }
+
+@Manual{R-dtplyr,
+  title = {dtplyr: Data Table Back-End for dplyr},
+  author = {Hadley Wickham and Maximilian Girlich and Mark Fairbanks and Ryan Dickerson},
+  year = {2022},
+  note = {R package version 1.2.1},
+  url = {https://CRAN.R-project.org/package=dtplyr},
+}
+
+@Manual{R-e1071,
+  title = {e1071: Misc Functions of the Department of Statistics, Probability
+Theory Group (Formerly: E1071), TU Wien},
+  author = {David Meyer and Evgenia Dimitriadou and Kurt Hornik and Andreas Weingessel and Friedrich Leisch},
+  year = {2022},
+  note = {R package version 1.7-11},
+  url = {https://CRAN.R-project.org/package=e1071},
+}
+
 @Manual{R-ellipsis,
   title = {ellipsis: Tools for Working with ...},
   author = {Hadley Wickham},
-  year = {2020},
-  note = {R package version 0.3.1},
+  year = {2021},
+  note = {R package version 0.3.2},
   url = {https://CRAN.R-project.org/package=ellipsis},
 }
+
 @Manual{R-emmeans,
   title = {emmeans: Estimated Marginal Means, aka Least-Squares Means},
-  author = {Russell Lenth},
-  year = {2020},
-  note = {R package version 1.4.7},
-  url = {https://CRAN.R-project.org/package=emmeans},
+  author = {Russell V. Lenth},
+  year = {2022},
+  note = {R package version 1.7.5},
+  url = {https://github.com/rvlenth/emmeans},
 }
+
 @Manual{R-estimability,
   title = {estimability: Tools for Assessing Estimability of Linear Predictions},
   author = {Russell Lenth},
@@ -266,128 +575,402 @@ https://github.com/tidyverse/dplyr},
   note = {R package version 1.3},
   url = {https://CRAN.R-project.org/package=estimability},
 }
+
 @Manual{R-evaluate,
   title = {evaluate: Parsing and Evaluation Tools that Provide More Details than the
 Default},
   author = {Hadley Wickham and Yihui Xie},
-  year = {2019},
-  note = {R package version 0.14},
-  url = {https://CRAN.R-project.org/package=evaluate},
+  year = {2022},
+  note = {R package version 0.15},
+  url = {https://github.com/r-lib/evaluate},
 }
+
+@Manual{R-extrafont,
+  title = {extrafont: Tools for Using Fonts},
+  author = {Winston Chang},
+  year = {2022},
+  note = {R package version 0.18},
+  url = {https://github.com/wch/extrafont},
+}
+
+@Manual{R-extrafontdb,
+  title = {extrafontdb: Package for holding the database for the extrafont package},
+  author = {Winston Chang},
+  year = {2012},
+  note = {R package version 1.0},
+  url = {https://github.com/wch/extrafontdb},
+}
+
 @Manual{R-fansi,
   title = {fansi: ANSI Control Sequence Aware String Functions},
   author = {Brodie Gaslam},
-  year = {2020},
-  note = {R package version 0.4.1},
-  url = {https://CRAN.R-project.org/package=fansi},
+  year = {2022},
+  note = {R package version 1.0.3},
+  url = {https://github.com/brodieG/fansi},
 }
+
 @Manual{R-farver,
   title = {farver: High Performance Colour Space Manipulation},
   author = {Thomas Lin Pedersen and Berendea Nicolae and Romain François},
-  year = {2020},
-  note = {R package version 2.0.3},
+  year = {2021},
+  note = {R package version 2.1.0},
   url = {https://CRAN.R-project.org/package=farver},
 }
+
 @Manual{R-fastmap,
-  title = {fastmap: Fast Implementation of a Key-Value Store},
+  title = {fastmap: Fast Data Structures},
   author = {Winston Chang},
-  year = {2019},
-  note = {R package version 1.0.1},
+  year = {2021},
+  note = {R package version 1.1.0},
   url = {https://CRAN.R-project.org/package=fastmap},
 }
+
+@Manual{R-fastmatch,
+  title = {fastmatch: Fast match() Function},
+  author = {Simon Urbanek},
+  year = {2021},
+  note = {R package version 1.1-3},
+  url = {http://www.rforge.net/fastmatch},
+}
+
+@Manual{R-fgsea,
+  title = {fgsea: Fast Gene Set Enrichment Analysis},
+  author = {Gennady Korotkevich and Vladimir Sukhov and Alexey Sergushichev},
+  year = {2022},
+  note = {R package version 1.22.0},
+  url = {https://github.com/ctlab/fgsea/},
+}
+
+@Manual{R-filelock,
+  title = {filelock: Portable File Locking},
+  author = {Gábor Csárdi},
+  year = {2018},
+  note = {R package version 1.0.2},
+  url = {https://github.com/r-lib/filelock#readme},
+}
+
+@Manual{R-flextable,
+  title = {flextable: Functions for Tabular Reporting},
+  author = {David Gohel},
+  year = {2022},
+  note = {R package version 0.7.2},
+  url = {https://CRAN.R-project.org/package=flextable},
+}
+
+@Manual{R-fontawesome,
+  title = {fontawesome: Easily Work with Font Awesome Icons},
+  author = {Richard Iannone},
+  year = {2021},
+  note = {R package version 0.2.2},
+  url = {https://github.com/rstudio/fontawesome},
+}
+
 @Manual{R-forcats,
   title = {forcats: Tools for Working with Categorical Variables (Factors)},
   author = {Hadley Wickham},
-  year = {2020},
-  note = {R package version 0.5.0},
+  year = {2021},
+  note = {R package version 0.5.1},
   url = {https://CRAN.R-project.org/package=forcats},
 }
-@Manual{R-foreign,
-  title = {foreign: Read Data Stored by 'Minitab', 'S', 'SAS', 'SPSS', 'Stata',
-'Systat', 'Weka', 'dBase', ...},
-  author = {{R Core Team}},
-  year = {2020},
-  note = {R package version 0.8-80},
-  url = {https://CRAN.R-project.org/package=foreign},
+
+@Manual{R-foreach,
+  title = {foreach: Provides Foreach Looping Construct},
+  author = {{Revolution Analytics} and Steve Weston}},
+  year = {2022},
+  note = {R package version 1.5.2},
+  url = {https://github.com/RevolutionAnalytics/foreach},
 }
+
+@Manual{R-foreign,
+  title = {foreign: Read Data Stored by Minitab, S, SAS, SPSS, Stata,
+Systat, Weka, dBase, ...},
+  author = {{R Core Team}},
+  year = {2022},
+  note = {R package version 0.8-82},
+  url = {https://svn.r-project.org/R-packages/trunk/foreign/},
+}
+
+@Manual{R-formatR,
+  title = {formatR: Format R Code Automatically},
+  author = {Yihui Xie},
+  year = {2022},
+  note = {R package version 1.12},
+  url = {https://github.com/yihui/formatR},
+}
+
 @Manual{R-fs,
-  title = {fs: Cross-Platform File System Operations Based on 'libuv'},
-  author = {Jim Hester and Hadley Wickham},
-  year = {2020},
-  note = {R package version 1.4.1},
+  title = {fs: Cross-Platform File System Operations Based on libuv},
+  author = {Jim Hester and Hadley Wickham and Gábor Csárdi},
+  year = {2021},
+  note = {R package version 1.5.2},
   url = {https://CRAN.R-project.org/package=fs},
 }
+
+@Manual{R-furrr,
+  title = {furrr: Apply Mapping Functions in Parallel using Futures},
+  author = {Davis Vaughan and Matt Dancho},
+  year = {2022},
+  note = {R package version 0.3.0},
+  url = {https://CRAN.R-project.org/package=furrr},
+}
+
+@Manual{R-futile.logger,
+  title = {futile.logger: A Logging Utility for R},
+  author = {Brian Lee Yung Rowe},
+  year = {2016},
+  note = {R package version 1.4.3},
+  url = {https://CRAN.R-project.org/package=futile.logger},
+}
+
+@Manual{R-futile.options,
+  title = {futile.options: Futile Options Management},
+  author = {Brian Lee Yung Rowe},
+  year = {2018},
+  note = {R package version 1.0.1},
+  url = {https://CRAN.R-project.org/package=futile.options},
+}
+
+@Manual{R-future,
+  title = {future: Unified Parallel and Distributed Processing in R for Everyone},
+  author = {Henrik Bengtsson},
+  year = {2022},
+  note = {R package version 1.26.1},
+  url = {https://CRAN.R-project.org/package=future},
+}
+
+@Manual{R-future.callr,
+  title = {future.callr: A Future API for Parallel Processing using callr},
+  author = {Henrik Bengtsson},
+  year = {2022},
+  note = {R package version 0.8.0},
+  url = {https://CRAN.R-project.org/package=future.callr},
+}
+
+@Manual{R-gargle,
+  title = {gargle: Utilities for Working with Google APIs},
+  author = {Jennifer Bryan and Craig Citro and Hadley Wickham},
+  year = {2021},
+  note = {R package version 1.2.0},
+  url = {https://CRAN.R-project.org/package=gargle},
+}
+
+@Manual{R-gdtools,
+  title = {gdtools: Utilities for Graphical Rendering},
+  author = {David Gohel and Hadley Wickham and Lionel Henry and Jeroen Ooms},
+  year = {2022},
+  note = {R package version 0.2.4},
+  url = {https://CRAN.R-project.org/package=gdtools},
+}
+
+@Manual{R-genefilter,
+  title = {genefilter: methods for filtering genes from high-throughput
+experiments},
+  author = {Robert Gentleman and Vincent J. Carey and Wolfgang Huber and Florian Hahne},
+  year = {2022},
+  note = {R package version 1.78.0},
+}
+
+@Manual{R-geneplotter,
+  title = {geneplotter: Graphics related functions for Bioconductor},
+  author = {R. Gentleman and {Biocore}},
+  year = {2022},
+  note = {R package version 1.74.0},
+}
+
 @Manual{R-generics,
   title = {generics: Common S3 Generics not Provided by Base R Methods Related to
 Model Fitting},
-  author = {Max Kuhn and Hadley Wickham and Davis Vaughan},
-  year = {2018},
-  note = {R package version 0.0.2},
+  author = {Hadley Wickham and Max Kuhn and Davis Vaughan},
+  year = {2022},
+  note = {R package version 0.1.2},
   url = {https://CRAN.R-project.org/package=generics},
 }
+
+@Manual{R-GenomeInfoDb,
+  title = {GenomeInfoDb: Utilities for manipulating chromosome names, including modifying
+them to follow a particular naming style},
+  author = {Sonali Arora and Martin Morgan and Marc Carlson and H. Pagès},
+  year = {2022},
+  note = {R package version 1.32.2},
+  url = {https://bioconductor.org/packages/GenomeInfoDb},
+}
+
+@Manual{R-GenomeInfoDbData,
+  title = {GenomeInfoDbData: Species and taxonomy ID look up tables used by GenomeInfoDb},
+  author = {Bioconductor Core Team},
+  year = {2022},
+  note = {R package version 1.2.8},
+}
+
+@Manual{R-GenomicRanges,
+  title = {GenomicRanges: Representation and manipulation of genomic intervals},
+  author = {P. Aboyoun and H. Pagès and M. Lawrence},
+  year = {2022},
+  note = {R package version 1.48.0},
+  url = {https://bioconductor.org/packages/GenomicRanges},
+}
+
+@Manual{R-gert,
+  title = {gert: Simple Git Client for R},
+  author = {Jeroen Ooms},
+  year = {2022},
+  note = {R package version 1.6.0},
+  url = {https://CRAN.R-project.org/package=gert},
+}
+
+@Manual{R-ggallin,
+  title = {ggallin: Grab Bag of ggplot2 Functions},
+  author = {Steven E. Pav},
+  year = {2017},
+  note = {R package version 0.1.1},
+  url = {https://github.com/shabbychef/ggallin},
+}
+
 @Manual{R-ggbeeswarm,
   title = {ggbeeswarm: Categorical Scatter (Violin Point) Plots},
   author = {Erik Clarke and Scott Sherrill-Mix},
   year = {2017},
   note = {R package version 0.6.0},
-  url = {https://CRAN.R-project.org/package=ggbeeswarm},
+  url = {https://github.com/eclarke/ggbeeswarm},
 }
+
 @Manual{R-ggforce,
-  title = {ggforce: Accelerating 'ggplot2'},
+  title = {ggforce: Accelerating ggplot2},
   author = {Thomas Lin Pedersen},
-  year = {2019},
-  note = {R package version 0.3.1},
+  year = {2021},
+  note = {R package version 0.3.3},
   url = {https://CRAN.R-project.org/package=ggforce},
 }
+
 @Manual{R-ggplot2,
   title = {ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics},
   author = {Hadley Wickham and Winston Chang and Lionel Henry and Thomas Lin Pedersen and Kohske Takahashi and Claus Wilke and Kara Woo and Hiroaki Yutani and Dewey Dunnington},
-  year = {2020},
-  note = {R package version 3.3.1},
+  year = {2022},
+  note = {R package version 3.3.6},
   url = {https://CRAN.R-project.org/package=ggplot2},
 }
+
+@Manual{R-ggpubr,
+  title = {ggpubr: ggplot2 Based Publication Ready Plots},
+  author = {Alboukadel Kassambara},
+  year = {2020},
+  note = {R package version 0.4.0},
+  url = {https://rpkgs.datanovia.com/ggpubr/},
+}
+
 @Manual{R-ggraph,
   title = {ggraph: An Implementation of Grammar of Graphics for Graphs and Networks},
   author = {Thomas Lin Pedersen},
-  note = {https://ggraph.data-imaginist.com, https://github.com/thomasp85/ggraph},
-  year = {2020},
+  year = {2021},
+  note = {R package version 2.0.5},
+  url = {https://CRAN.R-project.org/package=ggraph},
 }
+
 @Manual{R-ggrepel,
   title = {ggrepel: Automatically Position Non-Overlapping Text Labels with
-'ggplot2'},
+ggplot2},
   author = {Kamil Slowikowski},
-  year = {2020},
-  note = {R package version 0.8.2},
-  url = {https://CRAN.R-project.org/package=ggrepel},
+  year = {2021},
+  note = {R package version 0.9.1},
+  url = {https://github.com/slowkow/ggrepel},
 }
-@Manual{R-gh,
-  title = {gh: 'GitHub' 'API'},
-  author = {Jennifer Bryan and Hadley Wickham},
+
+@Manual{R-ggsci,
+  title = {ggsci: Scientific Journal and Sci-Fi Themed Color Palettes for
+ggplot2},
+  author = {Nan Xiao},
+  year = {2018},
+  note = {R package version 2.9},
+  url = {https://CRAN.R-project.org/package=ggsci},
+}
+
+@Manual{R-ggsignif,
+  title = {ggsignif: Significance Brackets for ggplot2},
+  author = {Constantin Ahlmann-Eltze and Indrajeet Patil},
+  year = {2021},
+  note = {R package version 0.6.3},
+  url = {https://CRAN.R-project.org/package=ggsignif},
+}
+
+@Manual{R-ggupset,
+  title = {ggupset: Combination Matrix Axis for ggplot2 to Create UpSet Plots},
+  author = {Constantin Ahlmann-Eltze},
   year = {2020},
-  note = {R package version 1.1.0},
+  note = {R package version 0.3.0},
+  url = {https://github.com/const-ae/ggupset},
+}
+
+@Manual{R-ggvenn,
+  title = {ggvenn: Draw Venn Diagram by ggplot2},
+  author = {Linlin Yan},
+  year = {2021},
+  note = {R package version 0.1.9},
+  url = {https://CRAN.R-project.org/package=ggvenn},
+}
+
+@Manual{R-gh,
+  title = {gh: GitHub 'API'},
+  author = {Jennifer Bryan and Hadley Wickham},
+  year = {2021},
+  note = {R package version 1.3.0},
   url = {https://CRAN.R-project.org/package=gh},
 }
-@Manual{R-git2r,
-  title = {git2r: Provides Access to Git Repositories},
-  author = {See AUTHORS file.},
+
+@Manual{R-gitcreds,
+  title = {gitcreds: Query git Credentials from R},
+  author = {Gábor Csárdi},
   year = {2020},
-  note = {R package version 0.27.1},
-  url = {https://CRAN.R-project.org/package=git2r},
+  note = {R package version 0.1.1},
+  url = {https://github.com/r-lib/gitcreds},
 }
+
+@Manual{R-globals,
+  title = {globals: Identify Global Objects in R Expressions},
+  author = {Henrik Bengtsson},
+  year = {2022},
+  note = {R package version 0.15.1},
+  url = {https://CRAN.R-project.org/package=globals},
+}
+
 @Manual{R-glue,
   title = {glue: Interpreted String Literals},
-  author = {Jim Hester},
-  year = {2020},
-  note = {R package version 1.4.1},
+  author = {Jim Hester and Jennifer Bryan},
+  year = {2022},
+  note = {R package version 1.6.2},
   url = {https://CRAN.R-project.org/package=glue},
 }
+
+@Manual{R-googledrive,
+  title = {googledrive: An Interface to Google Drive},
+  author = {Lucy {D'Agostino McGowan} and Jennifer Bryan},
+  year = {2021},
+  note = {R package version 2.0.0},
+  url = {https://CRAN.R-project.org/package=googledrive},
+}
+
+@Manual{R-googlesheets4,
+  title = {googlesheets4: Access Google Sheets using the Sheets API V4},
+  author = {Jennifer Bryan},
+  year = {2021},
+  note = {R package version 1.0.0},
+  url = {https://CRAN.R-project.org/package=googlesheets4},
+}
+
+@Manual{R-graph,
+  title = {graph: A package to handle graph data structures},
+  author = {R. Gentleman and Elizabeth Whalen and W. Huber and S. Falcon},
+  year = {2022},
+  note = {R package version 1.74.0},
+}
+
 @Manual{R-graphlayouts,
   title = {graphlayouts: Additional Layout Algorithms for Network Visualizations},
   author = {David Schoch},
-  year = {2020},
-  note = {R package version 0.7.0},
+  year = {2022},
+  note = {R package version 0.8.0},
   url = {https://CRAN.R-project.org/package=graphlayouts},
 }
+
 @Manual{R-gridExtra,
   title = {gridExtra: Miscellaneous Functions for "Grid" Graphics},
   author = {Baptiste Auguie},
@@ -395,141 +978,272 @@ Model Fitting},
   note = {R package version 2.3},
   url = {https://CRAN.R-project.org/package=gridExtra},
 }
+
+@Manual{R-GSEABase,
+  title = {GSEABase: Gene set enrichment data structures and methods},
+  author = {Martin Morgan and Seth Falcon and Robert Gentleman},
+  year = {2022},
+  note = {R package version 1.58.0},
+}
+
+@Manual{R-gt,
+  title = {gt: Easily Create Presentation-Ready Display Tables},
+  author = {Richard Iannone and Joe Cheng and Barret Schloerke},
+  year = {2022},
+  note = {R package version 0.6.0},
+  url = {https://CRAN.R-project.org/package=gt},
+}
+
 @Manual{R-gtable,
-  title = {gtable: Arrange 'Grobs' in Tables},
+  title = {gtable: Arrange Grobs in Tables},
   author = {Hadley Wickham and Thomas Lin Pedersen},
   year = {2019},
   note = {R package version 0.3.0},
-  url = {https://CRAN.R-project.org/package=gtable},
+  url = {https://github.com/r-lib/gtable},
 }
+
+@Manual{R-gtExtras,
+  title = {gtExtras: Extending gt for Beautiful HTML Tables},
+  author = {Thomas Mock},
+  year = {2022},
+  note = {R package version 0.4.1},
+  url = {https://CRAN.R-project.org/package=gtExtras},
+}
+
 @Manual{R-gtools,
   title = {gtools: Various R Programming Tools},
-  author = {Gregory R. Warnes and Ben Bolker and Thomas Lumley},
-  year = {2020},
-  note = {R package version 3.8.2},
-  url = {https://CRAN.R-project.org/package=gtools},
+  author = {Gregory R. Warnes and Ben Bolker and Thomas Lumley and CRAN team},
+  year = {2022},
+  note = {R package version 3.9.2.2},
+  url = {https://github.com/r-gregmisc/gtools},
 }
+
 @Manual{R-haven,
-  title = {haven: Import and Export 'SPSS', 'Stata' and 'SAS' Files},
-  author = {Hadley Wickham and Evan Miller},
-  year = {2020},
-  note = {R package version 2.3.1},
+  title = {haven: Import and Export SPSS, Stata and SAS Files},
+  author = {Hadley Wickham and Evan Miller and Danny Smith},
+  year = {2022},
+  note = {R package version 2.5.0},
   url = {https://CRAN.R-project.org/package=haven},
 }
+
+@Manual{R-here,
+  title = {here: A Simpler Way to Find Your Files},
+  author = {Kirill Müller},
+  year = {2020},
+  note = {R package version 1.0.1},
+  url = {https://CRAN.R-project.org/package=here},
+}
+
+@Manual{R-hexbin,
+  title = {hexbin: Hexagonal Binning Routines},
+  author = {Dan Carr and Nicholas Lewin-Koh and Martin Maechler},
+  year = {2021},
+  note = {R package version 1.28.2},
+  url = {https://github.com/edzer/hexbin},
+}
+
 @Manual{R-highr,
   title = {highr: Syntax Highlighting for R Source Code},
-  author = {Yixuan Qiu and Yihui Xie},
-  year = {2019},
-  note = {R package version 0.8},
-  url = {https://CRAN.R-project.org/package=highr},
+  author = {Yihui Xie and Yixuan Qiu},
+  year = {2021},
+  note = {R package version 0.9},
+  url = {https://github.com/yihui/highr},
 }
+
 @Manual{R-hms,
   title = {hms: Pretty Time of Day},
   author = {Kirill Müller},
-  year = {2020},
-  note = {R package version 0.5.3},
+  year = {2021},
+  note = {R package version 1.1.1},
   url = {https://CRAN.R-project.org/package=hms},
 }
+
 @Manual{R-htmltools,
   title = {htmltools: Tools for HTML},
-  author = {{RStudio} and {Inc.}},
-  year = {2019},
-  note = {R package version 0.4.0},
-  url = {https://CRAN.R-project.org/package=htmltools},
+  author = {Joe Cheng and Carson Sievert and Barret Schloerke and Winston Chang and Yihui Xie and Jeff Allen},
+  year = {2021},
+  note = {R package version 0.5.2},
+  url = {https://github.com/rstudio/htmltools},
 }
+
 @Manual{R-htmlwidgets,
   title = {htmlwidgets: HTML Widgets for R},
-  author = {Ramnath Vaidyanathan and Yihui Xie and JJ Allaire and Joe Cheng and Kenton Russell},
-  year = {2019},
-  note = {R package version 1.5.1},
-  url = {https://CRAN.R-project.org/package=htmlwidgets},
+  author = {Ramnath Vaidyanathan and Yihui Xie and JJ Allaire and Joe Cheng and Carson Sievert and Kenton Russell},
+  year = {2021},
+  note = {R package version 1.5.4},
+  url = {https://github.com/ramnathv/htmlwidgets},
 }
+
 @Manual{R-httpuv,
   title = {httpuv: HTTP and WebSocket Server Library},
-  author = {Joe Cheng and Hector Corrada Bravo and Jeroen Ooms and Winston Chang},
-  year = {2020},
-  note = {R package version 1.5.3.1},
-  url = {https://CRAN.R-project.org/package=httpuv},
+  author = {Joe Cheng and Winston Chang},
+  year = {2022},
+  note = {R package version 1.6.5},
+  url = {https://github.com/rstudio/httpuv},
 }
+
 @Manual{R-httr,
   title = {httr: Tools for Working with URLs and HTTP},
   author = {Hadley Wickham},
-  year = {2019},
-  note = {R package version 1.4.1},
+  year = {2022},
+  note = {R package version 1.4.3},
   url = {https://CRAN.R-project.org/package=httr},
 }
+
+@Manual{R-ids,
+  title = {ids: Generate Random Identifiers},
+  author = {Rich FitzJohn},
+  year = {2017},
+  note = {R package version 1.0.1},
+  url = {https://github.com/richfitz/ids},
+}
+
 @Manual{R-igraph,
   title = {igraph: Network Analysis and Visualization},
   author = {See AUTHORS file.},
-  year = {2020},
-  note = {R package version 1.2.5},
+  year = {2022},
+  note = {R package version 1.3.2},
   url = {https://CRAN.R-project.org/package=igraph},
 }
+
 @Manual{R-ini,
-  title = {ini: Read and Write '.ini' Files},
+  title = {ini: Read and Write .ini Files},
   author = {David Valentim Dias},
   year = {2018},
   note = {R package version 0.3.1},
-  url = {https://CRAN.R-project.org/package=ini},
+  url = {https://github.com/dvdscripter/ini},
 }
+
+@Manual{R-interactiveDisplayBase,
+  title = {interactiveDisplayBase: Base package for enabling powerful shiny web displays of
+Bioconductor objects},
+  author = {Shawn Balcome},
+  year = {2022},
+  note = {R package version 1.34.0},
+}
+
+@Manual{R-IRanges,
+  title = {IRanges: Foundation of integer range manipulation in Bioconductor},
+  author = {H. Pagès and P. Aboyoun and M. Lawrence},
+  year = {2022},
+  note = {R package version 2.30.0},
+  url = {https://bioconductor.org/packages/IRanges},
+}
+
 @Manual{R-isoband,
   title = {isoband: Generate Isolines and Isobands from Regularly Spaced Elevation
 Grids},
-  author = {Claus O. Wilke},
-  year = {2020},
-  note = {R package version 0.2.1},
-  url = {https://CRAN.R-project.org/package=isoband},
+  author = {Claus O. Wilke and Thomas Lin Pedersen},
+  year = {2021},
+  note = {R package version 0.2.5},
+  url = {https://wilkelab.org/isoband/},
 }
+
+@Manual{R-iterators,
+  title = {iterators: Provides Iterator Construct},
+  author = {Revolution Analytics and Steve Weston},
+  year = {2022},
+  note = {R package version 1.0.14},
+  url = {https://github.com/RevolutionAnalytics/iterators},
+}
+
+@Manual{R-itertools,
+  title = {itertools: Iterator Tools},
+  author = {Steve Weston and Hadley Wickham},
+  year = {2014},
+  note = {R package version 0.1-3},
+  url = {https://CRAN.R-project.org/package=itertools},
+}
+
+@Manual{R-jquerylib,
+  title = {jquerylib: Obtain jQuery as an HTML Dependency Object},
+  author = {Carson Sievert and Joe Cheng},
+  year = {2021},
+  note = {R package version 0.1.4},
+  url = {https://CRAN.R-project.org/package=jquerylib},
+}
+
 @Manual{R-jsonlite,
-  title = {jsonlite: A Robust, High Performance JSON Parser and Generator for R},
+  title = {jsonlite: A Simple and Robust JSON Parser and Generator for R},
   author = {Jeroen Ooms},
-  year = {2020},
-  note = {R package version 1.6.1},
+  year = {2022},
+  note = {R package version 1.8.0},
   url = {https://CRAN.R-project.org/package=jsonlite},
 }
+
 @Manual{R-kableExtra,
-  title = {kableExtra: Construct Complex Table with 'kable' and Pipe Syntax},
+  title = {kableExtra: Construct Complex Table with kable and Pipe Syntax},
   author = {Hao Zhu},
-  year = {2019},
-  note = {R package version 1.1.0},
+  year = {2021},
+  note = {R package version 1.3.4},
   url = {https://CRAN.R-project.org/package=kableExtra},
 }
+
+@Manual{R-KEGGREST,
+  title = {KEGGREST: Client-side REST access to the Kyoto Encyclopedia of Genes and
+Genomes (KEGG)},
+  author = {Dan Tenenbaum and Bioconductor Package Maintainer},
+  year = {2022},
+  note = {R package version 1.36.2},
+}
+
+@Manual{R-kernlab,
+  title = {kernlab: Kernel-Based Machine Learning Lab},
+  author = {Alexandros Karatzoglou and Alex Smola and Kurt Hornik},
+  year = {2022},
+  note = {R package version 0.9-31},
+  url = {https://CRAN.R-project.org/package=kernlab},
+}
+
 @Manual{R-KernSmooth,
   title = {KernSmooth: Functions for Kernel Smoothing Supporting Wand \& Jones (1995)},
   author = {Matt Wand},
-  year = {2020},
-  note = {R package version 2.23-17},
+  year = {2021},
+  note = {R package version 2.23-20},
   url = {https://CRAN.R-project.org/package=KernSmooth},
 }
+
 @Manual{R-knitr,
   title = {knitr: A General-Purpose Package for Dynamic Report Generation in R},
   author = {Yihui Xie},
-  year = {2020},
-  note = {R package version 1.28},
-  url = {https://CRAN.R-project.org/package=knitr},
+  year = {2022},
+  note = {R package version 1.39},
+  url = {https://yihui.org/knitr/},
 }
+
 @Manual{R-labeling,
   title = {labeling: Axis Labeling},
-  author = {Justin Talbot},
-  year = {2014},
-  note = {R package version 0.3},
+  author = {Justin Talbot,},
+  year = {2020},
+  note = {R package version 0.4.2},
   url = {https://CRAN.R-project.org/package=labeling},
 }
+
+@Manual{R-lambda.r,
+  title = {lambda.r: Modeling Data with Functional Programming},
+  author = {Brian Lee Yung Rowe},
+  year = {2019},
+  note = {R package version 1.2.4},
+  url = {https://CRAN.R-project.org/package=lambda.r},
+}
+
 @Manual{R-later,
   title = {later: Utilities for Scheduling Functions to Execute Later with Event
 Loops},
-  author = {Joe Cheng and Winston Chang},
-  year = {2019},
-  note = {R package version 1.0.0},
-  url = {https://CRAN.R-project.org/package=later},
+  author = {Winston Chang and Joe Cheng},
+  year = {2021},
+  note = {R package version 1.3.0},
+  url = {https://github.com/r-lib/later},
 }
+
 @Manual{R-lattice,
   title = {lattice: Trellis Graphics for R},
   author = {Deepayan Sarkar},
-  year = {2020},
-  note = {R package version 0.20-41},
-  url = {https://CRAN.R-project.org/package=lattice},
+  year = {2021},
+  note = {R package version 0.20-45},
+  url = {http://lattice.r-forge.r-project.org/},
 }
+
 @Manual{R-lazyeval,
   title = {lazyeval: Lazy (Non-Standard) Evaluation},
   author = {Hadley Wickham},
@@ -537,106 +1251,187 @@ Loops},
   note = {R package version 0.2.2},
   url = {https://CRAN.R-project.org/package=lazyeval},
 }
+
 @Manual{R-lifecycle,
   title = {lifecycle: Manage the Life Cycle of your Package Functions},
-  author = {Lionel Henry},
-  year = {2020},
-  note = {R package version 0.2.0},
+  author = {Lionel Henry and Hadley Wickham},
+  year = {2021},
+  note = {R package version 1.0.1},
   url = {https://CRAN.R-project.org/package=lifecycle},
 }
-@Manual{R-lme4,
-  title = {lme4: Linear Mixed-Effects Models using 'Eigen' and S4},
-  author = {Douglas Bates and Martin Maechler and Ben Bolker and Steven Walker},
-  year = {2020},
-  note = {R package version 1.1-23},
-  url = {https://CRAN.R-project.org/package=lme4},
+
+@Manual{R-limma,
+  title = {limma: Linear Models for Microarray Data},
+  author = {Gordon Smyth and Yifang Hu and Matthew Ritchie and Jeremy Silver and James Wettenhall and Davis McCarthy and Di Wu and Wei Shi and Belinda Phipson and Aaron Lun and Natalie Thorne and Alicia Oshlack and Carolyn {de Graaf} and Yunshun Chen and Mette Langaas and Egil Ferkingstad and Marcus Davy and Francois Pepin and Dongseok Choi},
+  year = {2022},
+  note = {R package version 3.52.2},
+  url = {http://bioinf.wehi.edu.au/limma},
 }
+
+@Manual{R-listenv,
+  title = {listenv: Environments Behaving (Almost) as Lists},
+  author = {Henrik Bengtsson},
+  year = {2019},
+  note = {R package version 0.8.0},
+  url = {https://github.com/HenrikBengtsson/listenv},
+}
+
+@Manual{R-lme4,
+  title = {lme4: Linear Mixed-Effects Models using Eigen and S4},
+  author = {Douglas Bates and Martin Maechler and Ben Bolker and Steven Walker},
+  year = {2022},
+  note = {R package version 1.1-29},
+  url = {https://github.com/lme4/lme4/},
+}
+
 @Manual{R-lmerTest,
   title = {lmerTest: Tests in Linear Mixed Effects Models},
   author = {Alexandra Kuznetsova and Per {Bruun Brockhoff} and Rune {Haubo Bojesen Christensen}},
   year = {2020},
-  note = {R package version 3.1-2},
-  url = {https://CRAN.R-project.org/package=lmerTest},
+  note = {R package version 3.1-3},
+  url = {https://github.com/runehaubo/lmerTestR},
 }
+
+@Manual{R-locfit,
+  title = {locfit: Local Regression, Likelihood and Density Estimation},
+  author = {Catherine Loader},
+  year = {2022},
+  note = {R package version 1.5-9.5},
+  url = {https://CRAN.R-project.org/package=locfit},
+}
+
+@Manual{R-lpSolve,
+  title = {lpSolve: Interface to Lp_solve v. 5.5 to Solve Linear/Integer Programs},
+  author = {Michel Berkelaar and others},
+  year = {2020},
+  note = {R package version 5.6.15},
+  url = {https://github.com/gaborcsardi/lpSolve},
+}
+
 @Manual{R-lubridate,
   title = {lubridate: Make Dealing with Dates a Little Easier},
   author = {Vitalie Spinu and Garrett Grolemund and Hadley Wickham},
-  year = {2020},
-  note = {R package version 1.7.8},
+  year = {2021},
+  note = {R package version 1.8.0},
   url = {https://CRAN.R-project.org/package=lubridate},
 }
+
 @Manual{R-magick,
   title = {magick: Advanced Graphics and Image-Processing in R},
   author = {Jeroen Ooms},
-  year = {2020},
-  note = {R package version 2.3},
+  year = {2021},
+  note = {R package version 2.7.3},
   url = {https://CRAN.R-project.org/package=magick},
 }
+
 @Manual{R-magrittr,
   title = {magrittr: A Forward-Pipe Operator for R},
   author = {Stefan Milton Bache and Hadley Wickham},
-  year = {2014},
-  note = {R package version 1.5},
+  year = {2022},
+  note = {R package version 2.0.3},
   url = {https://CRAN.R-project.org/package=magrittr},
 }
-@Manual{R-markdown,
-  title = {markdown: Render Markdown with the C Library 'Sundown'},
-  author = {JJ Allaire and Jeffrey Horner and Yihui Xie and Vicent Marti and Natacha Porte},
-  year = {2019},
-  note = {R package version 1.1},
-  url = {https://CRAN.R-project.org/package=markdown},
+
+@Manual{R-maptools,
+  title = {maptools: Tools for Handling Spatial Objects},
+  author = {Roger Bivand and Nicholas Lewin-Koh},
+  year = {2022},
+  note = {R package version 1.1-4},
+  url = {https://CRAN.R-project.org/package=maptools},
 }
+
 @Manual{R-MASS,
   title = {MASS: Support Functions and Datasets for Venables and Ripley's MASS},
   author = {Brian Ripley},
-  year = {2020},
-  note = {R package version 7.3-51.6},
-  url = {https://CRAN.R-project.org/package=MASS},
+  year = {2022},
+  note = {R package version 7.3-57},
+  url = {http://www.stats.ox.ac.uk/pub/MASS4/},
 }
+
 @Manual{R-Matrix,
   title = {Matrix: Sparse and Dense Matrix Classes and Methods},
-  author = {Douglas Bates and Martin Maechler},
-  year = {2019},
-  note = {R package version 1.2-18},
+  author = {Douglas Bates and Martin Maechler and Mikael Jagan},
+  year = {2022},
+  note = {R package version 1.4-1},
   url = {https://CRAN.R-project.org/package=Matrix},
 }
+
+@Manual{R-MatrixGenerics,
+  title = {MatrixGenerics: S4 Generic Summary Statistic Functions that Operate on
+Matrix-Like Objects},
+  author = {Constantin Ahlmann-Eltze and Peter Hickey and Hervé Pagès},
+  year = {2022},
+  note = {R package version 1.8.1},
+  url = {https://bioconductor.org/packages/MatrixGenerics},
+}
+
+@Manual{R-MatrixModels,
+  title = {MatrixModels: Modelling with Sparse and Dense Matrices},
+  author = {Douglas Bates and Martin Maechler},
+  year = {2021},
+  note = {R package version 0.5-0},
+  url = {http://Matrix.R-forge.R-project.org/},
+}
+
+@Manual{R-matrixStats,
+  title = {matrixStats: Functions that Apply to Rows and Columns of Matrices (and to
+Vectors)},
+  author = {Henrik Bengtsson},
+  year = {2022},
+  note = {R package version 0.62.0},
+  url = {https://github.com/HenrikBengtsson/matrixStats},
+}
+
 @Manual{R-memoise,
   title = {memoise: Memoisation of Functions},
-  author = {Hadley Wickham and Jim Hester and Kirill Müller and Daniel Cook},
-  year = {2017},
-  note = {R package version 1.1.0},
+  author = {Hadley Wickham and Jim Hester and Winston Chang and Kirill Müller and Daniel Cook},
+  year = {2021},
+  note = {R package version 2.0.1},
   url = {https://CRAN.R-project.org/package=memoise},
 }
+
 @Manual{R-mgcv,
   title = {mgcv: Mixed GAM Computation Vehicle with Automatic Smoothness
 Estimation},
   author = {Simon Wood},
-  year = {2019},
-  note = {R package version 1.8-31},
+  year = {2022},
+  note = {R package version 1.8-40},
   url = {https://CRAN.R-project.org/package=mgcv},
 }
+
 @Manual{R-mime,
   title = {mime: Map Filenames to MIME Types},
   author = {Yihui Xie},
-  year = {2020},
-  note = {R package version 0.9},
-  url = {https://CRAN.R-project.org/package=mime},
+  year = {2021},
+  note = {R package version 0.12},
+  url = {https://github.com/yihui/mime},
 }
-@Manual{R-miniUI,
-  title = {miniUI: Shiny UI Widgets for Small Screens},
-  author = {Joe Cheng},
-  year = {2018},
-  note = {R package version 0.1.1.1},
-  url = {https://CRAN.R-project.org/package=miniUI},
-}
+
 @Manual{R-minqa,
   title = {minqa: Derivative-free optimization algorithms by quadratic
 approximation},
   author = {Douglas Bates and Katharine M. Mullen and John C. Nash and Ravi Varadhan},
   year = {2014},
   note = {R package version 1.2.4},
-  url = {https://CRAN.R-project.org/package=minqa},
+  url = {http://optimizer.r-forge.r-project.org},
 }
+
+@Manual{R-missForest,
+  title = {missForest: Nonparametric Missing Value Imputation using Random Forest},
+  author = {Daniel J. Stekhoven},
+  year = {2022},
+  note = {R package version 1.5},
+  url = {https://CRAN.R-project.org/package=missForest},
+}
+
+@Manual{R-mixtools,
+  title = {mixtools: Tools for Analyzing Finite Mixture Models},
+  author = {Derek Young and Tatiana Benaglia and Didier Chauveau and David Hunter},
+  year = {2020},
+  note = {R package version 1.2.0},
+  url = {https://CRAN.R-project.org/package=mixtools},
+}
+
 @Manual{R-modelr,
   title = {modelr: Modelling Functions that Work with the Pipe},
   author = {Hadley Wickham},
@@ -644,6 +1439,15 @@ approximation},
   note = {R package version 0.1.8},
   url = {https://CRAN.R-project.org/package=modelr},
 }
+
+@Manual{R-msigdbr,
+  title = {msigdbr: MSigDB Gene Sets for Multiple Organisms in a Tidy Data Format},
+  author = {Igor Dolgalev},
+  year = {2022},
+  note = {R package version 7.5.1},
+  url = {https://igordot.github.io/msigdbr/},
+}
+
 @Manual{R-munsell,
   title = {munsell: Utilities for Using Munsell Colours},
   author = {Charlotte Wickham},
@@ -651,119 +1455,161 @@ approximation},
   note = {R package version 0.5.0},
   url = {https://CRAN.R-project.org/package=munsell},
 }
+
 @Manual{R-mvtnorm,
   title = {mvtnorm: Multivariate Normal and t Distributions},
   author = {Alan Genz and Frank Bretz and Tetsuhisa Miwa and Xuefei Mi and Torsten Hothorn},
-  year = {2020},
-  note = {R package version 1.1-0},
-  url = {https://CRAN.R-project.org/package=mvtnorm},
+  year = {2021},
+  note = {R package version 1.1-3},
+  url = {http://mvtnorm.R-forge.R-project.org},
 }
+
 @Manual{R-mzrtools,
-  title = {mzrtools: Make Molecular Formulas Useful for Mass Spectrometry},
+  title = {mzrtools: Make Molecular Formulas Useful for Mass Spectrometry Applications},
   author = {William Oldham},
-  note = {R package version 0.0.0.9000},
+  note = {R package version 0.0.1},
   url = {https://github.com/wmoldham/mzrtools},
-  year = {2020},
+  year = {2022},
 }
+
 @Manual{R-nlme,
   title = {nlme: Linear and Nonlinear Mixed Effects Models},
-  author = {José Pinheiro and Douglas Bates and {R-core}},
-  year = {2020},
-  note = {R package version 3.1-148},
-  url = {https://CRAN.R-project.org/package=nlme},
+  author = {José Pinheiro and Douglas Bates and {R Core Team}},
+  year = {2022},
+  note = {R package version 3.1-158},
+  url = {https://svn.r-project.org/R-packages/trunk/nlme/},
 }
+
 @Manual{R-nloptr,
   title = {nloptr: R Interface to NLopt},
   author = {Jelmer Ypma and Steven G. Johnson},
-  year = {2020},
-  note = {R package version 1.2.2.1},
+  year = {2022},
+  note = {R package version 2.0.3},
   url = {https://CRAN.R-project.org/package=nloptr},
 }
+
 @Manual{R-nnet,
   title = {nnet: Feed-Forward Neural Networks and Multinomial Log-Linear Models},
   author = {Brian Ripley},
-  year = {2020},
-  note = {R package version 7.3-14},
-  url = {https://CRAN.R-project.org/package=nnet},
+  year = {2022},
+  note = {R package version 7.3-17},
+  url = {http://www.stats.ox.ac.uk/pub/MASS4/},
 }
+
 @Manual{R-numDeriv,
   title = {numDeriv: Accurate Numerical Derivatives},
   author = {Paul Gilbert and Ravi Varadhan},
   year = {2019},
   note = {R package version 2016.8-1.1},
-  url = {https://CRAN.R-project.org/package=numDeriv},
+  url = {http://optimizer.r-forge.r-project.org/},
 }
+
+@Manual{R-officer,
+  title = {officer: Manipulation of Microsoft Word and PowerPoint Documents},
+  author = {David Gohel},
+  year = {2022},
+  note = {R package version 0.4.3},
+  url = {https://CRAN.R-project.org/package=officer},
+}
+
 @Manual{R-openssl,
   title = {openssl: Toolkit for Encryption, Signatures and Certificates Based on
 OpenSSL},
   author = {Jeroen Ooms},
-  year = {2019},
-  note = {R package version 1.4.1},
-  url = {https://CRAN.R-project.org/package=openssl},
+  year = {2022},
+  note = {R package version 2.0.2},
+  url = {https://github.com/jeroen/openssl},
 }
+
+@Manual{R-paletteer,
+  title = {paletteer: Comprehensive Collection of Color Palettes},
+  author = {See AUTHORS file.},
+  year = {2021},
+  note = {R package version 1.4.0},
+  url = {https://github.com/EmilHvitfeldt/paletteer},
+}
+
+@Manual{R-parallelly,
+  title = {parallelly: Enhancing the parallel Package},
+  author = {Henrik Bengtsson},
+  year = {2022},
+  note = {R package version 1.32.0},
+  url = {https://CRAN.R-project.org/package=parallelly},
+}
+
 @Manual{R-patchwork,
   title = {patchwork: The Composer of Plots},
   author = {Thomas Lin Pedersen},
-  note = {https://patchwork.data-imaginist.com, https://github.com/thomasp85/patchwork},
   year = {2020},
+  note = {R package version 1.1.1},
+  url = {https://CRAN.R-project.org/package=patchwork},
 }
+
 @Manual{R-pbkrtest,
-  title = {pbkrtest: Parametric Bootstrap and Kenward Roger Based Methods for Mixed
-Model Comparison},
-  author = {Ulrich Halekoh Søren Højsgaard <sorenh@math.aau.dk>},
-  year = {2020},
-  note = {R package version 0.4-8.6},
-  url = {https://CRAN.R-project.org/package=pbkrtest},
+  title = {pbkrtest: Parametric Bootstrap, Kenward-Roger and Satterthwaite Based
+Methods for Test in Mixed Models},
+  author = {Ulrich Halekoh and Søren Højsgaard},
+  year = {2021},
+  note = {R package version 0.5.1},
+  url = {https://people.math.aau.dk/~sorenh/software/pbkrtest/},
 }
-@Manual{R-pdftools,
-  title = {pdftools: Text Extraction, Rendering and Converting of PDF Documents},
-  author = {Jeroen Ooms},
-  year = {2020},
-  note = {R package version 2.3.1},
-  url = {https://CRAN.R-project.org/package=pdftools},
+
+@Manual{R-pcaMethods,
+  title = {pcaMethods: A collection of PCA methods},
+  author = {Wolfram Stacklies and Henning Redestig and Kevin Wright},
+  year = {2022},
+  note = {R package version 1.88.0},
+  url = {https://github.com/hredestig/pcamethods},
 }
+
 @Manual{R-pillar,
   title = {pillar: Coloured Formatting for Columns},
   author = {Kirill Müller and Hadley Wickham},
-  year = {2020},
-  note = {R package version 1.4.4},
+  year = {2022},
+  note = {R package version 1.7.0},
   url = {https://CRAN.R-project.org/package=pillar},
 }
+
 @Manual{R-pkgbuild,
   title = {pkgbuild: Find Tools Needed to Build R Packages},
-  author = {Hadley Wickham and Jim Hester},
-  year = {2020},
-  note = {R package version 1.0.8},
-  url = {https://CRAN.R-project.org/package=pkgbuild},
+  author = {Hadley Wickham and Jim Hester and Gábor Csárdi},
+  year = {2021},
+  note = {R package version 1.3.1},
+  url = {https://github.com/r-lib/pkgbuild},
 }
+
 @Manual{R-pkgconfig,
-  title = {pkgconfig: Private Configuration for 'R' Packages},
+  title = {pkgconfig: Private Configuration for R Packages},
   author = {Gábor Csárdi},
   year = {2019},
   note = {R package version 2.0.3},
-  url = {https://CRAN.R-project.org/package=pkgconfig},
+  url = {https://github.com/r-lib/pkgconfig#readme},
 }
+
 @Manual{R-pkgload,
   title = {pkgload: Simulate Package Installation and Attach},
-  author = {Hadley Wickham and Jim Hester and Winston Chang},
-  year = {2020},
-  note = {R package version 1.1.0},
+  author = {Hadley Wickham and Winston Chang and Jim Hester and Lionel Henry},
+  year = {2022},
+  note = {R package version 1.3.0},
   url = {https://CRAN.R-project.org/package=pkgload},
 }
+
 @Manual{R-plogr,
-  title = {plogr: The 'plog' C++ Logging Library},
+  title = {plogr: The plog C++ Logging Library},
   author = {Kirill Müller},
   year = {2018},
   note = {R package version 0.2.0},
-  url = {https://CRAN.R-project.org/package=plogr},
+  url = {https://github.com/krlmlr/plogr#readme},
 }
-@Manual{R-plyr,
-  title = {plyr: Tools for Splitting, Applying and Combining Data},
-  author = {Hadley Wickham},
-  year = {2020},
-  note = {R package version 1.8.6},
-  url = {https://CRAN.R-project.org/package=plyr},
+
+@Manual{R-png,
+  title = {png: Read and write PNG images},
+  author = {Simon Urbanek},
+  year = {2013},
+  note = {R package version 0.1-7},
+  url = {http://www.rforge.net/png/},
 }
+
 @Manual{R-polyclip,
   title = {polyclip: Polygon Clipping},
   author = {Angus Johnson and Adrian Baddeley},
@@ -771,48 +1617,88 @@ Model Comparison},
   note = {R package version 1.10-0},
   url = {https://CRAN.R-project.org/package=polyclip},
 }
+
+@Manual{R-polynom,
+  title = {polynom: A Collection of Functions to Implement a Class for Univariate
+Polynomial Manipulations},
+  author = {Bill Venables and Kurt Hornik and Martin Maechler},
+  year = {2022},
+  note = {R package version 1.4-1},
+  url = {https://CRAN.R-project.org/package=polynom},
+}
+
+@Manual{R-pracma,
+  title = {pracma: Practical Numerical Math Functions},
+  author = {Hans W. Borchers},
+  year = {2022},
+  note = {R package version 2.3.8},
+  url = {https://CRAN.R-project.org/package=pracma},
+}
+
 @Manual{R-praise,
   title = {praise: Praise Users},
   author = {Gabor Csardi and Sindre Sorhus},
   year = {2015},
   note = {R package version 1.0.0},
-  url = {https://CRAN.R-project.org/package=praise},
+  url = {https://github.com/gaborcsardi/praise},
 }
+
 @Manual{R-prettyunits,
   title = {prettyunits: Pretty, Human Readable Formatting of Quantities},
   author = {Gabor Csardi},
   year = {2020},
   note = {R package version 1.1.1},
-  url = {https://CRAN.R-project.org/package=prettyunits},
+  url = {https://github.com/gaborcsardi/prettyunits},
 }
+
+@Manual{R-prismatic,
+  title = {prismatic: Color Manipulation Tools},
+  author = {Emil Hvitfeldt},
+  year = {2021},
+  note = {R package version 1.1.0},
+  url = {https://github.com/EmilHvitfeldt/prismatic},
+}
+
 @Manual{R-processx,
   title = {processx: Execute and Control System Processes},
   author = {Gábor Csárdi and Winston Chang},
-  year = {2020},
-  note = {R package version 3.4.2},
+  year = {2022},
+  note = {R package version 3.6.1},
   url = {https://CRAN.R-project.org/package=processx},
 }
+
 @Manual{R-progress,
   title = {progress: Terminal Progress Bars},
   author = {Gábor Csárdi and Rich FitzJohn},
   year = {2019},
   note = {R package version 1.2.2},
-  url = {https://CRAN.R-project.org/package=progress},
+  url = {https://github.com/r-lib/progress#readme},
 }
+
 @Manual{R-promises,
   title = {promises: Abstractions for Promise-Based Asynchronous Programming},
   author = {Joe Cheng},
-  year = {2019},
-  note = {R package version 1.1.0},
+  year = {2021},
+  note = {R package version 1.2.0.1},
   url = {https://CRAN.R-project.org/package=promises},
 }
+
+@Manual{R-proxy,
+  title = {proxy: Distance and Similarity Measures},
+  author = {David Meyer and Christian Buchta},
+  year = {2022},
+  note = {R package version 0.4-27},
+  url = {https://CRAN.R-project.org/package=proxy},
+}
+
 @Manual{R-ps,
   title = {ps: List, Query, Manipulate System Processes},
   author = {Jay Loden and Dave Daeschler and Giampaolo Rodola' and Gábor Csárdi},
-  year = {2020},
-  note = {R package version 1.3.3},
+  year = {2022},
+  note = {R package version 1.7.1},
   url = {https://CRAN.R-project.org/package=ps},
 }
+
 @Manual{R-purrr,
   title = {purrr: Functional Programming Tools},
   author = {Lionel Henry and Hadley Wickham},
@@ -820,226 +1706,374 @@ Model Comparison},
   note = {R package version 0.3.4},
   url = {https://CRAN.R-project.org/package=purrr},
 }
-@Manual{R-qpdf,
-  title = {qpdf: Split, Combine and Compress PDF Files},
-  author = {Jeroen Ooms},
-  year = {2019},
-  note = {R package version 1.1},
-  url = {https://CRAN.R-project.org/package=qpdf},
+
+@Manual{R-qs,
+  title = {qs: Quick Serialization of R Objects},
+  author = {Travers Ching},
+  year = {2022},
+  note = {R package version 0.25.3},
+  url = {https://github.com/traversc/qs},
 }
+
+@Manual{R-quadprog,
+  title = {quadprog: Functions to Solve Quadratic Programming Problems},
+  author = {Berwin A. Turlach and Andreas Weingessel},
+  year = {2019},
+  note = {R package version 1.5-8},
+  url = {https://CRAN.R-project.org/package=quadprog},
+}
+
+@Manual{R-quantreg,
+  title = {quantreg: Quantile Regression},
+  author = {Roger Koenker},
+  year = {2022},
+  note = {R package version 5.93},
+  url = {https://www.r-project.org},
+}
+
 @Manual{R-R6,
   title = {R6: Encapsulated Classes with Reference Semantics},
   author = {Winston Chang},
-  year = {2019},
-  note = {R package version 2.4.1},
+  year = {2021},
+  note = {R package version 2.5.1},
   url = {https://CRAN.R-project.org/package=R6},
 }
+
+@Manual{R-ragg,
+  title = {ragg: Graphic Devices Based on AGG},
+  author = {Thomas Lin Pedersen and Maxim Shemanarev},
+  year = {2022},
+  note = {R package version 1.2.2},
+  url = {https://CRAN.R-project.org/package=ragg},
+}
+
+@Manual{R-randomForest,
+  title = {randomForest: Breiman and Cutler's Random Forests for Classification and
+Regression},
+  author = {Leo Breiman and Adele Cutler and Andy Liaw and Matthew Wiener},
+  year = {2022},
+  note = {R package version 4.7-1.1},
+  url = {https://www.stat.berkeley.edu/~breiman/RandomForests/},
+}
+
+@Manual{R-RApiSerialize,
+  title = {RApiSerialize: R API Serialization},
+  author = {Dirk Eddelbuettel and Junji Nakano and Ei-ji Nakama and R Core},
+  year = {2014},
+  note = {R package version 0.1.0},
+  url = {https://CRAN.R-project.org/package=RApiSerialize},
+}
+
+@Manual{R-rappdirs,
+  title = {rappdirs: Application Directories: Determine Where to Save Data, Caches,
+and Logs},
+  author = {Sridhar Ratnakumar and Trent Mick and Trevor Davis},
+  year = {2021},
+  note = {R package version 0.3.3},
+  url = {https://CRAN.R-project.org/package=rappdirs},
+}
+
+@Manual{R-rbbt,
+  title = {rbbt: R Interface to the Better BiBTex Zotero Connector},
+  author = {Dewey Dunnington and Brenton M. Wiernik},
+  note = {R package version 0.0.0.9000},
+  url = {https://github.com/paleolimbot/rbbt},
+  year = {2022},
+}
+
 @Manual{R-rcmdcheck,
-  title = {rcmdcheck: Run 'R CMD check' from 'R' and Capture Results},
+  title = {rcmdcheck: Run R CMD check from R and Capture Results},
   author = {Gábor Csárdi},
-  year = {2019},
-  note = {R package version 1.3.3},
+  year = {2021},
+  note = {R package version 1.4.0},
   url = {https://CRAN.R-project.org/package=rcmdcheck},
 }
+
 @Manual{R-RColorBrewer,
   title = {RColorBrewer: ColorBrewer Palettes},
   author = {Erich Neuwirth},
-  year = {2014},
-  note = {R package version 1.1-2},
+  year = {2022},
+  note = {R package version 1.1-3},
   url = {https://CRAN.R-project.org/package=RColorBrewer},
 }
+
 @Manual{R-Rcpp,
   title = {Rcpp: Seamless R and C++ Integration},
-  author = {Dirk Eddelbuettel and Romain Francois and JJ Allaire and Kevin Ushey and Qiang Kou and Nathan Russell and Douglas Bates and John Chambers},
-  year = {2020},
-  note = {R package version 1.0.4.6},
+  author = {Dirk Eddelbuettel and Romain Francois and JJ Allaire and Kevin Ushey and Qiang Kou and Nathan Russell and Inaki Ucar and Douglas Bates and John Chambers},
+  year = {2022},
+  note = {R package version 1.0.8.3},
   url = {https://CRAN.R-project.org/package=Rcpp},
 }
+
 @Manual{R-RcppArmadillo,
-  title = {RcppArmadillo: 'Rcpp' Integration for the 'Armadillo' Templated Linear Algebra
+  title = {RcppArmadillo: Rcpp Integration for the Armadillo Templated Linear Algebra
 Library},
-  author = {Dirk Eddelbuettel and Romain Francois and Doug Bates and Binxiang Ni},
-  year = {2020},
-  note = {R package version 0.9.880.1.0},
+  author = {Dirk Eddelbuettel and Romain Francois and Doug Bates and Binxiang Ni and Conrad Sanderson},
+  year = {2022},
+  note = {R package version 0.11.2.0.0},
   url = {https://CRAN.R-project.org/package=RcppArmadillo},
 }
+
 @Manual{R-RcppEigen,
-  title = {RcppEigen: 'Rcpp' Integration for the 'Eigen' Templated Linear Algebra
+  title = {RcppEigen: Rcpp Integration for the Eigen Templated Linear Algebra
 Library},
   author = {Douglas Bates and Dirk Eddelbuettel and Romain Francois and Yixuan Qiu; the authors of Eigen for the included version of Eigen},
-  year = {2019},
-  note = {R package version 0.3.3.7.0},
+  year = {2022},
+  note = {R package version 0.3.3.9.2},
   url = {https://CRAN.R-project.org/package=RcppEigen},
 }
+
+@Manual{R-RcppParallel,
+  title = {RcppParallel: Parallel Programming Tools for Rcpp},
+  author = {JJ Allaire and Romain Francois and Kevin Ushey and Gregory Vandenbrouck and Marcus Geelnard and {Intel}},
+  year = {2022},
+  note = {R package version 5.1.5},
+  url = {https://CRAN.R-project.org/package=RcppParallel},
+}
+
+@Manual{R-RCurl,
+  title = {RCurl: General Network (HTTP/FTP/...) Client Interface for R},
+  author = {Duncan {Temple Lang}},
+  year = {2022},
+  note = {R package version 1.98-1.7},
+  url = {https://CRAN.R-project.org/package=RCurl},
+}
+
 @Manual{R-readr,
   title = {readr: Read Rectangular Text Data},
-  author = {Hadley Wickham and Jim Hester and Romain Francois},
-  year = {2018},
-  note = {R package version 1.3.1},
+  author = {Hadley Wickham and Jim Hester and Jennifer Bryan},
+  year = {2022},
+  note = {R package version 2.1.2},
   url = {https://CRAN.R-project.org/package=readr},
 }
+
 @Manual{R-readxl,
   title = {readxl: Read Excel Files},
   author = {Hadley Wickham and Jennifer Bryan},
-  year = {2019},
-  note = {R package version 1.3.1},
+  year = {2022},
+  note = {R package version 1.4.0},
   url = {https://CRAN.R-project.org/package=readxl},
 }
-@Manual{R-RefManageR,
-  title = {RefManageR: Straightforward 'BibTeX' and 'BibLaTeX' Bibliography Management},
-  author = {Mathew W. McLean},
-  year = {2019},
-  note = {R package version 1.2.12},
-  url = {https://CRAN.R-project.org/package=RefManageR},
-}
+
 @Manual{R-rematch,
-  title = {rematch: Match Regular Expressions with a Nicer 'API'},
+  title = {rematch: Match Regular Expressions with a Nicer API},
   author = {Gabor Csardi},
   year = {2016},
   note = {R package version 1.0.1},
-  url = {https://CRAN.R-project.org/package=rematch},
+  url = {https://github.com/MangoTheCat/rematch},
 }
+
 @Manual{R-rematch2,
   title = {rematch2: Tidy Output from Regular Expression Matching},
   author = {Gábor Csárdi},
   year = {2020},
   note = {R package version 2.1.2},
-  url = {https://CRAN.R-project.org/package=rematch2},
+  url = {https://github.com/r-lib/rematch2#readme},
 }
+
 @Manual{R-remotes,
   title = {remotes: R Package Installation from Remote Repositories, Including
-'GitHub'},
-  author = {Jim Hester and Gábor Csárdi and Hadley Wickham and Winston Chang and Martin Morgan and Dan Tenenbaum},
-  year = {2020},
-  note = {R package version 2.1.1},
+GitHub},
+  author = {Gábor Csárdi and Jim Hester and Hadley Wickham and Winston Chang and Martin Morgan and Dan Tenenbaum},
+  year = {2021},
+  note = {R package version 2.4.2},
   url = {https://CRAN.R-project.org/package=remotes},
 }
+
 @Manual{R-renv,
   title = {renv: Project Environments},
   author = {Kevin Ushey},
-  year = {2020},
-  note = {R package version 0.10.0},
-  url = {https://CRAN.R-project.org/package=renv},
+  year = {2022},
+  note = {R package version 0.15.5},
+  url = {https://rstudio.github.io/renv/},
 }
+
 @Manual{R-reprex,
   title = {reprex: Prepare Reproducible Example Code via the Clipboard},
   author = {Jennifer Bryan and Jim Hester and David Robinson and Hadley Wickham},
-  year = {2019},
-  note = {R package version 0.3.0},
+  year = {2021},
+  note = {R package version 2.0.1},
   url = {https://CRAN.R-project.org/package=reprex},
 }
-@Manual{R-reshape2,
-  title = {reshape2: Flexibly Reshape Data: A Reboot of the Reshape Package},
-  author = {Hadley Wickham},
-  year = {2020},
-  note = {R package version 1.4.4},
-  url = {https://CRAN.R-project.org/package=reshape2},
+
+@Manual{R-rjson,
+  title = {rjson: JSON for R},
+  author = {Alex Couture-Beil},
+  year = {2022},
+  note = {R package version 0.2.21},
+  url = {https://github.com/alexcb/rjson},
 }
-@Manual{R-rex,
-  title = {rex: Friendly Regular Expressions},
-  author = {Kevin Ushey and Jim Hester and Robert Krzyzanowski},
-  year = {2020},
-  note = {R package version 1.2.0},
-  url = {https://CRAN.R-project.org/package=rex},
-}
+
 @Manual{R-rlang,
-  title = {rlang: Functions for Base Types and Core R and 'Tidyverse' Features},
+  title = {rlang: Functions for Base Types and Core R and Tidyverse Features},
   author = {Lionel Henry and Hadley Wickham},
-  year = {2020},
-  note = {R package version 0.4.6},
+  year = {2022},
+  note = {R package version 1.0.3},
   url = {https://CRAN.R-project.org/package=rlang},
 }
+
 @Manual{R-rmarkdown,
   title = {rmarkdown: Dynamic Documents for R},
   author = {JJ Allaire and Yihui Xie and Jonathan McPherson and Javier Luraschi and Kevin Ushey and Aron Atkins and Hadley Wickham and Joe Cheng and Winston Chang and Richard Iannone},
-  year = {2020},
-  note = {R package version 2.2},
+  year = {2022},
+  note = {R package version 2.14},
   url = {https://CRAN.R-project.org/package=rmarkdown},
 }
+
+@Manual{R-rnaseq.lf.hypoxia.molidustat,
+  title = {rnaseq.lf.hypoxia.molidustat: RNA-seq Analysis of Prolyl Hydroxylase Inhibition in Lung Fibroblasts},
+  author = {William Oldham},
+  note = {R package version 0.0.1},
+  url = {https://github.com/wmoldham/rnaseq.lf.hypoxia.molidustat},
+  year = {2022},
+}
+
+@Manual{R-rngtools,
+  title = {rngtools: Utility Functions for Working with Random Number Generators},
+  author = {Renaud Gaujoux},
+  year = {2021},
+  note = {R package version 1.5.2},
+  url = {https://renozao.github.io/rngtools/},
+}
+
 @Manual{R-roxygen2,
   title = {roxygen2: In-Line Documentation for R},
   author = {Hadley Wickham and Peter Danenberg and Gábor Csárdi and Manuel Eugster},
-  year = {2020},
-  note = {R package version 7.1.0},
+  year = {2022},
+  note = {R package version 7.2.0},
   url = {https://CRAN.R-project.org/package=roxygen2},
 }
+
 @Manual{R-rpart,
   title = {rpart: Recursive Partitioning and Regression Trees},
   author = {Terry Therneau and Beth Atkinson},
-  year = {2019},
-  note = {R package version 4.1-15},
+  year = {2022},
+  note = {R package version 4.1.16},
   url = {https://CRAN.R-project.org/package=rpart},
 }
+
 @Manual{R-rprojroot,
   title = {rprojroot: Finding Files in Project Subdirectories},
   author = {Kirill Müller},
-  year = {2018},
-  note = {R package version 1.3-2},
+  year = {2022},
+  note = {R package version 2.0.3},
   url = {https://CRAN.R-project.org/package=rprojroot},
 }
+
+@Manual{R-RSQLite,
+  title = {RSQLite: SQLite Interface for R},
+  author = {Kirill Müller and Hadley Wickham and David A. James and Seth Falcon},
+  year = {2022},
+  note = {R package version 2.2.14},
+  url = {https://CRAN.R-project.org/package=RSQLite},
+}
+
+@Manual{R-rstatix,
+  title = {rstatix: Pipe-Friendly Framework for Basic Statistical Tests},
+  author = {Alboukadel Kassambara},
+  year = {2021},
+  note = {R package version 0.7.0},
+  url = {https://rpkgs.datanovia.com/rstatix/},
+}
+
 @Manual{R-rstudioapi,
   title = {rstudioapi: Safely Access the RStudio API},
   author = {Kevin Ushey and JJ Allaire and Hadley Wickham and Gary Ritchie},
   year = {2020},
-  note = {R package version 0.11},
-  url = {https://CRAN.R-project.org/package=rstudioapi},
+  note = {R package version 0.13},
+  url = {https://github.com/rstudio/rstudioapi},
 }
-@Manual{R-rversions,
-  title = {rversions: Query 'R' Versions, Including 'r-release' and 'r-oldrel'},
-  author = {Gábor Csárdi},
+
+@Manual{R-Rttf2pt1,
+  title = {Rttf2pt1: ttf2pt1 Program},
+  author = {Winston Chang and Andrew Weeks and Frank M. Siegert and Mark Heath and Thomas Henlick and Sergey Babkin and Turgut Uyar and Rihardas Hepas and Szalay Tamas and Johan Vromans and Petr Titera and Lei Wang and Chen Xiangyang and Zvezdan Petkovic and {Rigel} and I. Lee Hetherington},
   year = {2020},
-  note = {R package version 2.0.2},
+  note = {R package version 1.3.8},
+  url = {https://github.com/wch/Rttf2pt1},
+}
+
+@Manual{R-rversions,
+  title = {rversions: Query R Versions, Including r-release and r-oldrel},
+  author = {Gábor Csárdi},
+  year = {2021},
+  note = {R package version 2.1.1},
   url = {https://CRAN.R-project.org/package=rversions},
 }
+
 @Manual{R-rvest,
   title = {rvest: Easily Harvest (Scrape) Web Pages},
   author = {Hadley Wickham},
-  year = {2019},
-  note = {R package version 0.3.5},
+  year = {2021},
+  note = {R package version 1.0.2},
   url = {https://CRAN.R-project.org/package=rvest},
 }
+
+@Manual{R-S4Vectors,
+  title = {S4Vectors: Foundation of vector-like and list-like containers in
+Bioconductor},
+  author = {H. Pagès and M. Lawrence and P. Aboyoun},
+  year = {2022},
+  note = {R package version 0.34.0},
+  url = {https://bioconductor.org/packages/S4Vectors},
+}
+
+@Manual{R-sass,
+  title = {sass: Syntactically Awesome Style Sheets (Sass)},
+  author = {Joe Cheng and Timothy Mastny and Richard Iannone and Barret Schloerke and Carson Sievert},
+  year = {2022},
+  note = {R package version 0.4.1},
+  url = {https://CRAN.R-project.org/package=sass},
+}
+
 @Manual{R-scales,
   title = {scales: Scale Functions for Visualization},
   author = {Hadley Wickham and Dana Seidel},
-  year = {2020},
-  note = {R package version 1.1.1},
+  year = {2022},
+  note = {R package version 1.2.0},
   url = {https://CRAN.R-project.org/package=scales},
 }
-@Manual{R-scico,
-  title = {scico: Colour Palettes Based on the Scientific Colour-Maps},
-  author = {Thomas Lin Pedersen and Fabio Crameri},
-  year = {2018},
-  note = {R package version 1.1.0},
-  url = {https://CRAN.R-project.org/package=scico},
+
+@Manual{R-segmented,
+  title = {segmented: Regression Models with Break-Points / Change-Points (with
+Possibly Random Effects) Estimation},
+  author = {Vito M. R. Muggeo},
+  year = {2022},
+  note = {R package version 1.6-0},
+  url = {https://CRAN.R-project.org/package=segmented},
 }
+
 @Manual{R-selectr,
   title = {selectr: Translate CSS Selectors to XPath Expressions},
   author = {Simon Potter and Simon Sapin and Ian Bicking},
   year = {2019},
   note = {R package version 0.4-2},
-  url = {https://CRAN.R-project.org/package=selectr},
+  url = {https://sjp.co.nz/projects/selectr},
 }
+
 @Manual{R-sessioninfo,
   title = {sessioninfo: R Session Information},
-  author = {Gábor Csárdi and R core and Hadley Wickham and Winston Chang and Robert M Flight and Kirill Müller and Jim Hester},
-  year = {2018},
-  note = {R package version 1.1.1},
+  author = {Hadley Wickham and Winston Chang and Robert Flight and Kirill Müller and Jim Hester},
+  year = {2021},
+  note = {R package version 1.2.2},
   url = {https://CRAN.R-project.org/package=sessioninfo},
 }
+
 @Manual{R-shiny,
   title = {shiny: Web Application Framework for R},
-  author = {Winston Chang and Joe Cheng and JJ Allaire and Yihui Xie and Jonathan McPherson},
-  year = {2020},
-  note = {R package version 1.4.0.2},
-  url = {https://CRAN.R-project.org/package=shiny},
+  author = {Winston Chang and Joe Cheng and JJ Allaire and Carson Sievert and Barret Schloerke and Yihui Xie and Jeff Allen and Jonathan McPherson and Alan Dipert and Barbara Borges},
+  year = {2021},
+  note = {R package version 1.7.1},
+  url = {https://shiny.rstudio.com/},
 }
-@Manual{R-shinyjs,
-  title = {shinyjs: Easily Improve the User Experience of Your Shiny Apps in Seconds},
-  author = {Dean Attali},
-  year = {2020},
-  note = {R package version 1.1},
-  url = {https://CRAN.R-project.org/package=shinyjs},
+
+@Manual{R-snow,
+  title = {snow: Simple Network of Workstations},
+  author = {Luke Tierney and A. J. Rossini and Na Li and H. Sevcikova},
+  year = {2021},
+  note = {R package version 0.4-4},
+  url = {https://CRAN.R-project.org/package=snow},
 }
+
 @Manual{R-sourcetools,
   title = {sourcetools: Tools for Reading, Tokenizing and Parsing R Code},
   author = {Kevin Ushey},
@@ -1047,27 +2081,55 @@ Library},
   note = {R package version 0.1.7},
   url = {https://CRAN.R-project.org/package=sourcetools},
 }
+
+@Manual{R-sp,
+  title = {sp: Classes and Methods for Spatial Data},
+  author = {Edzer Pebesma and Roger Bivand},
+  year = {2022},
+  note = {R package version 1.5-0},
+  url = {https://CRAN.R-project.org/package=sp},
+}
+
+@Manual{R-SparseM,
+  title = {SparseM: Sparse Linear Algebra},
+  author = {Roger Koenker},
+  year = {2021},
+  note = {R package version 1.81},
+  url = {http://www.econ.uiuc.edu/~roger/research/sparse/sparse.html},
+}
+
 @Manual{R-spatial,
   title = {spatial: Functions for Kriging and Point Pattern Analysis},
   author = {Brian Ripley},
-  year = {2020},
-  note = {R package version 7.3-12},
-  url = {https://CRAN.R-project.org/package=spatial},
+  year = {2022},
+  note = {R package version 7.3-15},
+  url = {http://www.stats.ox.ac.uk/pub/MASS4/},
 }
+
 @Manual{R-statmod,
   title = {statmod: Statistical Modeling},
   author = {Gordon Smyth and Yifang Hu and Peter Dunn and Belinda Phipson and Yunshun Chen},
-  year = {2020},
-  note = {R package version 1.4.34},
+  year = {2021},
+  note = {R package version 1.4.36},
   url = {https://CRAN.R-project.org/package=statmod},
 }
+
+@Manual{R-stringfish,
+  title = {stringfish: Alt String Implementation},
+  author = {Travers Ching},
+  year = {2022},
+  note = {R package version 0.15.7},
+  url = {https://github.com/traversc/stringfish},
+}
+
 @Manual{R-stringi,
   title = {stringi: Character String Processing Facilities},
-  author = {Marek Gagolewski and Bartek Tartanus and other contributors; IBM and {Unicode} and {Inc.} and other contributors; Unicode and {Inc.}},
-  year = {2020},
-  note = {R package version 1.4.6},
+  author = {Marek Gagolewski and Bartek Tartanus and others; Unicode and {Inc.} and others},
+  year = {2021},
+  note = {R package version 1.7.6},
   url = {https://CRAN.R-project.org/package=stringi},
 }
+
 @Manual{R-stringr,
   title = {stringr: Simple, Consistent Wrappers for Common String Operations},
   author = {Hadley Wickham},
@@ -1075,97 +2137,185 @@ Library},
   note = {R package version 1.4.0},
   url = {https://CRAN.R-project.org/package=stringr},
 }
+
+@Manual{R-SummarizedExperiment,
+  title = {SummarizedExperiment: SummarizedExperiment container},
+  author = {Martin Morgan and Valerie Obenchain and Jim Hester and Hervé Pagès},
+  year = {2022},
+  note = {R package version 1.26.1},
+  url = {https://bioconductor.org/packages/SummarizedExperiment},
+}
+
 @Manual{R-survival,
   title = {survival: Survival Analysis},
   author = {Terry M Therneau},
-  year = {2020},
-  note = {R package version 3.1-12},
-  url = {https://CRAN.R-project.org/package=survival},
+  year = {2022},
+  note = {R package version 3.3-1},
+  url = {https://github.com/therneau/survival},
 }
+
+@Manual{R-svglite,
+  title = {svglite: An SVG Graphics Device},
+  author = {Hadley Wickham and Lionel Henry and Thomas Lin Pedersen and T Jake Luciani and Matthieu Decorde and Vaudor Lise},
+  year = {2022},
+  note = {R package version 2.1.0},
+  url = {https://CRAN.R-project.org/package=svglite},
+}
+
 @Manual{R-sys,
   title = {sys: Powerful and Reliable Tools for Running System Commands in R},
   author = {Jeroen Ooms},
-  year = {2019},
-  note = {R package version 3.3},
-  url = {https://CRAN.R-project.org/package=sys},
+  year = {2020},
+  note = {R package version 3.4},
+  url = {https://github.com/jeroen/sys},
 }
+
+@Manual{R-systemfonts,
+  title = {systemfonts: System Native Font Finding},
+  author = {Thomas Lin Pedersen and Jeroen Ooms and Devon Govett},
+  year = {2022},
+  note = {R package version 1.0.4},
+  url = {https://github.com/r-lib/systemfonts},
+}
+
+@Manual{R-tarchetypes,
+  title = {tarchetypes: Archetypes for Targets},
+  author = {William Michael Landau},
+  year = {2022},
+  note = {R package version 0.6.0},
+  url = {https://CRAN.R-project.org/package=tarchetypes},
+}
+
+@Manual{R-targets,
+  title = {targets: Dynamic Function-Oriented Make-Like Declarative Workflows},
+  author = {William Michael Landau},
+  year = {2022},
+  note = {R package version 0.12.1},
+  url = {https://CRAN.R-project.org/package=targets},
+}
+
 @Manual{R-testthat,
   title = {testthat: Unit Testing for R},
   author = {Hadley Wickham},
-  year = {2020},
-  note = {R package version 2.3.2},
+  year = {2022},
+  note = {R package version 3.1.4},
   url = {https://CRAN.R-project.org/package=testthat},
 }
+
+@Manual{R-textshaping,
+  title = {textshaping: Bindings to the HarfBuzz and Fribidi Libraries for Text
+Shaping},
+  author = {Thomas Lin Pedersen},
+  year = {2021},
+  note = {R package version 0.3.6},
+  url = {https://github.com/r-lib/textshaping},
+}
+
 @Manual{R-tibble,
   title = {tibble: Simple Data Frames},
   author = {Kirill Müller and Hadley Wickham},
-  year = {2020},
-  note = {R package version 3.0.1},
+  year = {2022},
+  note = {R package version 3.1.7},
   url = {https://CRAN.R-project.org/package=tibble},
 }
+
 @Manual{R-tidygraph,
   title = {tidygraph: A Tidy API for Graph Manipulation},
   author = {Thomas Lin Pedersen},
-  note = {https://tidygraph.data-imaginist.com, https://github.com/thomasp85/tidygraph},
-  year = {2020},
+  year = {2022},
+  note = {R package version 1.2.1},
+  url = {https://CRAN.R-project.org/package=tidygraph},
 }
+
 @Manual{R-tidyr,
   title = {tidyr: Tidy Messy Data},
-  author = {Hadley Wickham and Lionel Henry},
-  year = {2020},
-  note = {R package version 1.1.0},
+  author = {Hadley Wickham and Maximilian Girlich},
+  year = {2022},
+  note = {R package version 1.2.0},
   url = {https://CRAN.R-project.org/package=tidyr},
 }
+
 @Manual{R-tidyselect,
   title = {tidyselect: Select from a Set of Strings},
   author = {Lionel Henry and Hadley Wickham},
-  year = {2020},
-  note = {R package version 1.1.0},
+  year = {2022},
+  note = {R package version 1.1.2},
   url = {https://CRAN.R-project.org/package=tidyselect},
 }
+
 @Manual{R-tidyverse,
-  title = {tidyverse: Easily Install and Load the 'Tidyverse'},
+  title = {tidyverse: Easily Install and Load the Tidyverse},
   author = {Hadley Wickham},
-  note = {http://tidyverse.tidyverse.org,
-https://github.com/tidyverse/tidyverse},
-  year = {2020},
+  year = {2021},
+  note = {R package version 1.3.1},
+  url = {https://CRAN.R-project.org/package=tidyverse},
 }
+
 @Manual{R-tinytex,
   title = {tinytex: Helper Functions to Install and Maintain TeX Live, and Compile
 LaTeX Documents},
   author = {Yihui Xie},
-  year = {2020},
-  note = {R package version 0.23},
-  url = {https://CRAN.R-project.org/package=tinytex},
+  year = {2022},
+  note = {R package version 0.40},
+  url = {https://github.com/rstudio/tinytex},
 }
+
 @Manual{R-tweenr,
   title = {tweenr: Interpolate Data for Smooth Animations},
   author = {Thomas Lin Pedersen},
-  year = {2018},
-  note = {R package version 1.0.1},
-  url = {https://CRAN.R-project.org/package=tweenr},
+  year = {2021},
+  note = {R package version 1.0.2},
+  url = {https://github.com/thomasp85/tweenr},
 }
+
+@Manual{R-tzdb,
+  title = {tzdb: Time Zone Database Information},
+  author = {Davis Vaughan},
+  year = {2022},
+  note = {R package version 0.3.0},
+  url = {https://CRAN.R-project.org/package=tzdb},
+}
+
 @Manual{R-usethis,
   title = {usethis: Automate Package and Project Setup},
-  author = {Hadley Wickham and Jennifer Bryan},
-  year = {2020},
-  note = {R package version 1.6.1},
+  author = {Hadley Wickham and Jennifer Bryan and Malcolm Barrett},
+  year = {2022},
+  note = {R package version 2.1.6},
   url = {https://CRAN.R-project.org/package=usethis},
 }
+
 @Manual{R-utf8,
   title = {utf8: Unicode Text Processing},
   author = {Patrick O. Perry},
-  year = {2018},
-  note = {R package version 1.1.4},
+  year = {2021},
+  note = {R package version 1.2.2},
   url = {https://CRAN.R-project.org/package=utf8},
 }
+
+@Manual{R-uuid,
+  title = {uuid: Tools for Generating and Handling of UUIDs},
+  author = {Simon Urbanek and Theodore Ts'o},
+  year = {2022},
+  note = {R package version 1.1-0},
+  url = {https://www.rforge.net/uuid},
+}
+
 @Manual{R-vctrs,
   title = {vctrs: Vector Helpers},
   author = {Hadley Wickham and Lionel Henry and Davis Vaughan},
-  note = {R package version 0.3.1},
+  year = {2022},
+  note = {R package version 0.4.1},
   url = {https://vctrs.r-lib.org/},
-  year = {2020},
 }
+
+@Manual{R-viper,
+  title = {viper: Virtual Inference of Protein-activity by Enriched Regulon
+analysis},
+  author = {Mariano J Alvarez},
+  year = {2022},
+  note = {R package version 1.30.0},
+}
+
 @Manual{R-vipor,
   title = {vipor: Plot Categorical Data Using Quasirandom Noise and Density
 Estimates},
@@ -1174,83 +2324,174 @@ Estimates},
   note = {R package version 0.4.5},
   url = {https://CRAN.R-project.org/package=vipor},
 }
+
 @Manual{R-viridis,
-  title = {viridis: Default Color Maps from 'matplotlib'},
+  title = {viridis: Colorblind-Friendly Color Maps for R},
   author = {Simon Garnier},
-  year = {2018},
-  note = {R package version 0.5.1},
+  year = {2021},
+  note = {R package version 0.6.2},
   url = {https://CRAN.R-project.org/package=viridis},
 }
+
 @Manual{R-viridisLite,
-  title = {viridisLite: Default Color Maps from 'matplotlib' (Lite Version)},
+  title = {viridisLite: Colorblind-Friendly Color Maps (Lite Version)},
   author = {Simon Garnier},
-  year = {2018},
-  note = {R package version 0.3.0},
+  year = {2021},
+  note = {R package version 0.4.0},
   url = {https://CRAN.R-project.org/package=viridisLite},
 }
+
+@Manual{R-visNetwork,
+  title = {visNetwork: Network Visualization using vis.js Library},
+  author = {{Almende B.V. and Contributors} and Benoit Thieurmel and Titouan Robert},
+  year = {2021},
+  note = {R package version 2.1.0},
+  url = {http://datastorm-open.github.io/visNetwork/},
+}
+
+@Manual{R-vroom,
+  title = {vroom: Read and Write Rectangular Text Data Quickly},
+  author = {Jim Hester and Hadley Wickham and Jennifer Bryan},
+  year = {2021},
+  note = {R package version 1.5.7},
+  url = {https://CRAN.R-project.org/package=vroom},
+}
+
+@Manual{R-waldo,
+  title = {waldo: Find Differences Between R Objects},
+  author = {Hadley Wickham},
+  year = {2022},
+  note = {R package version 0.4.0},
+  url = {https://CRAN.R-project.org/package=waldo},
+}
+
 @Manual{R-webshot,
   title = {webshot: Take Screenshots of Web Pages},
   author = {Winston Chang},
-  year = {2019},
-  note = {R package version 0.5.2},
+  year = {2022},
+  note = {R package version 0.5.3},
   url = {https://CRAN.R-project.org/package=webshot},
 }
+
 @Manual{R-whisker,
   title = {whisker: {{mustache}} for R, Logicless Templating},
   author = {Edwin {de Jonge}},
   year = {2019},
   note = {R package version 0.4},
-  url = {https://CRAN.R-project.org/package=whisker},
+  url = {http://github.com/edwindj/whisker},
 }
+
 @Manual{R-withr,
-  title = {withr: Run Code 'With' Temporarily Modified Global State},
-  author = {Jim Hester and Kirill Müller and Kevin Ushey and Hadley Wickham and Winston Chang},
-  year = {2020},
-  note = {R package version 2.2.0},
+  title = {withr: Run Code With Temporarily Modified Global State},
+  author = {Jim Hester and Lionel Henry and Kirill Müller and Kevin Ushey and Hadley Wickham and Winston Chang},
+  year = {2022},
+  note = {R package version 2.5.0},
   url = {https://CRAN.R-project.org/package=withr},
 }
+
 @Manual{R-wmo,
   title = {wmo: Personal Utility Functions},
   author = {William Oldham},
-  note = {R package version 0.0.1},
+  note = {R package version 0.0.3.9001},
   url = {https://github.com/wmoldham/wmo},
-  year = {2020},
+  year = {2022},
 }
+
 @Manual{R-xfun,
-  title = {xfun: Miscellaneous Functions by 'Yihui Xie'},
+  title = {xfun: Supporting Functions for Packages Maintained by Yihui Xie},
   author = {Yihui Xie},
-  year = {2020},
-  note = {R package version 0.14},
-  url = {https://CRAN.R-project.org/package=xfun},
+  year = {2022},
+  note = {R package version 0.31},
+  url = {https://github.com/yihui/xfun},
 }
+
+@Manual{R-XML,
+  title = {XML: Tools for Parsing and Generating XML Within R and S-Plus},
+  author = {Duncan {Temple Lang}},
+  year = {2022},
+  note = {R package version 3.99-0.10},
+  url = {http://www.omegahat.net/RSXML/},
+}
+
 @Manual{R-xml2,
   title = {xml2: Parse XML},
   author = {Hadley Wickham and Jim Hester and Jeroen Ooms},
-  year = {2020},
-  note = {R package version 1.3.2},
+  year = {2021},
+  note = {R package version 1.3.3},
   url = {https://CRAN.R-project.org/package=xml2},
 }
+
 @Manual{R-xopen,
-  title = {xopen: Open System Files, 'URLs', Anything},
+  title = {xopen: Open System Files, URLs, Anything},
   author = {Gábor Csárdi and Fathi Boudra and Rex Dieter and Kevin Krammer and Jeremy White},
   year = {2018},
   note = {R package version 1.0.0},
-  url = {https://CRAN.R-project.org/package=xopen},
+  url = {https://github.com/r-lib/xopen#readme},
 }
+
 @Manual{R-xtable,
   title = {xtable: Export Tables to LaTeX or HTML},
   author = {David B. Dahl and David Scott and Charles Roosen and Arni Magnusson and Jonathan Swinton},
   year = {2019},
   note = {R package version 1.8-4},
-  url = {https://CRAN.R-project.org/package=xtable},
+  url = {http://xtable.r-forge.r-project.org/},
 }
+
+@Manual{R-XVector,
+  title = {XVector: Foundation of external vector representation and manipulation in
+Bioconductor},
+  author = {Hervé Pagès and Patrick Aboyoun},
+  year = {2022},
+  note = {R package version 0.36.0},
+  url = {https://bioconductor.org/packages/XVector},
+}
+
 @Manual{R-yaml,
   title = {yaml: Methods to Convert R Data to YAML and Back},
-  author = {Jeremy Stephens and Kirill Simonov and Yihui Xie and Zhuoer Dong and Hadley Wickham and Jeffrey Horner and {reikoch} and Will Beasley and Brendan O'Connor and Gregory R. Warnes},
-  year = {2020},
-  note = {R package version 2.2.1},
-  url = {https://CRAN.R-project.org/package=yaml},
+  author = {Shawn P Garbett and Jeremy Stephens and Kirill Simonov and Yihui Xie and Zhuoer Dong and Hadley Wickham and Jeffrey Horner and {reikoch} and Will Beasley and Brendan O'Connor and Gregory R. Warnes and Michael Quinn and Zhian N. Kamvar},
+  year = {2022},
+  note = {R package version 2.3.5},
+  url = {https://github.com/vubiostat/r-yaml/},
 }
+
+@Manual{R-zip,
+  title = {zip: Cross-Platform zip Compression},
+  author = {Gábor Csárdi and Kuba Podgórski and Rich Geldreich},
+  year = {2021},
+  note = {R package version 2.2.0},
+  url = {https://github.com/r-lib/zip#readme},
+}
+
+@Manual{R-zlibbioc,
+  title = {zlibbioc: An R packaged zlib-1.2.5},
+  author = {Martin Morgan},
+  year = {2022},
+  note = {R package version 1.42.0},
+  url = {https://bioconductor.org/packages/zlibbioc},
+}
+
+@Article{Biobase2015,
+  author = {W. Huber and V. J. Carey and R. Gentleman and S. Anders and M. Carlson and B. S. Carvalho and H. C. Bravo and S. Davis and L. Gatto and T. Girke and R. Gottardo and F. Hahne and K. D. Hansen and R. A. Irizarry and M. Lawrence and M. I. Love and J. MacDonald and V. Obenchain and A. K. {Ole's} and H. {Pag`es} and A. Reyes and P. Shannon and G. K. Smyth and D. Tenenbaum and L. Waldron and M. Morgan},
+  title = {{O}rchestrating high-throughput genomic analysis with {B}ioconductor},
+  journal = {Nature Methods},
+  year = {2015},
+  volume = {12},
+  number = {2},
+  pages = {115--121},
+  url = {http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html},
+}
+
+@Article{BiocGenerics2015,
+  author = {{Huber} and {W.} and {Carey} and V. J. and {Gentleman} and {R.} and {Anders} and {S.} and {Carlson} and {M.} and {Carvalho} and B. S. and {Bravo} and H. C. and {Davis} and {S.} and {Gatto} and {L.} and {Girke} and {T.} and {Gottardo} and {R.} and {Hahne} and {F.} and {Hansen} and K. D. and {Irizarry} and R. A. and {Lawrence} and {M.} and {Love} and M. I. and {MacDonald} and {J.} and {Obenchain} and {V.} and {{Ole's}} and A. K. and {{Pag`es}} and {H.} and {Reyes} and {A.} and {Shannon} and {P.} and {Smyth} and G. K. and {Tenenbaum} and {D.} and {Waldron} and {L.} and {Morgan} and {M.}},
+  title = {{O}rchestrating high-throughput genomic analysis with {B}ioconductor},
+  journal = {Nature Methods},
+  year = {2015},
+  volume = {12},
+  number = {2},
+  pages = {115--121},
+  url = {http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html},
+}
+
 @Book{bookdown2016,
   title = {bookdown: Authoring Books and Technical Documents with {R} Markdown},
   author = {Yihui Xie},
@@ -1258,8 +2499,9 @@ Estimates},
   address = {Boca Raton, Florida},
   year = {2016},
   note = {ISBN 978-1138700109},
-  url = {https://github.com/rstudio/bookdown},
+  url = {https://bookdown.org/yihui/bookdown},
 }
+
 @Book{boot1997,
   title = {Bootstrap Methods and Their Applications},
   author = {A. C. Davison and D. V. Hinkley},
@@ -1269,6 +2511,37 @@ Estimates},
   note = {ISBN 0-521-57391-2},
   url = {http://statwww.epfl.ch/davison/BMA/},
 }
+
+@Book{car2019,
+  title = {An {R} Companion to Applied Regression},
+  edition = {Third},
+  author = {John Fox and Sanford Weisberg},
+  year = {2019},
+  publisher = {Sage},
+  address = {Thousand Oaks {CA}},
+  url = {https://socialsciences.mcmaster.ca/jfox/Books/Companion/},
+}
+
+@Article{CARNIVAL2019,
+  title = {From expression footprints to causal pathways: contextualizing large signaling networks with CARNIVAL},
+  author = {Anika Liu and Panuwat Trairatphisan and Enio Gjerga and Athanasios Didangelos and Jonathan Barratt and Julio Saez-Rodriguez},
+  year = {2019},
+  journal = {npj Syst Biol Appl},
+  doi = {10.1038/s41540-019-0118-z},
+  url = {https://www.nature.com/articles/s41540-019-0118-z},
+}
+
+@Article{checkmate,
+  title = {{checkmate}: Fast Argument Checks for Defensive {R} Programming},
+  author = {Michel Lang},
+  journal = {The R Journal},
+  year = {2017},
+  doi = {10.32614/RJ-2017-028},
+  pages = {437--445},
+  volume = {9},
+  number = {1},
+}
+
 @Book{class2002,
   title = {Modern Applied Statistics with S},
   author = {W. N. Venables and B. D. Ripley},
@@ -1277,18 +2550,20 @@ Estimates},
   address = {New York},
   year = {2002},
   note = {ISBN 0-387-95457-0},
-  url = {http://www.stats.ox.ac.uk/pub/MASS4},
+  url = {https://www.stats.ox.ac.uk/pub/MASS4/},
 }
-@TechReport{colorspace2019a,
+
+@Article{colorspace2020a,
   title = {{colorspace}: A Toolbox for Manipulating and Assessing Colors and Palettes},
   author = {Achim Zeileis and Jason C. Fisher and Kurt Hornik and Ross Ihaka and Claire D. McWhite and Paul Murrell and Reto Stauffer and Claus O. Wilke},
-  year = {2019},
-  institution = {arXiv.org E-Print Archive},
-  type = {arXiv},
-  number = {1903.06490},
-  month = {March},
-  url = {http://arxiv.org/abs/1903.06490},
+  journal = {Journal of Statistical Software},
+  year = {2020},
+  volume = {96},
+  number = {1},
+  pages = {1--49},
+  doi = {10.18637/jss.v096.i01},
 }
+
 @Article{colorspace2009a,
   title = {Escaping {RGB}land: Selecting Colors for Statistical Graphics},
   author = {Achim Zeileis and Kurt Hornik and Paul Murrell},
@@ -1299,6 +2574,7 @@ Estimates},
   pages = {3259--3270},
   doi = {10.1016/j.csda.2008.11.033},
 }
+
 @Article{colorspace2009b,
   title = {Somewhere over the Rainbow: How to Make Effective Use of Colors in Meteorological Visualizations},
   author = {Reto Stauffer and Georg J. Mayr and Markus Dabernig and Achim Zeileis},
@@ -1309,6 +2585,86 @@ Estimates},
   pages = {203--216},
   doi = {10.1175/BAMS-D-13-00155.1},
 }
+
+@Manual{corrplot2021,
+  title = {R package 'corrplot': Visualization of a Correlation Matrix},
+  author = {Taiyun Wei and Viliam Simko},
+  year = {2021},
+  note = {(Version 0.92)},
+  url = {https://github.com/taiyun/corrplot},
+}
+
+@Article{cosmosR2021,
+  author = {Aurelien Dugourd and Christoph Kuppe and Marco Sciacovelli and Enio Gjerga and Attila Gabor and Kristina B. Embdal and Vitor Vieira and Dorte B. Bekker-Jensen and Jennifer Kranz and Eric M. J. Bindels and Ana S. H. Costa and Abel Sousa and Pedro Beltrao and Jesper V Olsen and Christian Frezza and Rafael Kramann and Julio Saez-Rodriguez},
+  title = {Causal integration of multi-omics data with prior knowledge to generate mechanistic hypotheses},
+  journal = {Molecular Systems Biology},
+  year = {2021},
+}
+
+@Article{DESeq22014,
+  title = {Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2},
+  author = {Michael I. Love and Wolfgang Huber and Simon Anders},
+  year = {2014},
+  journal = {Genome Biology},
+  doi = {10.1186/s13059-014-0550-8},
+  volume = {15},
+  issue = {12},
+  pages = {550},
+}
+
+@Article{dorothea2019,
+  author = {Luz Garcia-Alonso and Christian H. Holland and Mahmoud M. Ibrahim and Denes Turei and Julio Saez-Rodriguez},
+  title = {Benchmark and integration of resources for the estimation of human transcription factor activities},
+  journal = {Genome Research},
+  year = {2019},
+  doi = {10.1101/gr.240663.118},
+}
+
+@Article{fgsea2019,
+  author = {Gennady Korotkevich and Vladimir Sukhov and Alexey Sergushichev},
+  title = {Fast gene set enrichment analysis},
+  year = {2019},
+  doi = {10.1101/060012},
+  publisher = {Cold Spring Harbor Labs Journals},
+  url = {http://biorxiv.org/content/early/2016/06/20/060012},
+  journal = {bioRxiv},
+}
+
+@Article{RJ-2021-048,
+  author = {Henrik Bengtsson},
+  title = {A Unifying Framework for Parallel and Distributed Processing in R using Futures},
+  year = {2021},
+  journal = {The R Journal},
+  doi = {10.32614/RJ-2021-048},
+  url = {https://doi.org/10.32614/RJ-2021-048},
+  pages = {208--227},
+  volume = {13},
+  number = {2},
+}
+
+@Article{RJ-2021-048,
+  author = {Henrik Bengtsson},
+  title = {A Unifying Framework for Parallel and Distributed Processing in R using Futures},
+  year = {2021},
+  journal = {The R Journal},
+  doi = {10.32614/RJ-2021-048},
+  url = {https://doi.org/10.32614/RJ-2021-048},
+  pages = {208--227},
+  volume = {13},
+  number = {2},
+}
+
+@Article{GenomicRanges2013,
+  title = {Software for Computing and Annotating Genomic Ranges},
+  author = {Michael Lawrence and Wolfgang Huber and Herv\'e Pag\`es and Patrick Aboyoun and Marc Carlson and Robert Gentleman and Martin Morgan and Vincent Carey},
+  year = {2013},
+  journal = {{PLoS} Computational Biology},
+  volume = {9},
+  issue = {8},
+  doi = {10.1371/journal.pcbi.1003118},
+  url = {http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003118},
+}
+
 @Book{ggplot22016,
   author = {Hadley Wickham},
   title = {ggplot2: Elegant Graphics for Data Analysis},
@@ -1317,6 +2673,16 @@ Estimates},
   isbn = {978-3-319-24277-4},
   url = {https://ggplot2.tidyverse.org},
 }
+
+@Article{ggsignif2021,
+  title = {{ggsignif}: R Package for Displaying Significance Brackets for {'ggplot2'}},
+  author = {Ahlmann-Eltze Constantin and Indrajeet Patil},
+  year = {2021},
+  journal = {PsyArxiv},
+  url = {https://psyarxiv.com/7awm6},
+  doi = {10.31234/osf.io/7awm6},
+}
+
 @Article{igraph2006,
   title = {The igraph software package for complex network research},
   author = {Gabor Csardi and Tamas Nepusz},
@@ -1324,8 +2690,20 @@ Estimates},
   volume = {Complex Systems},
   pages = {1695},
   year = {2006},
-  url = {http://igraph.org},
+  url = {https://igraph.org},
 }
+
+@Article{IRanges2013,
+  title = {Software for Computing and Annotating Genomic Ranges},
+  author = {Michael Lawrence and Wolfgang Huber and Herv\'e Pag\`es and Patrick Aboyoun and Marc Carlson and Robert Gentleman and Martin Morgan and Vincent Carey},
+  year = {2013},
+  journal = {{PLoS} Computational Biology},
+  volume = {9},
+  issue = {8},
+  doi = {10.1371/journal.pcbi.1003118},
+  url = {http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003118},
+}
+
 @Article{jsonlite2014,
   title = {The jsonlite Package: A Practical and Consistent Mapping Between JSON Data and R Objects},
   author = {Jeroen Ooms},
@@ -1333,6 +2711,18 @@ Estimates},
   year = {2014},
   url = {https://arxiv.org/abs/1403.2805},
 }
+
+@Article{kernlab2004,
+  title = {kernlab -- An {S4} Package for Kernel Methods in {R}},
+  author = {Alexandros Karatzoglou and Alex Smola and Kurt Hornik and Achim Zeileis},
+  journal = {Journal of Statistical Software},
+  year = {2004},
+  volume = {11},
+  number = {9},
+  pages = {1--20},
+  doi = {10.18637/jss.v011.i09},
+}
+
 @Book{knitr2015,
   title = {Dynamic Documents with {R} and knitr},
   author = {Yihui Xie},
@@ -1343,6 +2733,7 @@ Estimates},
   note = {ISBN 978-1498716963},
   url = {https://yihui.org/knitr/},
 }
+
 @InCollection{knitr2014,
   booktitle = {Implementing Reproducible Computational Research},
   editor = {Victoria Stodden and Friedrich Leisch and Roger D. Peng},
@@ -1353,6 +2744,7 @@ Estimates},
   note = {ISBN 978-1466561595},
   url = {http://www.crcpress.com/product/isbn/9781466561595},
 }
+
 @Book{lattice2008,
   title = {Lattice: Multivariate Data Visualization with R},
   author = {Deepayan Sarkar},
@@ -1362,344 +2754,8 @@ Estimates},
   note = {ISBN 978-0-387-75968-5},
   url = {http://lmdvr.r-forge.r-project.org},
 }
-@Article{lme42015,
-  title = {Fitting Linear Mixed-Effects Models Using {lme4}},
-  author = {Douglas Bates and Martin M{\"a}chler and Ben Bolker and Steve Walker},
-  journal = {Journal of Statistical Software},
-  year = {2015},
-  volume = {67},
-  number = {1},
-  pages = {1--48},
-  doi = {10.18637/jss.v067.i01},
-}
-@Article{lmerTest2017,
-  title = {{lmerTest} Package: Tests in Linear Mixed Effects Models},
-  author = {Alexandra Kuznetsova and Per B. Brockhoff and Rune H. B. Christensen},
-  journal = {Journal of Statistical Software},
-  year = {2017},
-  volume = {82},
-  number = {13},
-  pages = {1--26},
-  doi = {10.18637/jss.v082.i13},
-}
-@Article{lubridate2011,
-  title = {Dates and Times Made Easy with {lubridate}},
-  author = {Garrett Grolemund and Hadley Wickham},
-  journal = {Journal of Statistical Software},
-  year = {2011},
-  volume = {40},
-  number = {3},
-  pages = {1--25},
-  url = {http://www.jstatsoft.org/v40/i03/},
-}
-@Book{MASS2002,
-  title = {Modern Applied Statistics with S},
-  author = {W. N. Venables and B. D. Ripley},
-  publisher = {Springer},
-  edition = {Fourth},
-  address = {New York},
-  year = {2002},
-  note = {ISBN 0-387-95457-0},
-  url = {http://www.stats.ox.ac.uk/pub/MASS4},
-}
-@Article{mgcv2011,
-  title = {Fast stable restricted maximum likelihood and marginal
-likelihood estimation of semiparametric generalized linear models},
-  journal = {Journal of the Royal Statistical Society (B)},
-  volume = {73},
-  number = {1},
-  pages = {3-36},
-  year = {2011},
-  author = {S. N. Wood},
-}
-@Article{mgcv2016,
-  title = {Smoothing parameter and model selection for general smooth models (with discussion)},
-  author = {S.N. Wood and {N.} and {Pya} and B. S{"a}fken},
-  journal = {Journal of the American Statistical Association},
-  year = {2016},
-  pages = {1548-1575},
-  volume = {111},
-}
-@Article{mgcv2004,
-  title = {Stable and efficient multiple smoothing parameter estimation for
-         generalized additive models},
-  journal = {Journal of the American Statistical Association},
-  volume = {99},
-  number = {467},
-  pages = {673-686},
-  year = {2004},
-  author = {S. N. Wood},
-}
-@Book{mgcv2017,
-  title = {Generalized Additive Models: An Introduction with R},
-  year = {2017},
-  author = {S.N Wood},
-  edition = {2},
-  publisher = {Chapman and Hall/CRC},
-}
-@Article{mgcv2003,
-  title = {Thin-plate regression splines},
-  journal = {Journal of the Royal Statistical Society (B)},
-  volume = {65},
-  number = {1},
-  pages = {95-114},
-  year = {2003},
-  author = {S. N. Wood},
-}
-@Book{mvtnorm2009,
-  title = {Computation of Multivariate Normal and t Probabilities},
-  author = {Alan Genz and Frank Bretz},
-  series = {Lecture Notes in Statistics},
-  year = {2009},
-  publisher = {Springer-Verlag},
-  address = {Heidelberg},
-  isbn = {978-3-642-01688-2},
-}
-@Article{nloptr?,
-  title = {The NLopt nonlinear-optimization package},
-  author = {Steven G. Johnson},
-  year = {?},
-  journal = {?},
-  volume = {?},
-  number = {?},
-  pages = {?},
-}
-@Book{nnet2002,
-  title = {Modern Applied Statistics with S},
-  author = {W. N. Venables and B. D. Ripley},
-  publisher = {Springer},
-  edition = {Fourth},
-  address = {New York},
-  year = {2002},
-  note = {ISBN 0-387-95457-0},
-  url = {http://www.stats.ox.ac.uk/pub/MASS4},
-}
-@Article{pbkrtest2014,
-  title = {A Kenward-Roger Approximation and Parametric Bootstrap Methods for Tests in Linear Mixed Models -- The {R} Package {pbkrtest}},
-  author = {Ulrich Halekoh and S{\o}ren H{\o}jsgaard},
-  journal = {Journal of Statistical Software},
-  year = {2014},
-  volume = {59},
-  number = {9},
-  pages = {1--30},
-  url = {http://www.jstatsoft.org/v59/i09/},
-}
-@Article{plyr2011,
-  title = {The Split-Apply-Combine Strategy for Data Analysis},
-  author = {Hadley Wickham},
-  journal = {Journal of Statistical Software},
-  year = {2011},
-  volume = {40},
-  number = {1},
-  pages = {1--29},
-  url = {http://www.jstatsoft.org/v40/i01/},
-}
-@Article{Rcpp2011,
-  title = {{Rcpp}: Seamless {R} and {C++} Integration},
-  author = {Dirk Eddelbuettel and Romain Fran\c{c}ois},
-  journal = {Journal of Statistical Software},
-  year = {2011},
-  volume = {40},
-  number = {8},
-  pages = {1--18},
-  url = {http://www.jstatsoft.org/v40/i08/},
-  doi = {10.18637/jss.v040.i08},
-}
-@Book{Rcpp2013,
-  title = {Seamless {R} and {C++} Integration with {Rcpp}},
-  author = {Dirk Eddelbuettel},
-  publisher = {Springer},
-  address = {New York},
-  year = {2013},
-  note = {ISBN 978-1-4614-6867-7},
-  doi = {10.1007/978-1-4614-6868-4},
-}
-@Article{Rcpp2017,
-  title = {{Extending 	extit{R} with 	extit{C++}: A Brief Introduction to 	extit{Rcpp}}},
-  author = {Dirk Eddelbuettel and James Joseph Balamuta},
-  journal = {PeerJ Preprints},
-  year = {2017},
-  month = {aug},
-  volume = {5},
-  pages = {e3188v1},
-  issn = {2167-9843},
-  url = {https://doi.org/10.7287/peerj.preprints.3188v1},
-  doi = {10.7287/peerj.preprints.3188v1},
-}
-@Article{RcppArmadillo2014,
-  title = {RcppArmadillo: Accelerating R with high-performance C++ linear algebra},
-  author = {Dirk Eddelbuettel and Conrad Sanderson},
-  journal = {Computational	Statistics and Data Analysis},
-  year = {2014},
-  volume = {71},
-  month = {March},
-  pages = {1054--1063},
-  url = {http://dx.doi.org/10.1016/j.csda.2013.02.005},
-}
-@Article{RcppEigen2013,
-  title = {Fast and Elegant Numerical Linear Algebra Using the {RcppEigen} Package},
-  author = {Douglas Bates and Dirk Eddelbuettel},
-  journal = {Journal of Statistical Software},
-  year = {2013},
-  volume = {52},
-  number = {5},
-  pages = {1--24},
-  url = {http://www.jstatsoft.org/v52/i05/},
-}
-@Article{RefManageR2017,
-  author = {Mathew William McLean},
-  title = {RefManageR: Import and Manage BibTeX and BibLaTeX References in R},
-  journal = {The Journal of Open Source Software},
-  year = {2017},
-  doi = {10.21105/joss.00338},
-}
-@Manual{RefManageR2014,
-  author = {Mathew William McLean},
-  title = {Straightforward Bibliography Management in R Using the RefManager Package},
-  note = {arXiv: 1403.2036 [cs.DL]},
-  year = {2014},
-  url = {https://arxiv.org/abs/1403.2036},
-}
-@Article{reshape22007,
-  title = {Reshaping Data with the {reshape} Package},
-  author = {Hadley Wickham},
-  journal = {Journal of Statistical Software},
-  year = {2007},
-  volume = {21},
-  number = {12},
-  pages = {1--20},
-  url = {http://www.jstatsoft.org/v21/i12/},
-}
-@Book{rmarkdown2018,
-  title = {R Markdown: The Definitive Guide},
-  author = {Yihui Xie and J.J. Allaire and Garrett Grolemund},
-  publisher = {Chapman and Hall/CRC},
-  address = {Boca Raton, Florida},
-  year = {2018},
-  note = {ISBN 9781138359338},
-  url = {https://bookdown.org/yihui/rmarkdown},
-}
-@TechReport{selectr2012,
-  title = {Introducing the selectr Package},
-  author = {Simon Potter},
-  institution = {The University of Auckland},
-  address = {Auckland, New Zealand},
-  year = {2012},
-  url = {http://stattech.wordpress.fos.auckland.ac.nz/2012-10-introducing-the-selectr-package/},
-}
-@Book{spatial2002,
-  title = {Modern Applied Statistics with S},
-  author = {W. N. Venables and B. D. Ripley},
-  publisher = {Springer},
-  edition = {Fourth},
-  address = {New York},
-  year = {2002},
-  note = {ISBN 0-387-95457-0},
-  url = {http://www.stats.ox.ac.uk/pub/MASS4},
-}
-@Article{statmod2016a,
-  author = {Goknur Giner and Gordon K. Smyth},
-  year = {2016},
-  title = {statmod: probability calculations for the inverse Gaussian distribution},
-  journal = {R Journal},
-  volume = {8},
-  number = {1},
-  pages = {339-351},
-}
-@Article{statmod2010a,
-  author = {Belinda Phipson and Gordon K. Smyth},
-  year = {2010},
-  title = {Permutation p-values should never be zero: calculating exact p-values when permutations are randomly drawn},
-  journal = {Statistical Applications in Genetics and Molecular Biology},
-  volume = {9},
-  number = {1},
-  pages = {Article 39},
-}
-@Article{statmod2009a,
-  author = {Yifang Hu and Gordon K. Smyth},
-  year = {2009},
-  title = {ELDA: extreme limiting dilution analysis for comparing depleted and enriched populations in stem cell and other assays},
-  journal = {Journal of Immunological Methods},
-  volume = {347},
-  number = {1},
-  pages = {70-78},
-}
-@Article{statmod2005a,
-  author = {Gordon K. Smyth},
-  title = {Optimization and nonlinear equations},
-  journal = {Encyclopedia of Biostatistics},
-  year = {2005},
-  publisher = {John Wiley and Sons, Ltd},
-  pages = {3088-3095},
-}
-@Article{statmod2005b,
-  author = {Gordon K. Smyth},
-  title = {Numerical integration},
-  journal = {Encyclopedia of Biostatistics},
-  year = {2005},
-  publisher = {John Wiley and Sons, Ltd},
-  pages = {3088-3095},
-}
-@Article{statmod2002a,
-  author = {Gordon K. Smyth},
-  year = {2002},
-  title = {An efficient algorithm for REML in heteroscedastic regression},
-  journal = {Journal of Computational and Graphical Statistics},
-  volume = {11},
-  pages = {836-847},
-}
-@Article{statmod1996a,
-  author = {Peter K. Dunn and Gordon K. Smyth},
-  year = {1996},
-  title = {Randomized quantile residuals},
-  journal = {J. Comput. Graph. Statist},
-  volume = {5},
-  pages = {236-244},
-}
-@Manual{stringi2020,
-  title = {R package stringi: Character string processing facilities},
-  author = {Marek Gagolewski},
-  year = {2020},
-  url = {http://www.gagolewski.com/software/stringi/},
-}
-@Book{survival-book,
-  title = {Modeling Survival Data: Extending the {C}ox Model},
-  author = {{Terry M. Therneau} and {Patricia M. Grambsch}},
-  year = {2000},
-  publisher = {Springer},
-  address = {New York},
-  isbn = {0-387-98784-3},
-}
-@Article{testthat2011,
-  author = {Hadley Wickham},
-  title = {testthat: Get Started with Testing},
-  journal = {The R Journal},
-  year = {2011},
-  volume = {3},
-  pages = {5--10},
-  url = {https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf},
-}
-@Article{tidyverse2019,
-  title = {Welcome to the {tidyverse}},
-  author = {Hadley Wickham and Mara Averick and Jennifer Bryan and Winston Chang and Lucy D'Agostino McGowan and Romain François and Garrett Grolemund and Alex Hayes and Lionel Henry and Jim Hester and Max Kuhn and Thomas Lin Pedersen and Evan Miller and Stephan Milton Bache and Kirill Müller and Jeroen Ooms and David Robinson and Dana Paige Seidel and Vitalie Spinu and Kohske Takahashi and Davis Vaughan and Claus Wilke and Kara Woo and Hiroaki Yutani},
-  year = {2019},
-  journal = {Journal of Open Source Software},
-  volume = {4},
-  number = {43},
-  pages = {1686},
-  doi = {10.21105/joss.01686},
-}
-@Article{tinytex2019,
-  title = {TinyTeX: A lightweight, cross-platform, and easy-to-maintain LaTeX distribution based on TeX Live},
-  author = {Yihui Xie},
-  journal = {TUGboat},
-  year = {2019},
-  volumne = {40},
-  number = {1},
-  pages = {30--32},
-  url = {http://tug.org/TUGboat/Contents/contents40-1.html},
-}
-@Article{limma,
+
+@Article{limma2015,
   author = {Matthew E Ritchie and Belinda Phipson and Di Wu and Yifang Hu and Charity W Law and Wei Shi and Gordon K Smyth},
   title = {{limma} powers differential expression analyses for {RNA}-sequencing and microarray studies},
   journal = {Nucleic Acids Research},
@@ -1710,41 +2766,485 @@ likelihood estimation of semiparametric generalized linear models},
   doi = {10.1093/nar/gkv007},
 }
 
-@Manual{hugene,
-    title = {hugene20sttranscriptcluster.db: Affymetrix hugene20 annotation data (chip
-hugene20sttranscriptcluster)},
-    author = {James W. MacDonald},
-    year = {2021},
-    note = {R package version 8.8.0},
+@Article{lme42015,
+  title = {Fitting Linear Mixed-Effects Models Using {lme4}},
+  author = {Douglas Bates and Martin M{\"a}chler and Ben Bolker and Steve Walker},
+  journal = {Journal of Statistical Software},
+  year = {2015},
+  volume = {67},
+  number = {1},
+  pages = {1--48},
+  doi = {10.18637/jss.v067.i01},
 }
 
-@Article{fgsea,
-    author = {Gennady Korotkevich and Vladimir Sukhov and Alexey Sergushichev},
-    title = {Fast gene set enrichment analysis},
-    year = {2019},
-    doi = {10.1101/060012},
-    publisher = {Cold Spring Harbor Labs Journals},
-    url = {http://biorxiv.org/content/early/2016/06/20/060012},
-    journal = {bioRxiv},
+@Article{lmerTest2017,
+  title = {{lmerTest} Package: Tests in Linear Mixed Effects Models},
+  author = {Alexandra Kuznetsova and Per B. Brockhoff and Rune H. B. Christensen},
+  journal = {Journal of Statistical Software},
+  year = {2017},
+  volume = {82},
+  number = {13},
+  pages = {1--26},
+  doi = {10.18637/jss.v082.i13},
 }
 
-@Article{oligo,
-    author = {Benilton S Carvalho and Rafael A Irizarry},
-    title = {A Framework for Oligonucleotide Microarray Preprocessing},
-    journal = {Bioinformatics},
-    volume = {26},
-    number = {19},
-    year = {2010},
-    issn = {1367-4803},
-    pages = {2363-7},
-    doi = {10.1093/bioinformatics/btq431},
-    publisher = {Oxford University Press},
-    address = {Oxford, UK},
+@Article{lubridate2011,
+  title = {Dates and Times Made Easy with {lubridate}},
+  author = {Garrett Grolemund and Hadley Wickham},
+  journal = {Journal of Statistical Software},
+  year = {2011},
+  volume = {40},
+  number = {3},
+  pages = {1--25},
+  url = {https://www.jstatsoft.org/v40/i03/},
 }
 
-@Article{netzoor,
-    title = {netZooR: Integrate methods: PANDA, LIONESS, CONDOR, ALPACA, SAMBAR, MONSTER, OTTER, EGRET, and YARN into one workflow},
-    author = {Tian Wang and Marouen {Ben Guebila} and John Platig and Marieke Kuijjer and Magha Padi and Rebekka Burkholz and Deborah Weighill},
-    year = {2021},
-    note = {R package version 0.99.85},
+@Book{MASS2002,
+  title = {Modern Applied Statistics with S},
+  author = {W. N. Venables and B. D. Ripley},
+  publisher = {Springer},
+  edition = {Fourth},
+  address = {New York},
+  year = {2002},
+  note = {ISBN 0-387-95457-0},
+  url = {https://www.stats.ox.ac.uk/pub/MASS4/},
 }
+
+@Article{mgcv2011,
+  title = {Fast stable restricted maximum likelihood and marginal 
+likelihood estimation of semiparametric generalized linear models},
+  journal = {Journal of the Royal Statistical Society (B)},
+  volume = {73},
+  number = {1},
+  pages = {3-36},
+  year = {2011},
+  author = {S. N. Wood},
+}
+
+@Article{mgcv2016,
+  title = {Smoothing parameter and model selection for general smooth models (with discussion)},
+  author = {S.N. Wood and {N.} and {Pya} and B. S{"a}fken},
+  journal = {Journal of the American Statistical Association},
+  year = {2016},
+  pages = {1548-1575},
+  volume = {111},
+}
+
+@Article{mgcv2004,
+  title = {Stable and efficient multiple smoothing parameter estimation for 
+         generalized additive models},
+  journal = {Journal of the American Statistical Association},
+  volume = {99},
+  number = {467},
+  pages = {673-686},
+  year = {2004},
+  author = {S. N. Wood},
+}
+
+@Book{mgcv2017,
+  title = {Generalized Additive Models: An Introduction with R},
+  year = {2017},
+  author = {S.N Wood},
+  edition = {2},
+  publisher = {Chapman and Hall/CRC},
+}
+
+@Article{mgcv2003,
+  title = {Thin-plate regression splines},
+  journal = {Journal of the Royal Statistical Society (B)},
+  volume = {65},
+  number = {1},
+  pages = {95-114},
+  year = {2003},
+  author = {S. N. Wood},
+}
+
+@Article{missForest2012,
+  title = {MissForest - non-parametric missing value imputation for mixed-type data},
+  author = {Daniel J. Stekhoven and Peter Buehlmann},
+  journal = {Bioinformatics},
+  volume = {28},
+  number = {1},
+  pages = {112--118},
+  year = {2012},
+  publisher = {Oxford Univ Press},
+}
+
+@Article{mixtools2009,
+  title = {{mixtools}: An {R} Package for Analyzing Finite Mixture Models},
+  author = {Tatiana Benaglia and Didier Chauveau and David R. Hunter and Derek Young},
+  journal = {Journal of Statistical Software},
+  year = {2009},
+  volume = {32},
+  number = {6},
+  pages = {1--29},
+  url = {http://www.jstatsoft.org/v32/i06/},
+}
+
+@Book{mvtnorm2009,
+  title = {Computation of Multivariate Normal and t Probabilities},
+  author = {Alan Genz and Frank Bretz},
+  series = {Lecture Notes in Statistics},
+  year = {2009},
+  publisher = {Springer-Verlag},
+  address = {Heidelberg},
+  isbn = {978-3-642-01688-2},
+}
+
+@Book{nlme2000,
+  title = {Mixed-Effects Models in S and S-PLUS},
+  author = {José C. Pinheiro and Douglas M. Bates},
+  year = {2000},
+  publisher = {Springer},
+  address = {New York},
+  doi = {10.1007/b98882},
+}
+
+@Article{nloptr?,
+  title = {The NLopt nonlinear-optimization package},
+  author = {Steven G. Johnson},
+  year = {?},
+  journal = {?},
+  volume = {?},
+  number = {?},
+  pages = {?},
+}
+
+@Book{nnet2002,
+  title = {Modern Applied Statistics with S},
+  author = {W. N. Venables and B. D. Ripley},
+  publisher = {Springer},
+  edition = {Fourth},
+  address = {New York},
+  year = {2002},
+  note = {ISBN 0-387-95457-0},
+  url = {https://www.stats.ox.ac.uk/pub/MASS4/},
+}
+
+@Article{pbkrtest2014,
+  title = {A Kenward-Roger Approximation and Parametric Bootstrap Methods for Tests in Linear Mixed Models -- The {R} Package {pbkrtest}},
+  author = {Ulrich Halekoh and S{\o}ren H{\o}jsgaard},
+  journal = {Journal of Statistical Software},
+  year = {2014},
+  volume = {59},
+  number = {9},
+  pages = {1--30},
+  url = {https://www.jstatsoft.org/v59/i09/},
+}
+
+@Article{pcaMethods2007,
+  title = {pcaMethods -- a Bioconductor package providing PCA methods for incomplete	data},
+  author = {Wolfram Stacklies and Henning Redestig and Matthias Scholz and Dirk Walther and Joachim Selbig},
+  journal = {Bioinformatics},
+  year = {2007},
+  pages = {1164--1167},
+  volume = {23},
+}
+
+@Article{randomForest2002,
+  title = {Classification and Regression by randomForest},
+  author = {Andy Liaw and Matthew Wiener},
+  journal = {R News},
+  year = {2002},
+  volume = {2},
+  number = {3},
+  pages = {18-22},
+  url = {https://CRAN.R-project.org/doc/Rnews/},
+}
+
+@Article{Rcpp2011,
+  title = {{Rcpp}: Seamless {R} and {C++} Integration},
+  author = {Dirk Eddelbuettel and Romain Fran\c{c}ois},
+  journal = {Journal of Statistical Software},
+  year = {2011},
+  volume = {40},
+  number = {8},
+  pages = {1--18},
+  doi = {10.18637/jss.v040.i08},
+}
+
+@Book{Rcpp2013,
+  title = {Seamless {R} and {C++} Integration with {Rcpp}},
+  author = {Dirk Eddelbuettel},
+  publisher = {Springer},
+  address = {New York},
+  year = {2013},
+  note = {ISBN 978-1-4614-6867-7},
+  doi = {10.1007/978-1-4614-6868-4},
+}
+
+@Article{Rcpp2018,
+  title = {{Extending 	extit{R} with 	extit{C++}: A Brief Introduction to 	extit{Rcpp}}},
+  author = {Dirk Eddelbuettel and James Joseph Balamuta},
+  journal = {The American Statistician},
+  year = {2018},
+  volume = {72},
+  number = {1},
+  pages = {28-36},
+  doi = {10.1080/00031305.2017.1375990},
+}
+
+@Article{RcppArmadillo2014,
+  title = {RcppArmadillo: Accelerating R with high-performance C++ linear algebra},
+  author = {Dirk Eddelbuettel and Conrad Sanderson},
+  journal = {Computational	Statistics and Data Analysis},
+  year = {2014},
+  volume = {71},
+  month = {March},
+  pages = {1054--1063},
+  url = {http://dx.doi.org/10.1016/j.csda.2013.02.005},
+}
+
+@Article{RcppEigen2013,
+  title = {Fast and Elegant Numerical Linear Algebra Using the {RcppEigen} Package},
+  author = {Douglas Bates and Dirk Eddelbuettel},
+  journal = {Journal of Statistical Software},
+  year = {2013},
+  volume = {52},
+  number = {5},
+  pages = {1--24},
+  doi = {10.18637/jss.v052.i05},
+}
+
+@Book{rmarkdown2018,
+  title = {R Markdown: The Definitive Guide},
+  author = {Yihui Xie and J.J. Allaire and Garrett Grolemund},
+  publisher = {Chapman and Hall/CRC},
+  address = {Boca Raton, Florida},
+  year = {2018},
+  note = {ISBN 9781138359338},
+  url = {https://bookdown.org/yihui/rmarkdown},
+}
+
+@Book{rmarkdown2020,
+  title = {R Markdown Cookbook},
+  author = {Yihui Xie and Christophe Dervieux and Emily Riederer},
+  publisher = {Chapman and Hall/CRC},
+  address = {Boca Raton, Florida},
+  year = {2020},
+  note = {ISBN 9780367563837},
+  url = {https://bookdown.org/yihui/rmarkdown-cookbook},
+}
+
+@Article{segmented2003,
+  title = {Estimating regression models with unknown break-points.},
+  author = {Vito M.R. Muggeo},
+  journal = {Statistics in Medicine},
+  year = {2003},
+  volume = {22},
+  pages = {3055--3071},
+}
+
+@Article{segmented2008,
+  title = {segmented: an R Package to Fit Regression Models with Broken-Line Relationships.},
+  author = {Vito M.R. Muggeo},
+  journal = {R News},
+  year = {2008},
+  volume = {8},
+  number = {1},
+  pages = {20--25},
+  url = {https://cran.r-project.org/doc/Rnews/},
+}
+
+@Article{segmented2016,
+  title = {Testing with a nuisance parameter present only under the alternative:
+    a score-based approach with application to segmented modelling.},
+  author = {Vito M.R. Muggeo},
+  journal = {J of Statistical Computation and Simulation},
+  year = {2016},
+  volume = {86},
+  pages = {3059-3067},
+}
+
+@Article{segmented2017,
+  title = {Interval estimation for the breakpoint in segmented regression: a smoothed score-based approach.},
+  author = {Vito M.R. Muggeo},
+  journal = {Australian & New Zealand Journal of Statistics},
+  year = {2017},
+  volume = {59},
+  pages = {311-322},
+}
+
+@TechReport{selectr2012,
+  title = {Introducing the selectr Package},
+  author = {Simon Potter},
+  institution = {The University of Auckland},
+  address = {Auckland, New Zealand},
+  year = {2012},
+  url = {http://stattech.wordpress.fos.auckland.ac.nz/2012-10-introducing-the-selectr-package/},
+}
+
+@Article{sp2005,
+  author = {Edzer J. Pebesma and Roger S. Bivand},
+  title = {Classes and methods for spatial data in {R}},
+  journal = {R News},
+  year = {2005},
+  volume = {5},
+  number = {2},
+  pages = {9--13},
+  month = {November},
+  url = {https://CRAN.R-project.org/doc/Rnews/},
+}
+
+@Book{sp2013,
+  author = {Roger S. Bivand and Edzer Pebesma and Virgilio Gomez-Rubio},
+  title = {Applied spatial data analysis with {R}, Second edition},
+  year = {2013},
+  publisher = {Springer, NY},
+  url = {https://asdar-book.org/},
+}
+
+@Book{spatial2002,
+  title = {Modern Applied Statistics with S},
+  author = {W. N. Venables and B. D. Ripley},
+  publisher = {Springer},
+  edition = {Fourth},
+  address = {New York},
+  year = {2002},
+  note = {ISBN 0-387-95457-0},
+  url = {https://www.stats.ox.ac.uk/pub/MASS4/},
+}
+
+@Article{statmod2016a,
+  author = {Goknur Giner and Gordon K. Smyth},
+  year = {2016},
+  title = {statmod: probability calculations for the inverse Gaussian distribution},
+  journal = {R Journal},
+  volume = {8},
+  number = {1},
+  pages = {339-351},
+}
+
+@Article{statmod2010a,
+  author = {Belinda Phipson and Gordon K. Smyth},
+  year = {2010},
+  title = {Permutation p-values should never be zero: calculating exact p-values when permutations are randomly drawn},
+  journal = {Statistical Applications in Genetics and Molecular Biology},
+  volume = {9},
+  number = {1},
+  pages = {Article 39},
+}
+
+@Article{statmod2009a,
+  author = {Yifang Hu and Gordon K. Smyth},
+  year = {2009},
+  title = {ELDA: extreme limiting dilution analysis for comparing depleted and enriched populations in stem cell and other assays},
+  journal = {Journal of Immunological Methods},
+  volume = {347},
+  number = {1},
+  pages = {70-78},
+}
+
+@Article{statmod2005a,
+  author = {Gordon K. Smyth},
+  title = {Optimization and nonlinear equations},
+  journal = {Encyclopedia of Biostatistics},
+  year = {2005},
+  publisher = {John Wiley and Sons, Ltd},
+  pages = {3088-3095},
+}
+
+@Article{statmod2005b,
+  author = {Gordon K. Smyth},
+  title = {Numerical integration},
+  journal = {Encyclopedia of Biostatistics},
+  year = {2005},
+  publisher = {John Wiley and Sons, Ltd},
+  pages = {3088-3095},
+}
+
+@Article{statmod2002a,
+  author = {Gordon K. Smyth},
+  year = {2002},
+  title = {An efficient algorithm for REML in heteroscedastic regression},
+  journal = {Journal of Computational and Graphical Statistics},
+  volume = {11},
+  pages = {836-847},
+}
+
+@Article{statmod1996a,
+  author = {Peter K. Dunn and Gordon K. Smyth},
+  year = {1996},
+  title = {Randomized quantile residuals},
+  journal = {J. Comput. Graph. Statist},
+  volume = {5},
+  pages = {236-244},
+}
+
+@Article{stringi2021,
+  title = {stringi: Fast and portable character string processing in R},
+  author = {Marek Gagolewski},
+  journal = {Journal of Statistical Software},
+  year = {2021},
+  note = {to appear},
+}
+
+@Book{survival-book,
+  title = {Modeling Survival Data: Extending the {C}ox Model},
+  author = {{Terry M. Therneau} and {Patricia M. Grambsch}},
+  year = {2000},
+  publisher = {Springer},
+  address = {New York},
+  isbn = {0-387-98784-3},
+}
+
+@Manual{tarchetypes2021,
+  title = {tarchetypes: Archetypes for Targets},
+  author = {William Michael Landau},
+  year = {2021},
+  note = {{https://docs.ropensci.org/tarchetypes/, https://github.com/ropensci/tarchetypes}},
+}
+
+@Article{targets2021,
+  title = {The targets R package: a dynamic Make-like function-oriented pipeline toolkit for reproducibility and high-performance computing},
+  author = {William Michael Landau},
+  journal = {Journal of Open Source Software},
+  year = {2021},
+  volume = {6},
+  number = {57},
+  pages = {2959},
+  url = {https://doi.org/10.21105/joss.02959},
+}
+
+@Article{testthat2011,
+  author = {Hadley Wickham},
+  title = {testthat: Get Started with Testing},
+  journal = {The R Journal},
+  year = {2011},
+  volume = {3},
+  pages = {5--10},
+  url = {https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf},
+}
+
+@Article{tidyverse2019,
+  title = {Welcome to the {tidyverse}},
+  author = {Hadley Wickham and Mara Averick and Jennifer Bryan and Winston Chang and Lucy D'Agostino McGowan and Romain François and Garrett Grolemund and Alex Hayes and Lionel Henry and Jim Hester and Max Kuhn and Thomas Lin Pedersen and Evan Miller and Stephan Milton Bache and Kirill Müller and Jeroen Ooms and David Robinson and Dana Paige Seidel and Vitalie Spinu and Kohske Takahashi and Davis Vaughan and Claus Wilke and Kara Woo and Hiroaki Yutani},
+  year = {2019},
+  journal = {Journal of Open Source Software},
+  volume = {4},
+  number = {43},
+  pages = {1686},
+  doi = {10.21105/joss.01686},
+}
+
+@Article{tinytex2019,
+  title = {TinyTeX: A lightweight, cross-platform, and easy-to-maintain LaTeX distribution based on TeX Live},
+  author = {Yihui Xie},
+  journal = {TUGboat},
+  year = {2019},
+  volumne = {40},
+  number = {1},
+  pages = {30--32},
+  url = {https://tug.org/TUGboat/Contents/contents40-1.html},
+}
+
+@Article{viper2016,
+  author = {Mariano J Alvarez and Yao Shen and Federico M Giorgi and Alexander Lachmann and B Belinda Ding and B Hilda Ye and Andrea Califano},
+  title = {Functional characterization of somatic mutations in cancer using network-based inference of protein activity},
+  journal = {Nature genetics},
+  year = {2016},
+  volume = {48},
+  number = {8},
+  pages = {838--47},
+}
+

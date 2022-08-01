@@ -804,6 +804,16 @@
         "tibble"
       ]
     },
+    "checkmate": {
+      "Package": "checkmate",
+      "Version": "2.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "147e4db6909d8814bb30f671b49d7e06",
+      "Requirements": [
+        "backports"
+      ]
+    },
     "class": {
       "Package": "class",
       "Version": "7.3-20",
@@ -1248,6 +1258,25 @@
       "Hash": "38ec653c2613bed60052ba3787bd8a2c",
       "Requirements": []
     },
+    "flextable": {
+      "Package": "flextable",
+      "Version": "0.7.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "f2702eb2a89690201c2767161e350189",
+      "Requirements": [
+        "base64enc",
+        "data.table",
+        "gdtools",
+        "htmltools",
+        "knitr",
+        "officer",
+        "rlang",
+        "rmarkdown",
+        "uuid",
+        "xml2"
+      ]
+    },
     "fontawesome": {
       "Package": "fontawesome",
       "Version": "0.2.2",
@@ -1381,6 +1410,17 @@
         "rlang",
         "rstudioapi",
         "withr"
+      ]
+    },
+    "gdtools": {
+      "Package": "gdtools",
+      "Version": "0.2.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "bdfa7431687797edff8c9b0eb9271cc8",
+      "Requirements": [
+        "Rcpp",
+        "systemfonts"
       ]
     },
     "genefilter": {
@@ -1528,6 +1568,30 @@
         "tidyr"
       ]
     },
+    "ggraph": {
+      "Package": "ggraph",
+      "Version": "2.0.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "bb52a023e912142b8970ba883dd3b706",
+      "Requirements": [
+        "MASS",
+        "Rcpp",
+        "digest",
+        "dplyr",
+        "ggforce",
+        "ggplot2",
+        "ggrepel",
+        "graphlayouts",
+        "gtable",
+        "igraph",
+        "rlang",
+        "scales",
+        "tidygraph",
+        "viridis",
+        "withr"
+      ]
+    },
     "ggrepel": {
       "Package": "ggrepel",
       "Version": "0.9.1",
@@ -1559,6 +1623,17 @@
       "Repository": "CRAN",
       "Hash": "2e82e829a1c4a6c5d41921c177051e85",
       "Requirements": [
+        "ggplot2"
+      ]
+    },
+    "ggvenn": {
+      "Package": "ggvenn",
+      "Version": "0.1.9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "317f65bef864edb843b67fbdcd14da85",
+      "Requirements": [
+        "dplyr",
         "ggplot2"
       ]
     },
@@ -1661,6 +1736,18 @@
         "BiocGenerics"
       ]
     },
+    "graphlayouts": {
+      "Package": "graphlayouts",
+      "Version": "0.8.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "83ebd459dbc288ee4f7ef5f7d52594a9",
+      "Requirements": [
+        "Rcpp",
+        "RcppArmadillo",
+        "igraph"
+      ]
+    },
     "gridExtra": {
       "Package": "gridExtra",
       "Version": "2.3",
@@ -1669,6 +1756,50 @@
       "Hash": "7d7f283939f563670a697165b2cf5560",
       "Requirements": [
         "gtable"
+      ]
+    },
+    "gt": {
+      "Package": "gt",
+      "Version": "0.6.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "842059d3f71b14e812500b23eeea765e",
+      "Requirements": [
+        "base64enc",
+        "bitops",
+        "checkmate",
+        "commonmark",
+        "dplyr",
+        "fs",
+        "ggplot2",
+        "glue",
+        "htmltools",
+        "magrittr",
+        "rlang",
+        "sass",
+        "scales",
+        "stringr",
+        "tibble",
+        "tidyselect"
+      ]
+    },
+    "gtExtras": {
+      "Package": "gtExtras",
+      "Version": "0.4.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c3885c6773cd0f47e9c38cbaf3ef3004",
+      "Requirements": [
+        "commonmark",
+        "dplyr",
+        "fontawesome",
+        "ggplot2",
+        "glue",
+        "gt",
+        "htmltools",
+        "paletteer",
+        "rlang",
+        "scales"
       ]
     },
     "gtable": {
@@ -2288,6 +2419,19 @@
       "Hash": "df58958f293b166e4ab885ebcad90e02",
       "Requirements": []
     },
+    "officer": {
+      "Package": "officer",
+      "Version": "0.4.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "412d0a3a35484ddb3fffd07d5f38fa36",
+      "Requirements": [
+        "R6",
+        "uuid",
+        "xml2",
+        "zip"
+      ]
+    },
     "openssl": {
       "Package": "openssl",
       "Version": "2.0.2",
@@ -2296,6 +2440,19 @@
       "Hash": "6d3bef2e305f55c705c674653c7d7d3d",
       "Requirements": [
         "askpass"
+      ]
+    },
+    "paletteer": {
+      "Package": "paletteer",
+      "Version": "1.4.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "1ae0f416121f09e4d9007fd13e6fee77",
+      "Requirements": [
+        "prismatic",
+        "rematch2",
+        "rlang",
+        "rstudioapi"
       ]
     },
     "parallelly": {
@@ -2465,6 +2622,16 @@
       "Repository": "CRAN",
       "Hash": "95ef9167b75dde9d2ccc3c7528393e7e",
       "Requirements": []
+    },
+    "prismatic": {
+      "Package": "prismatic",
+      "Version": "1.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "a08df48bec022eac1ffa77543318bd33",
+      "Requirements": [
+        "farver"
+      ]
     },
     "processx": {
       "Package": "processx",

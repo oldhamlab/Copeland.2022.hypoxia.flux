@@ -630,6 +630,59 @@ plot_gsea_venn <- function(hyp, bay) {
     )
 }
 
+plot_tfea_venn <- function(hyp, bay) {
+  nm <- hyp$tf
+  hyp_pathway <-
+    hyp |>
+    dplyr::filter(adj.P.Val < 0.05) |>
+    dplyr::pull(tf)
+  bay_pathway <-
+    bay|>
+    dplyr::filter(adj.P.Val < 0.05) |>
+    dplyr::pull(tf)
+  bay_deg <- nm %in% bay_pathway
+  hyp_deg <- nm %in% hyp_pathway
+
+  tibble::tibble(nm, hyp_deg, bay_deg) |>
+    ggplot2::ggplot() +
+    ggplot2::aes(A = hyp_deg, B = bay_deg) +
+    ggvenn::geom_venn(
+      set_names = c("0.5%", "BAY"),
+      digits = 0,
+      show_percentage = TRUE,
+      fill_color = clrs[c(2, 4)],
+      fill_alpha = 0.5,
+      stroke_size = 0.25,
+      set_name_size = 8/ggplot2::.pt,
+      text_size = 6/ggplot2::.pt
+    ) +
+    ggplot2::annotate(
+      geom = "text",
+      x = 1,
+      y = -1.2,
+      label = "96 total",
+      size = 6/ggplot2::.pt
+    ) +
+    theme_plots() +
+    ggplot2::labs(
+      x = NULL,
+      y = NULL,
+      title = "Transcription factors"
+    ) +
+    ggplot2::coord_fixed(
+      xlim = c(-1.75, 1.75),
+      ylim = c(-1.2, 1.2),
+      clip = "off"
+    ) +
+    ggplot2::theme(
+      panel.border = ggplot2::element_blank(),
+      axis.text = ggplot2::element_blank(),
+      axis.ticks = ggplot2::element_blank(),
+      axis.line = ggplot2::element_blank(),
+      plot.title = ggplot2::element_text(size = 8),
+    )
+}
+
 plot_pathway_volcanoes <- function(deg, pathways, sets, title, nudge = 3) {
   targets <-
     pathways[sets] |>

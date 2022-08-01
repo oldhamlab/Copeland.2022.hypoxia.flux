@@ -1,31 +1,50 @@
 ---
-title: "Title"
-subtitle: "Supplementary Materials"
+title: "Supplemental Information"
+subtitle: "MYC overrides HIF to regulate proliferating primary cell metabolism in hypoxia"
 
 author:
+- Courtney A. Copeland: 
+    institute: bwh, hms
+- Benjamin A. Olenchock: 
+    institute: bwh, hms
+- David R. Ziehr:
+    institute: bwh, mgh, hms
+- Sarah McGarrity: 
+    institute: bwh, hms, ui
+- Kevin Leahy: 
+    institute: bwh, hms
+- Jamey D. Young: 
+    institute: vu
+- Joseph Loscalzo: 
+    institute: bwh, hms
 - William M. Oldham:
-    institute: bwh
+    institute: bwh, hms
     correspondence: true
     email: woldham@bwh.harvard.edu
     
 institute:
-- bwh: Department of Medicine, Brigham and Women's Hospital and Harvard Medical School, Boston, MA
+- bwh: Department of Medicine, Brigham and Women's Hospital, Boston, MA 02115, U.S.A.
+- hms: Department of Medicine, Harvard Medical School, Boston, MA 02115, U.S.A.
+- mgh: Department of Medicine, Massachusetts General Hospital, Boston, MA, 02114 U.S.A.
+- ui: Center for Systems Biology, School of Health Sciences, University of Iceland, Reykjavik, Iceland
+- vu: Departments of Chemical & Biomolecular Engineering and Molecular Physiology & Biophysics, Vanderbilt University, Nashville, TN 37240, U.S.A.
 
 bibliography_main: library.json
 bibliography_software: packages.bib
-csl: cell-metabolism.csl
+csl: embo.csl
 link-citations: yes
 
 output:
   bookdown::word_document2:
-    reference_docx: !expr system.file("manuscript", "template.docx", package = "McGarrity.2022.hypoxia.omics")
+    reference_docx: !expr system.file("manuscript", "template.docx", package = "Copeland.2022.hypoxia.flux")
     df_print: kable
+    fig_caption: true
     number_sections: false
     pandoc_args:
       - '--lua-filter=scholarly-metadata.lua'
       - '--lua-filter=author-info-blocks.lua'
       - '--lua-filter=pagebreak.lua'
-      - '--lua-filter=multiple-bibliographies.lua'
+      # - '--lua-filter=multiple-bibliographies.lua'
 
 compact-title: true
 geometry: margin = 0.75in
@@ -44,61 +63,112 @@ nocite: |
 ---
 
 ```{r setup, include = FALSE}
-# library(X)
+# library(Copeland.2022.hypoxia.flux)
 devtools::load_all()
 
 knitr::opts_chunk$set(
   echo = FALSE, 
   warning = FALSE, 
   message = FALSE, 
-  out.width = "80%", 
+  out.width = "100%", 
   out.extra = ""
 )
 
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+rbbt::bbt_update_bib(
+  path = "manuscript/manuscript.Rmd",
+  ignore = c("R-base"), 
+  path_bib = "manuscript/library.json"
 )
 
-knitr::opts_knit$set(kable.force.latex = FALSE)
+options(
+  tinytex.verbose = TRUE, 
+  knitr.graphics.rel_path = FALSE
+)
 
-options(tinytex.verbose = TRUE)
+# data for paper
+hyp <- targets::tar_read(lf_hypoxia_table)
+bay <- targets::tar_read(lf_bay_table)
+pasmc <- targets::tar_read(pasmc_hypoxia_table)
 
+# figure dependencies
 targets::tar_load(
   c(
     s1_figure, 
+    s2_figure, 
+    s3_figure,
+    s4_figure, 
+    s5_figure, 
+    s6_figure, 
+    s7_figure, 
+    s8_figure, 
+    s9_figure
   )
 )
 ```
 
 \newpage 
 
-# References
+# Tables
 
-::: {#refs_main} 
-:::
-
-## Software
-
-::: {#refs_software} 
-:::
+```{r t1, results = "asis"}
+hyp %>% 
+  flextable::set_caption(
+    "Lung fibroblast fluxes in 21% and 0.5% oxygen", 
+    autonum = officer::run_autonum()
+  ) %>% 
+  flextable::flextable_to_rmd()
+```
 
 \newpage
 
-# Tables
+```{r t2, results = "asis"}
+bay %>% 
+  flextable::set_caption(
+    "Lung fibroblast fluxes following DMSO and BAY treatment", 
+    autonum = officer::run_autonum()
+  ) %>% 
+  flextable::flextable_to_rmd()
+```
+
+\newpage
+
+```{r t3, results = "asis"}
+pasmc %>% 
+  flextable::set_caption(
+    "PASMC fluxes in 21% and 0.5% oxygen", 
+    autonum = officer::run_autonum()
+  ) %>% 
+  flextable::flextable_to_rmd()
+```
 
 \newpage
 
 # Figure legends
 
-(ref:s1) **Metabolomic profiling of hypoxic lung fibroblasts.** Lung fibroblasts (LFs) were exposed to 0.2% oxygen for 24 h prior to metabolite extraction and targeted LC-MS metabolomic profiling. (**A**) Volcano plot of polar intracellular metabolites. (**B**) Volcano plot of polar extracellular metabolites. (**C**) Volcano plot of lipid intracellular metabolites. Differential expression was determined from five biological replicates by linear modeling. Probability values were adjusted using a false discovery rate < 0.05. The top 10 increased and decreased metabolites are labeled. Metabolite classes are color-coded based on biochemical pathway (PPP, pentose phosphate pathway; TCA, tricarboxylic acid cycle). (**B**) Venn diagram demonstrating the overlap among significantly differentially regulated intracellular metabolites in LFs compared to PAECs and PASMCs. Fewer metabolites were included in the metabolomic profiling of LFs.
+(ref:s1) **Supporting data for extracellular flux calculations.** (**A**) Cell viability as assessed by live/dead cell staining with acridine orange plus propidium iodide staining did not differ between 21% and 0.5% oxygen culture conditions (n = 3 technical replicates). (**B**) Standard curve of lung fibroblast (LF) cell count *v.* total DNA by PicoGreen measurement used to interpolate cell numbers from DNA measurements. Data are mean ± SEM of three biological replicates. (**C**) Standard curve of PASMC cell count *v.* total DNA as in (B). (**D**) Total DNA measurements were compared to direct cell counts over the experimental time course. Cell counts and total DNA were obtained from the same sample wells. The slopes of the best-fit lines for 21% (*red*) and 0.5% (*blue*) samples were not statistically different. (**E**) Predicted well volumes were estimated from the change in culture plate mass over the experimental time course. Evaporation rates were different depending on the culture conditions and treatment. Although the mean evaporation rate is depicted, experiment-specific evaporation rates were used to calculate fluxes for each biological replicate (**F**) Metabolite accumulation (positive values) and degradation (negative values) rates. Data are mean ± SEM of 3-8 biological replicates. Rates significantly different from 0 (\*) based on a probability value < 0.05 using Student's one-sample *t*-test were incorporated into flux calculations.
+
+(ref:s2) **Effects of hypoxia on extracellular metabolite fluxes in lung fibroblasts.** (**A**) Lung fibroblasts (LFs) were cultured in 21% (*red*) or 0.2% (*dark blue*) oxygen beginning 24 h prior to time 0. Samples were collected every 24 h for 72 h. (**B**) Growth curves of LFs in each experimental condition (n = 4). (**C**) Growth rates from (B) were determined by robust linear modeling of log-transformed growth curves. (**D**) Representative immunoblot of LF protein lysates cultured as in (A). (**E**) Relative change in HIF-1α protein levels from (D) normalized to 21% oxygen at time 0 (n = 4). (**F**) Relative change in GLUT1 mRNA levels normalized to 21% oxygen treatment at time 0 (n = 4). (**G**) Relative change in LDHA mRNA levels as in (F). (**H**) Relative change in LDHA protein levels as in (E). (**I**) Extracellular fluxes of glucose (GLC) and lactate (LAC) (n = 4). (**J**) Extracellular fluxes of pyruvate (PYR) and amino acids. Data are mean ± SEM. Comparisons were made using linear mixed effects models with oxygen as the fixed effect and biological replicate as a random effect with p-values adjusted using the multivariate *t* distribution (* p < 0.05).
+
+(ref:s3) **Effects of hypoxia on extracellular metabolite fluxes in pulmonary artery smooth muscle cells.** (**A**) Pulmonary artery smooth muscle cells (PASMCs) were cultured in 21% (*red*) or 0.5% (*blue*) oxygen beginning 24 h prior to time 0. Samples were collected every 12 h for 48 h. (**B**) Growth curves of LFs in each experimental condition (n = 4). (**C**) Growth rates from (B) were determined by robust linear modeling of log-transformed growth curves. (**D**) Representative immunoblot of LF protein lysates cultured as in (A). (**E**) Relative change in HIF-1α protein levels from (D) normalized to 21% oxygen at time 0 (n = 4). (**F**) Relative change in GLUT1 mRNA levels normalized to 21% oxygen treatment at time 0 (n = 4). (**G**) Relative change in LDHA mRNA levels as in (F). (**H**) Relative change in LDHA protein levels as in (E). (**I**) Extracellular fluxes of glucose (GLC) and lactate (LAC) (n = 4). (**J**) Extracellular fluxes of pyruvate (PYR) and amino acids. Data are mean ± SEM. Comparisons were made using linear mixed effects models with oxygen as the fixed effect and biological replicate as a random effect with p-values adjusted using the multivariate *t* distribution (* p < 0.05).
+
+(ref:s4) **Mass isotopomer distributions after 72 h of labeling in lung fibroblasts.** Lung fibroblasts (LFs) were labeled with the indicated tracers and intracellular metabolites were analyzed by LC-MS after 72 h. Mass isotopomer distributions were adjusted for natural abundance. Data are the mean ± SEM of 4 biological replicates. Significant differences in labeling patterns between 21% and 0.5% oxygen (\*), DMSO and BAY treatment (†), and 0.5% oxygen and BAY treatment (‡) for each combination of metabolite and tracer are highlighted.
+
+(ref:s5) **Mass isotopomer distributions after 48 h of labeling in pulmonary artery smooth muscle cells.** Pulmonary artery smooth muscle cells (PASMCs) were labeled with the indicated tracers and intracellular metabolites were analyzed by LC-MS after 36 h. Mass isotopomer distributions were adjusted for natural abundance. Data are the mean ± SEM of 4 biological replicates. Significant differences in labeling patterns between 21% and 0.5% oxygen (\*) for each combination of metabolite and tracer are highlighted.
+
+(ref:s6) **Isotope incorporation over the labeling time course.** LFs were cultured in 21% or 0.5% oxygen and labeled with the indicated tracers. Intracellular metabolites were analyzed by LC-MS (FBP, fructose-bisphosphate; PYR, pyruvate; CIT, citrate; MAL, malate). Mass isotopomer distributions were calculated and adjusted for natural abundance. Data show the total amount of metabolite labeling (*i.e.,* 1 - M0 fractional abundance). Data are the mean ± SEM of 4 biological replicates.
+
+(ref:s7) **Isotopically non-stationary metabolic flux analysis.** (**A**) Metabolic flux model of LF metabolism in 21% oxygen. Arrows are colored by log~10~(flux). (**B**) Metabolic flux model of PASMC metabolism in 21% oxygen as in (A). (**C**) The ratio between PASMC and LF fluxes in normoxia were calculated. Fluxes with non-overlapping confidence intervals are highlighted with arrows colored according to the magnitude of the change. Arrow thickness corresponds to the absolute flux measured in LFs. (**D**) Ratio of metabolic fluxes in 0.5% oxygen compared to 21% oxygen in PASMCs. (**E**) LF fluxes were normalized to cell growth rate. Graph depicts the ratio of normalized metabolic fluxes in LFs cultured in 0.5% oxygen compared to 21% oxygen control. Fluxes with non-overlapping confidence intervals are highlighted to indicate significant changes.
+
+(ref:s8) **Metabolomic profiling of hypoxia and BAY treated lung fibroblasts.** (**A**) Volcano plot of differentially regulated metabolites following 0.5% oxygen culture. (**B**) Volcano plot of differentially regulated metabolites by BAY treatment in 21% oxygen. (**C**) Venn diagram illustrating the overlap among metabolites differentially regulated by hypoxia (*blue*) or BAY treatment (*purple*). (**D**) Metabolite enrichment in KEGG pathways following hypoxia. (**E**) Metabolite enrichment in KEGG pathways following BAY. Only significantly enriched metabolite sets with p < 0.05 are shown. NES, normalized enrichment score.
+
+(ref:s9) **Transcriptomic profiling of hypoxia and BAY treated lung fibroblasts.** (**A**) Volcano plot of differentially expressed genes following 0.5% oxygen culture. (**B**) Volcano plot of differentially expressed genes following BAY treatment. (**C**) Venn diagram illustrating the number of differentially expressed transcripts following hypoxia (*blue*) or BAY treatment (*purple*). (**D**) Venn diagram illustrating the number of differentially enriched Hallmark gene sets with  hypoxia (*blue*) or BAY treatment (*purple*). (**E**) Gene set enrichment results of hypoxia-treated cells. (**F**) Gene set enrichment results of BAY-treated cells. All gene sets listed were significantly enriched at FDR < 0.05. NES, normalized enrichment score. (**G**) Volcano plot illustrating the results of a transcription factor enrichment analysis in hypoxia-treated cells. (**H**) Volcano plot illustrating the results of a transcription factor enrichment analysis in BAY-treated cells. (**I**) Venn diagram illustrating the overlap among enriched transcription factors following hypoxia or BAY treatment.
 
 ```{r}
 figs <- 
   list.files(
     system.file(
       "manuscript/figures", 
-      package = "McGarrity.2022.hypoxia.omics"
+      package = "Copeland.2022.hypoxia.flux"
     ), 
     pattern = "s\\d{1}\\.png"
   ) %>% 
@@ -121,7 +191,107 @@ out <-
 knitr::include_graphics(
   system.file(
     "manuscript/figures/s1.png",
-    package = "McGarrity.2022.hypoxia.omics"
+    package = "Copeland.2022.hypoxia.flux"
   )
 )
 ```
+
+\newpage
+
+```{r s2, fig.cap = "(ref:s2)"}
+knitr::include_graphics(
+  system.file(
+    "manuscript/figures/s2.png",
+    package = "Copeland.2022.hypoxia.flux"
+  )
+)
+```
+
+\newpage
+
+```{r s3, fig.cap = "(ref:s3)"}
+knitr::include_graphics(
+  system.file(
+    "manuscript/figures/s3.png",
+    package = "Copeland.2022.hypoxia.flux"
+  )
+)
+```
+
+\newpage 
+
+```{r s4, fig.cap = "(ref:s4)"}
+knitr::include_graphics(
+  system.file(
+    "manuscript/figures/s4.png",
+    package = "Copeland.2022.hypoxia.flux"
+  )
+)
+```
+
+\newpage
+
+```{r s5, fig.cap = "(ref:s5)"}
+knitr::include_graphics(
+  system.file(
+    "manuscript/figures/s5.png",
+    package = "Copeland.2022.hypoxia.flux"
+  )
+)
+```
+
+\newpage
+
+```{r s6, fig.cap = "(ref:s6)"}
+knitr::include_graphics(
+  system.file(
+    "manuscript/figures/s6.png",
+    package = "Copeland.2022.hypoxia.flux"
+  )
+)
+```
+
+\newpage
+
+```{r s7, fig.cap = "(ref:s7)"}
+knitr::include_graphics(
+  system.file(
+    "manuscript/figures/s7.png",
+    package = "Copeland.2022.hypoxia.flux"
+  )
+)
+```
+
+\newpage 
+
+```{r s8, fig.cap = "(ref:s8)"}
+knitr::include_graphics(
+  system.file(
+    "manuscript/figures/s8.png",
+    package = "Copeland.2022.hypoxia.flux"
+  )
+)
+```
+
+\newpage
+
+```{r s9, fig.cap = "(ref:s9)"}
+knitr::include_graphics(
+  system.file(
+    "manuscript/figures/s9.png",
+    package = "Copeland.2022.hypoxia.flux"
+  )
+)
+```
+
+\newpage
+
+# References
+
+::: {#refs_main} 
+:::
+
+## Software
+
+::: {#refs_software} 
+:::

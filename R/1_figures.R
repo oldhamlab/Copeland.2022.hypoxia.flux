@@ -1751,7 +1751,7 @@ arrange_s8 <- function(p1, p2, p3, p4, p5) {
   layout <- "
   ad
   be
-  c#
+  ce
   "
 
   p1 + p2 + p3 + p4 + p5 +
@@ -1762,19 +1762,20 @@ arrange_s8 <- function(p1, p2, p3, p4, p5) {
     )
 }
 
-arrange_s9 <- function(p1, p2, p3, p4, p5, p6, p7, p8) {
+arrange_s9 <- function(p1, p2, p3, p4, p5, p6, p7, p8, p9) {
   layout <- "
   aeg
   beh
-  cf#
+  #e#
+  cfi
   df#
   "
 
-  p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 +
+  p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9 +
     theme_patchwork(
       design = layout,
       widths = unit(2.5, "in"),
-      heights = unit(c(1.5), "in")
+      heights = unit(c(1.5, 1.5, 1.1, 1.5, 1.5), "in")
     )
 }
 
@@ -1883,8 +1884,8 @@ format_flux_table <- function(
     ssr_exp = NULL
 ) {
 
-  big_border = flextable::fp_border_default(color = "black", width = 1)
-  small_border = flextable::fp_border_default(color = "black", width = 0.25)
+  big_border <- flextable::fp_border_default(color = "black", width = 1)
+  small_border <- flextable::fp_border_default(color = "black", width = 0.25)
 
   conditions <- c(unique(flux_differences$ctl), unique(flux_differences$exp))
 

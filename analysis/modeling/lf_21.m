@@ -3,8 +3,8 @@ function m = normoxia()
 % setup
 oxygen = '21%';
 treatment = 'None';
-in_path = '/Users/will/Dropbox (Partners HealthCare)/_data/Copeland.2022.hypoxia.flux/analysis/modeling/matlab-input/';
-out_path = '/Users/will/Dropbox (Partners HealthCare)/_data/Copeland.2022.hypoxia.flux/analysis/modeling/';
+in_path = '/Users/will/Dropbox (Partners HealthCare)/Copeland.2021.hypoxia.flux/inst/analysis/modeling/matlab-input/';
+out_path = '/Users/will/Dropbox (Partners HealthCare)/Copeland.2021.hypoxia.flux/inst/analysis/modeling/';
 cell_type = 'lf';
 addpath(genpath(in_path));
 output = [out_path cell_type '_21/' cell_type '_21_' datestr(now,'yyyy-mm-dd-HH-MM-SS') '.mat'];
@@ -19,7 +19,7 @@ biomasseqn = [biomasseqn num2str(biomass{height(biomass), 2}) ' ' char(biomass{h
 clear biomass;
 
 % reaction equations
-reactions = readtable('reactions_03.csv');
+reactions = readtable('reactions.csv');
 % reactions = rmmissing(reactions);
 reaction_list = [biomasseqn; reactions.equation]; 
 reaction_ids = ['BIOMASS'; reactions.name];
@@ -85,8 +85,8 @@ for label = {'glc2' 'glc6' 'q5'}
             y = [y c];
             h = [h time];
         end
-        d{n}{char(metabolite)}.idvs = idv(y);
-        d{n}{char(metabolite)}.idvs.time = h;
+        d{n}{char(metabolite)}.mdvs = mdv(y);
+        d{n}{char(metabolite)}.mdvs.time = h;
     end
     n = 1 + n;
 end
@@ -114,7 +114,7 @@ clear a b c y n x z time compound label;
 sem_value = 0.013;
 for i=1:length(d)
     for j=1:length(d{i})
-        d{i}{d{i}.id{j}}.idvs.std = sem_value * ones(length(d{i}{d{i}.id{j}}.idvs.val),1);
+        d{i}{d{i}.id{j}}.mdvs.std = sem_value * ones(length(d{i}{d{i}.id{j}}.mdvs.val),1);
     end
 end
 
@@ -129,7 +129,7 @@ f.std = fluxes.se';
 % f.std = 0.1 * f.val;
 
 % set fixed rates
-fixed_flux_equations = {'sPYR' 'sMAL' 'sASP' 'sCIT'}';
+fixed_flux_equations = {'sPYR'}';
 
 for i=1:length(fixed_flux_equations)
     for j=1:length(r)
@@ -155,7 +155,7 @@ m = model(r,'expts',e);
 
 % label washout in glc6 experiments after 48 h
 for metabolite = {'AKG' 'GLU' 'CIT' 'ASP' 'MAL'}
-    m.expts{'[U-13C6]GLC'}.data_ms{char(metabolite)}.idvs.on = [true true false];
+    m.expts{'[U-13C6]GLC'}.data_ms{char(metabolite)}.mdvs.on = [true true false];
 end
 
 % remove low labeled 3-carbon metabolites
@@ -170,7 +170,7 @@ m.states{'CO2','c'}.bal = false;
 for metabolite = {'LAC.x' 'PYR.x' 'ALA.x' 'GLN.x' 'GLU.x' 'ASP.x'}
     m.states{char(metabolite)}.bal = false;
 end
-for pool = {'PYR.ms' 'ASP.ms' 'MAL.ms' 'CIT.ms'}
+for pool = {'PYR.ms'}
     m.states{char(pool)}.val = 0;
     m.states{char(pool)}.fix = true;
 end
