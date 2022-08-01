@@ -13,10 +13,11 @@ Imports:
     dplyr,
     magrittr,
     purrr,
+    qs,
     readxl,
     rlang,
     tidyr,
     wmo
 Depends: 
-    R (>= 2.10)
+    R (>= 4.2.0)
 LazyData: true
