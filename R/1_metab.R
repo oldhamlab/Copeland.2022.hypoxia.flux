@@ -86,6 +86,7 @@ format_metab_tar <- function(files){
     dplyr::mutate(
       metabolite = dplyr::case_when(
         metabolite == "glyceraldehyde 3-phosphate" ~ "GAP",
+        metabolite == "sedoheptulose 7-phosphate" ~ "S7P",
         TRUE ~ metabolite
       )
     ) |>
@@ -290,7 +291,7 @@ plot_metab_pca <- function(clean, df) {
         label = label
       ),
       expand = ggplot2::unit(2, "mm"),
-      label.fontsize = 5,
+      label.fontsize = 6,
       label.fontface = "plain",
       label.family = "Calibri",
       label.hjust = 0.5,
@@ -410,7 +411,7 @@ plot_metab_volcano <- function(
         label = metabolite,
         color = metabolite %in% mois
       ),
-      size = 5/ggplot2::.pt,
+      size = 6/ggplot2::.pt,
       max.overlaps = 20,
       segment.size = 0.1,
       # nudge_x = -4,
@@ -427,7 +428,7 @@ plot_metab_volcano <- function(
         label = metabolite,
         color = metabolite %in% mois
       ),
-      size = 5/ggplot2::.pt,
+      size = 6/ggplot2::.pt,
       max.overlaps = 20,
       segment.size = 0.1,
       segment.color = "black",
@@ -609,7 +610,7 @@ plot_metab_venn <- function(hyp, bay) {
       digits = 0,
       show_percentage = TRUE,
       fill_color = clrs[c(2, 4)],
-      fill_alpha = 0.5,
+      fill_alpha = 0.25,
       stroke_size = 0.25,
       set_name_size = 8/ggplot2::.pt,
       text_size = 6/ggplot2::.pt

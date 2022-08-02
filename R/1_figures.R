@@ -559,7 +559,7 @@ plot_high_fluxes <- function(
       geom = "errorbar",
       fun.data = ggplot2::mean_se,
       position = ggplot2::position_dodge(width = 0.9),
-      width = 0.2,
+      width = 0.3,
       size = 0.25,
       show.legend = FALSE
     ) +
@@ -659,7 +659,7 @@ plot_low_fluxes <- function(
       geom = "errorbar",
       fun.data = ggplot2::mean_se,
       position = ggplot2::position_dodge(width = 0.9),
-      width = 0.2,
+      width = 0.3,
       size = 0.25,
       show.legend = FALSE
     ) +
@@ -834,10 +834,10 @@ plot_mids <- function(df, cell, metab, t = 72, track) {
 
 plot_all_mids <- function(df, cell, t = 72, track) {
   tracer_labels <- c(
-    expression(paste("[1,2-"^13, "C"[2], "] glucose")),
-    expression(paste("[U-"^13, "C"[6], "] glucose")),
-    expression(paste("[U-"^13, "C"[5], "] glutamine")),
-    expression(paste("[U-"^13, "C"[3], "] lactate"))
+    expression(paste("[1,2-"^13, "C"[2], "]-glucose")),
+    expression(paste("[U-"^13, "C"[6], "]-glucose")),
+    expression(paste("[U-"^13, "C"[5], "]-glutamine")),
+    expression(paste("[U-"^13, "C"[3], "]-lactate"))
   )
   tracer_levels <- c("glc2", "glc6", "q5", "lac3")
   metab <- c(
@@ -1065,10 +1065,10 @@ plot_m5_citrate <- function(df) {
 
 format_time_course_mids <- function(model_mids) {
   tracer_labels <- c(
-    expression(paste("[1,2-"^13, "C"[2], "] glucose")),
-    expression(paste("[U-"^13, "C"[6], "] glucose")),
-    expression(paste("[U-"^13, "C"[5], "] glutamine")),
-    expression(paste("[U-"^13, "C"[3], "] lactate"))
+    expression(paste("[1,2-"^13, "C"[2], "]-glucose")),
+    expression(paste("[U-"^13, "C"[6], "]-glucose")),
+    expression(paste("[U-"^13, "C"[5], "]-glutamine")),
+    expression(paste("[U-"^13, "C"[3], "]-lactate"))
   )
   tracer_levels <- c("glc2", "glc6", "q5", "lac3")
 
@@ -1088,6 +1088,12 @@ format_time_course_mids <- function(model_mids) {
 }
 
 plot_mid_time_course <- function(df, cells, o2, treat, color) {
+  if (cells == "lf") {
+    brks <- seq(0, 72, 24)
+  } else if (cells == "pasmc") {
+    brks <- seq(0, 48, 12)
+  }
+
   df |>
     dplyr::filter(
       cell_type == cells &
@@ -1132,7 +1138,7 @@ plot_mid_time_course <- function(df, cells, o2, treat, color) {
       color = NULL,
       fill = NULL
     ) +
-    ggplot2::scale_x_continuous(breaks = seq(0, 72, 24)) +
+    ggplot2::scale_x_continuous(breaks = brks) +
     ggplot2::scale_color_manual(
       values = clrs,
       limits = force,
@@ -1210,10 +1216,10 @@ plot_exch_flux <- function(df, enzyme) {
 
 plot_lactate_mids <- function(df, cell, t = 72) {
   tracer_labels <- c(
-    expression(paste("[1,2-"^13, "C"[2], "] glucose")),
-    expression(paste("[U-"^13, "C"[6], "] glucose")),
-    expression(paste("[U-"^13, "C"[5], "] glutamine")),
-    expression(paste("[U-"^13, "C"[3], "] lactate"))
+    expression(paste("[1,2-"^13, "C"[2], "]-glucose")),
+    expression(paste("[U-"^13, "C"[6], "]-glucose")),
+    expression(paste("[U-"^13, "C"[5], "]-glutamine")),
+    expression(paste("[U-"^13, "C"[3], "]-lactate"))
   )
   tracer_levels <- c("glc2", "glc6", "q5", "lac3")
   metab <- c(
@@ -1328,12 +1334,22 @@ plot_lactate_mids <- function(df, cell, t = 72) {
 }
 
 plot_hyp_bay_fluxes <- function(df, annot, metab, ylab) {
-  df |>
+  z <-
+    df |>
+    dplyr::ungroup() |>
     dplyr::filter(metabolite == metab) |>
-    ggplot2::ggplot() +
+    dplyr::mutate(grand_mean = mean(flux)) |>
+    dplyr::group_by(date) |>
+    dplyr::mutate(
+      exp_mean = mean(flux),
+      adj = grand_mean - exp_mean,
+      flux_corr = flux + adj
+    )
+
+  ggplot2::ggplot(z) +
     ggplot2::aes(
       x = oxygen,
-      y = flux
+      y = flux_corr
     ) +
     ggplot2::stat_summary(
       ggplot2::aes(fill = treatment),
@@ -1522,12 +1538,22 @@ plot_nad <- function(df, annot, metab, ylab) {
       oxygen = factor(oxygen, levels = c("21%", "0.5%"))
     )
 
-  df |>
+  z <-
+    df |>
+    dplyr::ungroup() |>
     dplyr::filter(treatment != "None" & measurement == metab) |>
-    ggplot2::ggplot() +
+    dplyr::mutate(grand_mean = mean(value)) |>
+    dplyr::group_by(date) |>
+    dplyr::mutate(
+      exp_mean = mean(value),
+      adj = grand_mean - exp_mean,
+      value_corr = value + adj
+    )
+
+  ggplot2::ggplot(z) +
     ggplot2::aes(
       x = treatment,
-      y = value,
+      y = value_corr,
       fill = oxygen
     ) +
     ggplot2::stat_summary(
@@ -1568,7 +1594,7 @@ plot_nad <- function(df, annot, metab, ylab) {
       ),
       family = "Calibri",
       size = 8/ggplot2::.pt,
-      position = ggplot2::position_dodge(width = 0.6),
+      position = ggplot2::position_dodge(width = 0.9),
       show.legend = FALSE
     ) +
     ggplot2::geom_text(
@@ -1673,20 +1699,6 @@ arrange_m3 <- function(p1, p2, p3, p4, p5, p6) {
 
 }
 
-arrange_s6 <- function(p1, p2) {
-  layout <- "
-  a
-  b
-  "
-
-  p1 + p2 +
-    theme_patchwork(
-      design = layout,
-      widths = unit(2.75, "in"),
-      heights = unit(3, "in")
-    )
-}
-
 arrange_s7 <- function(p1, p2, p3, p4, p5) {
   layout <- "
     abc
@@ -1715,7 +1727,7 @@ arrange_m4 <- function(p1, p2, p3) {
     theme_patchwork(
       # design = layout,
       widths = unit(3, "in"),
-      heights = unit(c(1, 1), "in")
+      heights = unit(c(0.75, 1.25), "in")
     ) &
     theme(
       legend.position = "bottom",
@@ -1851,25 +1863,25 @@ create_resources <- function() {
       i = 11,
       j = 1,
       part = "body",
-      value = flextable::as_paragraph("[1,2-", flextable::as_sup("13"), "C", flextable::as_sub("2"), "] glucose")
+      value = flextable::as_paragraph("[1,2-", flextable::as_sup("13"), "C", flextable::as_sub("2"), "]-glucose")
     ) |>
     flextable::compose(
       i = 12,
       j = 1,
       part = "body",
-      value = flextable::as_paragraph("[U-", flextable::as_sup("13"), "C", flextable::as_sub("6"), "] glucose")
+      value = flextable::as_paragraph("[U-", flextable::as_sup("13"), "C", flextable::as_sub("6"), "]-glucose")
     ) |>
     flextable::compose(
       i = 13,
       j = 1,
       part = "body",
-      value = flextable::as_paragraph("[U-", flextable::as_sup("13"), "C", flextable::as_sub("5"), "] glutamine")
+      value = flextable::as_paragraph("[U-", flextable::as_sup("13"), "C", flextable::as_sub("5"), "]-glutamine")
     ) |>
     flextable::compose(
       i = 14,
       j = 1,
       part = "body",
-      value = flextable::as_paragraph("[U-", flextable::as_sup("13"), "C", flextable::as_sub("3"), "] lactate")
+      value = flextable::as_paragraph("[U-", flextable::as_sup("13"), "C", flextable::as_sub("3"), "]-lactate")
     ) |>
     flextable::font(fontname = "Calibri", part = "all") |>
     flextable::fontsize(size = 9, part = "all") |>

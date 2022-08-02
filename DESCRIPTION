@@ -16,6 +16,7 @@ Imports:
     qs,
     readxl,
     rlang,
+    statmod,
     tidyr,
     wmo
 Depends: 

@@ -61,12 +61,22 @@ annot_myc_fluxes <- function(df, intervention) {
 }
 
 plot_myc <- function(df, annot, metab, ylab, x, fill) {
-  df |>
+  z <-
+    df |>
+    dplyr::ungroup() |>
     dplyr::filter(metabolite == metab) |>
-    ggplot2::ggplot() +
+    dplyr::mutate(grand_mean = mean(flux)) |>
+    dplyr::group_by(date) |>
+    dplyr::mutate(
+      exp_mean = mean(flux),
+      adj = grand_mean - exp_mean,
+      flux_corr = flux + adj
+    )
+
+  ggplot2::ggplot(z) +
     ggplot2::aes(
       x = {{x}},
-      y = flux
+      y = flux_corr
     ) +
     ggplot2::stat_summary(
       ggplot2::aes(
@@ -123,7 +133,7 @@ plot_myc <- function(df, annot, metab, ylab, x, fill) {
     ggplot2::scale_fill_manual(
       values = clrs,
       limits = force
-      ) +
+    ) +
     ggplot2::scale_y_continuous(
       expand = ggplot2::expansion(mult = c(0.05, 0.1)),
       breaks = scales::pretty_breaks(n = 6)

@@ -72,7 +72,7 @@ plot_rnaseq_pca <- function(pca_data){
         label = label
       ),
       expand = ggplot2::unit(2, "mm"),
-      label.fontsize = 5,
+      label.fontsize = 6,
       label.fontface = "plain",
       label.family = "Calibri",
       label.hjust = 0.5,
@@ -174,7 +174,7 @@ plot_rnaseq_volcano <- function(results, gois = NULL, xlab = NULL, nudge = 8){
         label = symbol,
         color = symbol %in% gois
       ),
-      size = 5/ggplot2::.pt,
+      size = 6/ggplot2::.pt,
       max.overlaps = 20,
       segment.size = 0.1,
       nudge_x = -nudge - left$log2FoldChange,
@@ -190,7 +190,7 @@ plot_rnaseq_volcano <- function(results, gois = NULL, xlab = NULL, nudge = 8){
         label = symbol,
         color = symbol %in% gois
       ),
-      size = 5/ggplot2::.pt,
+      size = 6/ggplot2::.pt,
       max.overlaps = 20,
       segment.size = 0.1,
       nudge_x = nudge - right$log2FoldChange,
@@ -201,7 +201,7 @@ plot_rnaseq_volcano <- function(results, gois = NULL, xlab = NULL, nudge = 8){
       show.legend = FALSE
     ) +
     ggplot2::geom_hex(
-      bins = c(50, 2),
+      bins = c(50, 4),
       show.legend = FALSE
     ) +
     ggplot2::scale_fill_viridis_c(trans = "log10") +
@@ -545,7 +545,7 @@ plot_rnaseq_venn <- function(hyp, bay) {
       digits = 0,
       show_percentage = TRUE,
       fill_color = clrs[c(2, 4)],
-      fill_alpha = 0.5,
+      fill_alpha = 0.25,
       stroke_size = 0.25,
       set_name_size = 8/ggplot2::.pt,
       text_size = 6/ggplot2::.pt
@@ -598,7 +598,7 @@ plot_gsea_venn <- function(hyp, bay) {
       digits = 0,
       show_percentage = TRUE,
       fill_color = clrs[c(2, 4)],
-      fill_alpha = 0.5,
+      fill_alpha = 0.25,
       stroke_size = 0.25,
       set_name_size = 8/ggplot2::.pt,
       text_size = 6/ggplot2::.pt
@@ -651,7 +651,7 @@ plot_tfea_venn <- function(hyp, bay) {
       digits = 0,
       show_percentage = TRUE,
       fill_color = clrs[c(2, 4)],
-      fill_alpha = 0.5,
+      fill_alpha = 0.25,
       stroke_size = 0.25,
       set_name_size = 8/ggplot2::.pt,
       text_size = 6/ggplot2::.pt
@@ -711,7 +711,7 @@ plot_pathway_volcanoes <- function(deg, pathways, sets, title, nudge = 3) {
     ggrepel::geom_text_repel(
       data = left,
       ggplot2::aes(label = symbol),
-      size = 5/ggplot2::.pt,
+      size = 6/ggplot2::.pt,
       max.overlaps = 20,
       segment.size = 0.1,
       nudge_x = -nudge - left$log2FoldChange,
@@ -724,7 +724,7 @@ plot_pathway_volcanoes <- function(deg, pathways, sets, title, nudge = 3) {
     ggrepel::geom_text_repel(
       data = right,
       ggplot2::aes(label = symbol),
-      size = 5/ggplot2::.pt,
+      size = 6/ggplot2::.pt,
       max.overlaps = 20,
       segment.size = 0.1,
       nudge_x = nudge - right$log2FoldChange,
@@ -796,7 +796,7 @@ plot_tfea_volcanoes <- function(tf, xlab,colors, nudge = 5) {
     ggrepel::geom_text_repel(
       data = left,
       ggplot2::aes(label = tf),
-      size = 5/ggplot2::.pt,
+      size = 6/ggplot2::.pt,
       max.overlaps = 20,
       segment.size = 0.1,
       nudge_x = -nudge - left$logFC,
@@ -809,7 +809,7 @@ plot_tfea_volcanoes <- function(tf, xlab,colors, nudge = 5) {
     ggrepel::geom_text_repel(
       data = right,
       ggplot2::aes(label = tf),
-      size = 5/ggplot2::.pt,
+      size = 6/ggplot2::.pt,
       max.overlaps = 20,
       segment.size = 0.1,
       nudge_x = nudge - right$logFC,

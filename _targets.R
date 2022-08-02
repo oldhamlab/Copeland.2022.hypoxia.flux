@@ -638,7 +638,7 @@ list(
     values = list(
       names = list("hyp", "bay", "hyp_bay", "int"),
       colors = list(clrs[2:1], clrs[4:3], clrs[2:1], clrs[c(2, 4)]),
-      xlab = list("Hypoxia/Normoxia", "BAY/DMSO", "Hypoxia/Normoxia", "ΔHypoxia/ΔBAY"),
+      xlab = list("Hypoxia/Normoxia", "BAY/DMSO", "Hypoxia/Normoxia in BAY", "ΔHypoxia/ΔBAY"),
       title = list("Hypoxia/Normoxia", "BAY/DMSO", "Hypoxia/Normoxia in BAY", "ΔHypoxia/ΔBAY"),
       filename = stringr::str_c("msea_", list("hyp", "bay", "hyp_bay", "int"))
     ),
