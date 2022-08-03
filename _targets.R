@@ -1478,10 +1478,6 @@ list(
         "--lua-filter=author-info-blocks.lua",
         "--lua-filter=pagebreak.lua"
       )
-    ),
-    params = list(
-      bibliography = c("manuscript/library.json", pkgs),
-      csl = csl
     )
   ),
 
@@ -1503,11 +1499,6 @@ list(
         "--lua-filter=pagebreak.lua",
         "--lua-filter=multiple-bibliographies.lua"
       )
-    ),
-    params = list(
-      bibliography_main = "manuscript/library.json",
-      bibliography_software = pkgs,
-      csl = csl
     )
   ),
   NULL

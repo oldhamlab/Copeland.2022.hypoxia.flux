@@ -31,7 +31,7 @@ institute:
 bibliography:
 - library.json
 - packages.bib
-csl: cell-metabolism.csl
+csl: embo.csl
 link-citations: yes
 
 output:
@@ -100,7 +100,7 @@ targets::tar_load(
 
 # Abstract 
 
-Hypoxia requires metabolic adaptations to sustain energetically demanding cellular activities that underpin many physiologic and pathologic processes. While many studies have explored the metabolic consequences of hypoxia in cancer cell models, comparatively little is known about the metabolic response of primary cells to hypoxia. Here, we performed metabolic flux analyses of proliferating human lung fibroblasts and pulmonary artery smooth muscle cells in hypoxia. Unexpectedly, glycolytic flux was decreased in hypoxic cells despite activation of the hypoxia-inducible factor (HIF) transcriptional program and increased expression of glycolytic enzymes. Pharmacologic activation of HIF with the prolyl hydroxylase (PHD) inhibitor molidustat in normoxia did increase glycolytic flux, but hypoxia abrogated this effect. Multi-omic profiling of cells treated with hypoxia or molidustat, separately or together, revealed distinct molecular responses to hypoxia and pharmacologic PHD inhibition and suggested a critical role for MYC in modulating the HIF response in hypoxia. MYC knockdown in hypoxia increased lactate efflux, while MYC overexpression in normoxia blunted the effects of molidustat treatment. Together, these data suggest that other factors, notably MYC, supersede the anticipated effects of HIF-dependent up-regulation of glycolytic gene expression on glycolytic flux in hypoxic proliferating primary cells.
+Hypoxia requires metabolic adaptations to sustain energetically demanding cellular activities. While the metabolic consequences of hypoxia have been studied extensively in cancer cell models, comparatively little is known about the metabolic response of primary cells to hypoxia. We performed metabolic flux analyses of proliferating human lung fibroblasts and pulmonary artery smooth muscle cells in hypoxia. Unexpectedly, hypoxia decreased glycolytic flux despite activation of hypoxia-inducible factor (HIF) and increased glycolytic enzyme expression. Pharmacologic activation of HIF with the prolyl hydroxylase (PHD) inhibitor molidustat in normoxia did increase glycolytic flux, but hypoxia abrogated this effect. Multi-omic profiling revealed distinct molecular responses to hypoxia and pharmacologic PHD inhibition and suggested a critical role for MYC in modulating the HIF response in hypoxia. MYC knockdown in hypoxia increased lactate efflux, while MYC overexpression in normoxia blunted the effects of molidustat treatment. Together, these data suggest that other factors, notably MYC, supersede the anticipated effects of HIF-dependent up-regulation of glycolytic gene expression on glycolytic flux in hypoxic proliferating primary cells.
 
 # Keywords
 
@@ -360,7 +360,7 @@ W.M.O. conceived and designed the analysis. C.A.C., B.A.O., D.R.Z., S.M., K.L., 
 
 # Conflict of interest
 
-The authors declare that they have no competing interests.
+The authors declare that they have no conflicts of interest.
 
 \newpage
 
