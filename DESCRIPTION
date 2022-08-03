@@ -22,3 +22,5 @@ Imports:
 Depends: 
     R (>= 4.2.0)
 LazyData: true
+URL: https://github.com/oldhamlab/Copeland.2022.hypoxia.flux
+BugReports: https://github.com/oldhamlab/Copeland.2022.hypoxia.flux/issues
